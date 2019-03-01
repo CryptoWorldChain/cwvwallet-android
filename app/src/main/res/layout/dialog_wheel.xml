@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/progress_hud_bg">
+
+    <LinearLayout
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <net.sourceforge.UI.view.WheelProgress
+            android:id="@+id/wheel"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:oneSeftRotate="true" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="登陆中....."
+            android:textSize="14sp"
+            android:textColor="#ffffff" />
+        
+        
+        
+    </LinearLayout>
+</LinearLayout>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_page_bg"
+    tools:context=".ui.activity.CreateAccountPreActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginTop="120dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备份助记词"
+            android:textColor="#bc9873"
+            android:textSize="30sp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="66dp"
+            android:lineSpacingExtra="3.8sp"
+            android:text="请仔细抄写下方助记词，我们将在下一步进行验证"
+            android:textColor="#999999"
+            android:textSize="11.5sp" />
+
+
+        <TextView
+            android:id="@+id/tv_mnemic"
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/backup_mnemic_bg"
+            android:gravity="center"
+            android:lineSpacingExtra="20dp"
+            android:padding="15dp"
+            android:textColor="#ffffff"
+            android:textSize="15.3sp" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/common_page_btn"
+        android:enabled="true"
+        android:text="下一步"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

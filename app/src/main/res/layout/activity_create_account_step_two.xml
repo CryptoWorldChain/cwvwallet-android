@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_page_bg"
+    tools:context=".ui.activity.CreateAccountPreActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginTop="120dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认助记词"
+            android:textColor="#bc9873"
+            android:textSize="30sp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="66dp"
+            android:lineSpacingExtra="3.8sp"
+            android:text="请按顺序选择助记词，已确认您已经完成备份"
+            android:textColor="#999999"
+            android:textSize="11.5sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_error_wraper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="助记词填写错误！"
+                android:textColor="#e70f0f"
+                android:textSize="9sp" />
+        </RelativeLayout>
+
+        <com.donkingliang.labels.LabelsView
+            android:id="@+id/label_select"
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/backup_mnemic_bg"
+            android:paddingBottom="16dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="16dp"
+            app:labelTextColor="#FFFFFF"
+            app:labelTextPaddingBottom="5dp"
+            app:labelTextPaddingTop="5dp"
+            app:labelTextSize="14sp"
+            app:lineMargin="10dp"
+            app:selectType="MULTI"
+            app:wordMargin="10dp" />
+
+        <com.donkingliang.labels.LabelsView
+            android:id="@+id/label_unselect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:labelBackground="@drawable/mnemic_word_bg"
+            app:labelTextColor="#FFFFFF"
+            app:labelTextPaddingBottom="5dp"
+            app:labelTextPaddingTop="5dp"
+            app:labelTextSize="14sp"
+            app:lineMargin="10dp"
+            app:selectType="MULTI"
+            app:wordMargin="10dp" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/common_page_btn"
+        android:enabled="true"
+        android:text="下一步"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
