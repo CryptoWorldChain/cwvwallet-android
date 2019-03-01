@@ -1,7 +1,6 @@
 package fanrong.cwvwalled.ui.activity
 
 import android.graphics.Color
-import android.location.Address
 import android.os.Bundle
 import android.support.annotation.Dimension
 import android.view.View
@@ -11,15 +10,15 @@ import com.donkingliang.labels.LabelsView
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
-import fanrong.cwvwalled.database.GreWallet
-import fanrong.cwvwalled.database.GreWalletOperator
+import fanrong.cwvwalled.litepal.GreWalletOperator
+import fanrong.cwvwalled.litepal.GreWalletModel
+import fanrong.cwvwalled.utils.AppManager
 import fanrong.cwvwalled.utils.CallJsCodeUtils
 import fanrong.cwvwalled.utils.SWLog
 import fanrong.cwvwalled.utils.ViewUtils
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
-import io.reactivex.ObservableSource
 import io.reactivex.functions.Consumer
 import io.reactivex.functions.Function
 import kotlinx.android.synthetic.main.activity_create_account_step_two.*
@@ -32,13 +31,10 @@ class CreateAccountStepTwoActivity : BaseActivity() {
     lateinit var mnemonic: String
     lateinit var rightList: List<String>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_account_step_two)
-        initView()
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_create_account_step_two
     }
-
-
     override fun initView() {
         btn_confirm.setOnClickListener(this)
 
@@ -92,23 +88,23 @@ class CreateAccountStepTwoActivity : BaseActivity() {
     }
 
 
-    val cwvWallet = GreWallet()
-    val ethWallet = GreWallet()
+    val cwvWallet = GreWalletModel("")
+    val ethWallet = GreWalletModel("")
 
     private fun toNextPage() {
-
-        if (label_select.childCount != 12) {
-            showTopMsg("请完成助记词选择")
-            return
-        }
-
-        rightList.forEachIndexed { index, s ->
-            var textView = label_select.getChildAt(index) as TextView
-            if (!s.equals(textView.text.toString())) {
-                showTopMsg("助记词选择不正确")
-                return@toNextPage
-            }
-        }
+//
+//        if (label_select.childCount != 12) {
+//            showTopMsg("请完成助记词选择")
+//            return
+//        }
+//
+//        rightList.forEachIndexed { index, s ->
+//            var textView = label_select.getChildAt(index) as TextView
+//            if (!s.equals(textView.text.toString())) {
+//                showTopMsg("助记词选择不正确")
+//                return@toNextPage
+//            }
+//        }
 
         showProgressDialog("")
 
@@ -117,6 +113,7 @@ class CreateAccountStepTwoActivity : BaseActivity() {
                 //获取主私钥
                 CallJsCodeUtils.mnemonicToHDPrivateKey(mnemonic, object : ValueCallback<String> {
                     override fun onReceiveValue(mainKey: String?) {
+                        SWLog.e("mainKey " + mainKey)
                         emitter.onNext(CallJsCodeUtils.readStringJsValue(mainKey))
                     }
                 })
@@ -130,7 +127,7 @@ class CreateAccountStepTwoActivity : BaseActivity() {
                         CallJsCodeUtils.getAddress(mainKey, object : ValueCallback<String> {
                             override fun onReceiveValue(ethAddress: String) {
                                 var realEthAddress = CallJsCodeUtils.readStringJsValue(ethAddress)
-                                cwvWallet.address = realEthAddress
+                                ethWallet.address = realEthAddress
                                 // mainkey 往下传继续创建钱包逻辑
                                 emitter.onNext(mainKey)
                             }
@@ -149,7 +146,7 @@ class CreateAccountStepTwoActivity : BaseActivity() {
                     CallJsCodeUtils.getPrivateKey(mainKey, object : ValueCallback<String> {
                         override fun onReceiveValue(ethPrivateKey: String?) {
                             var realEthPrivateKey = CallJsCodeUtils.readStringJsValue(ethPrivateKey)
-                            cwvWallet.privateKey = realEthPrivateKey
+                            ethWallet.privateKey = realEthPrivateKey
                             it.onNext(realEthPrivateKey)
                         }
                     })
@@ -167,12 +164,19 @@ class CreateAccountStepTwoActivity : BaseActivity() {
                         cwvWallet.privateKey = jsonObject.getString("hexPrikey")
                         cwvWallet.address = "0x" + jsonObject.getString("hexAddress")
                     }
+                    cwvWallet.walletName = "CWV"
+                    cwvWallet.walletType = "CWV"
+                    cwvWallet.mnemonic = mnemonic
+                    ethWallet.walletName = "ETH"
+                    ethWallet.walletType = "ETH"
+                    ethWallet.mnemonic = mnemonic
                     SWLog.e(cwvWallet)
                     SWLog.e(ethWallet)
                     GreWalletOperator.insert(cwvWallet)
                     GreWalletOperator.insert(ethWallet)
-
                     startActivity(MainActivity::class.java)
+                    AppManager.finishActivity(CreateAccountPreActivity::class.java)
+                    AppManager.finishActivity(CreateAccountStepOneActivity::class.java)
                     finish()
                 }
             }

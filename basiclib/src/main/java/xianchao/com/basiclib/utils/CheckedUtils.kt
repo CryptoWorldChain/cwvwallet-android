@@ -24,16 +24,16 @@ object CheckedUtils {
     }
 
 
-    fun isEmpty(str: String): Boolean {
+    fun isEmpty(str: String?): Boolean {
         return TextUtils.isEmpty(str)
     }
 
-    fun nonEmpty(str: String): Boolean {
+    fun nonEmpty(str: String?): Boolean {
         return !TextUtils.isEmpty(str)
     }
 
 
-    fun isJson(json: String): Boolean {
+    fun isJson(json: String?): Boolean {
 
         if (isEmpty(json)) {
             return false

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical"
+    tools:context=".ui.activity.AllWalletActivity">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/layout_title" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_marginTop="25dp"
+        android:background="#1e1e1e"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="当前身份下的钱包"
+        android:textColor="#e5e5e5"
+        android:textSize="11.5sp" />
+
+    <xianchao.com.basiclib.widget.BgLinearLayout
+        android:id="@+id/bgll_cwv_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/page_left_padding"
+        android:layout_marginRight="@dimen/page_left_padding"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/all_wallet_cwv_bg"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:src="@drawable/all_wallet_defaut_coin" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_cwv_wallet_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="CWV-Wallet "
+                android:textColor="#ffffff"
+                android:textSize="15.4sp" />
+
+
+            <TextView
+                android:id="@+id/tv_cwv_address"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textSize="11.5sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/white_diandiandian" />
+
+    </xianchao.com.basiclib.widget.BgLinearLayout>
+
+
+    <xianchao.com.basiclib.widget.BgLinearLayout
+        android:id="@+id/bgll_eth_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/page_left_padding"
+        android:layout_marginRight="@dimen/page_left_padding"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/all_wallet_eth_bg"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:src="@drawable/all_wallet_defaut_coin" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_eth_wallet_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ETH-Wallet "
+                android:textColor="#ffffff"
+                android:textSize="15.4sp" />
+
+
+            <TextView
+                android:id="@+id/tv_eth_address"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textSize="11.5sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/white_diandiandian" />
+
+    </xianchao.com.basiclib.widget.BgLinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_marginTop="38dp"
+        android:background="#1e1e1e"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="导入的钱包"
+        android:textColor="#e5e5e5"
+        android:textSize="11.5sp" />
+
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:id="@+id/rv_recyclerview"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+
+
+</LinearLayout>

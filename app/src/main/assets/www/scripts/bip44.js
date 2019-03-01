@@ -99,16 +99,21 @@ function randomArray(length, max) {
     });
 }
 
-var passphrase = "a123456789";
-var mnemonic = generateMnemonic(null, null, Mnemonic.Words.ENGLISH);
-console.log("Mnemonic  " + mnemonic);
-console.log("Seed  " + mnemonicToSeedHex(mnemonic, passphrase))
-var HdPrivateKey = mnemonicToHDPrivateKey(mnemonic, passphrase)
-console.log("HdPrivateKey  " + HdPrivateKey)
-console.log("address  " + getAddress(HdPrivateKey, 0))
-console.log("privatekey  " + getPrivateKey(HdPrivateKey, 0))
-console.log("address  " + getCWVAddress(HdPrivateKey, 0))
-console.log("privatekey  " + getCWVPrivateKey(HdPrivateKey, 0))
+function privateToAddress(private) {
+  private = private.replace('0x','');
+  return EthereumBip44.privateToAddress(private).toString('hex')
+}
+
+// var passphrase = "a123456789";
+// var mnemonic = generateMnemonic(null, null, Mnemonic.Words.ENGLISH);
+// console.log("Mnemonic  " + mnemonic);
+// console.log("Seed  " + mnemonicToSeedHex(mnemonic, passphrase))
+// var HdPrivateKey = mnemonicToHDPrivateKey(mnemonic, passphrase)
+// console.log("HdPrivateKey  " + HdPrivateKey)
+// console.log("address  " + getAddress(HdPrivateKey, 0))
+// console.log("privatekey  " + getPrivateKey(HdPrivateKey, 0))
+// console.log("address  " + getCWVAddress(HdPrivateKey, 0))
+// console.log("privatekey  " + getCWVPrivateKey(HdPrivateKey, 0))
 
 
 module.exports = {
@@ -133,6 +138,7 @@ module.exports = {
     getPrivateKey: getPrivateKey,
     getCWVAddress: getCWVAddress,
     getCWVPrivateKey: getCWVPrivateKey,
+    privateToAddress: privateToAddress
   }
   
 }).call(this,require("buffer").Buffer)
@@ -24069,6 +24075,7 @@ var EthereumBIP44 = (function () {
         key: 'fromPrivateSeed',
         value: function fromPrivateSeed(seed, bitcoreInstance) {
             return new EthereumBIP44(new bitcoreInstance.HDPrivateKey(seed));
+
         }
     }, {
         key: 'bip32PublicToEthereumPublic',
@@ -24076,6 +24083,16 @@ var EthereumBIP44 = (function () {
             var key = ec.keyFromPublic(pubKey).getPublic().toJSON();
             return Buffer.concat([padTo32(new Buffer(key[0].toArray())), padTo32(new Buffer(key[1].toArray()))]);
         }
+     , 
+    }, {
+        key: 'privateToAddress',
+         value: function privateToAddress(privateK) {
+            var buf = []
+            for (var i = 0; i < privateK.length; i+= 2) {
+                buf.push(parseInt(privateK.substr(i, 2), 16))
+            }
+            return _ethereumjsUtil.privateToAddress(buf)
+         }
     }]);
 
     function EthereumBIP44(hdKey) {

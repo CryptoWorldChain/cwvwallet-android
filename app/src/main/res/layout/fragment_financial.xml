@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_page_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:paddingTop="20dp"
+        android:gravity="center"
+        android:text="理财"
+        android:background="@color/title_color"
+        android:textColor="#ffffff"
+        android:textSize="15.3sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rl_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/include_title"
+        android:layout_marginTop="70dp"
+        android:overScrollMode="never">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

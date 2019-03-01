@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:paddingLeft="34dp"
+    android:paddingRight="34dp"
+    android:background="@color/title_color"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:gravity="center_horizontal"
+        android:text="注意："
+        android:textColor="#d0021b"
+        android:textSize="11.5sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:text="仅供直接扫描"
+        android:textColor="#8b572a"
+        android:textSize="11.5sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:lineSpacingExtra="1.9sp"
+        android:text="二维码禁止保存、截图、以及拍照。仅供用户在安全环境下直接扫描来方便的导入钱包"
+        android:textColor="#999999"
+        android:textSize="11.5sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:gravity="center_horizontal"
+        android:text="在安全环境下使用"
+        android:textColor="#8b572a"
+        android:textSize="11.5sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:lineSpacingExtra="1.9sp"
+        android:text="请确保四周无人及无摄像头的情况下使用。二维码一旦被他人获取将造成不可挽回的资产损失。"
+        android:textColor="#999999"
+        android:textSize="11.5sp" />
+
+
+    <RelativeLayout
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp">
+
+        <ImageView
+            android:id="@+id/iv_qrcode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp" />
+
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/export_cover_qrcode" />
+
+        <Button
+            android:id="@+id/btn_show"
+            android:layout_width="110dp"
+            android:layout_height="26dp"
+            android:background="@drawable/export_show_key_btn"
+            android:layout_centerInParent="true"
+            android:text="显示二维码"
+            android:textColor="#000000"
+            android:textSize="9.6sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

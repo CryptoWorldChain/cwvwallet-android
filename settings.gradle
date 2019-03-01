@@ -1,1 +1,1 @@
-include ':app', ':basiclib'
+include ':app', ':basiclib',':zxinglibrary'

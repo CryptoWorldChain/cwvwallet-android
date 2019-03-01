@@ -11,7 +11,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <net.sourceforge.UI.view.WheelProgress
+        <fanrong.cwvwalled.ui.view.WheelProgress
             android:id="@+id/wheel"
             android:layout_width="70dp"
             android:layout_height="70dp"

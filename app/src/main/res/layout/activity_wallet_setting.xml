@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_page_bg"
+    android:orientation="vertical"
+    tools:context=".ui.activity.WalletSettingActivity">
+
+    <include layout="@layout/layout_title" />
+
+
+    <RelativeLayout
+        android:id="@+id/ll_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="11dp"
+        android:background="#161616">
+
+        <ImageView
+            android:id="@+id/iv_wallet_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:src="@drawable/all_wallet_defaut_coin" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="60dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_wallet_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="CWV-Wallet "
+                android:textColor="#ffffff"
+                android:textSize="15.4sp" />
+
+
+            <TextView
+                android:id="@+id/tv_cwv_address"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textSize="11.5sp" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="11dp"
+            android:rotation="180"
+            android:src="@drawable/fanhui_back" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/ll_key"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="11dp"
+        android:background="#161616">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:scaleType="center"
+            android:src="@drawable/wallet_setting_key" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="60dp"
+            android:gravity="center_horizontal"
+            android:text="导出私钥"
+            android:textColor="#ffffff"
+            android:textSize="13.4sp" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="11dp"
+            android:rotation="180"
+            android:src="@drawable/fanhui_back" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/ll_word"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="11dp"
+        android:background="#161616">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:scaleType="center"
+            android:src="@drawable/wallet_setting_word" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="60dp"
+            android:gravity="center_horizontal"
+            android:text="导出助记词"
+            android:textColor="#ffffff"
+            android:textSize="13.4sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="11dp"
+            android:rotation="180"
+            android:src="@drawable/fanhui_back" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

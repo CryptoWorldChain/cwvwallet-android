@@ -1,0 +1,79 @@
+{
+    if (!_dataArray) {
+        _dataArray = [[NSMutableArray alloc] init];
+        NSArray *titles = @[@"EtherCraft",
+                            @"CryptoKitties",
+                            @"Etheroll",
+                            @"Chibifighters",
+                            @"EtherBots",
+                            @"Crypto Space Commander",
+                            @"Axieinfinity",
+                            @"KryptoWar ",
+                            @"Fishbank ",
+                            @"HyperDragons "];
+        NSArray *dess = @[@"最活跃的以太坊游戏，超过100个智能合约！",
+                          @"每周交易超过102，047次！",
+                          @"最受欢迎的去中心化赌场，交易量突破7898ETH！",
+                          @"以太坊区块链上随时待命的战士！",
+                          @"有趣酷炫的机器人主题区块链游戏！",
+                          @"宇宙探索，执行P2P契约行为，运行游戏经济！",
+                          @"饲养宠物来赚钱，有ETH奖励哦！",
+                          @"一周交易量4210次！",
+                          @"错过养猫，可不能再错过养鱼啦！",
+                          @"具有收藏价值，以及趣味游戏性的数字收藏品！"];
+        NSArray *imgs = @[@"find_item_1",
+                          @"find_item_2",
+                          @"find_item_3",
+                          @"find_item_4",
+                          @"find_item_5",
+                          @"find_item_6",
+                          @"find_item_7",
+                          @"find_item_8",
+                          @"find_item_9",
+                          @"find_item_10"];
+        NSArray *urls = @[@"https://ethercraft.io",
+                          @"https://www.cryptokitties.co",
+                          @"https://etheroll.com",
+                          @"https://chibifighters.io",
+                          @"https://etherbots.io",
+                          @"https://www.csc-game.com",
+                          @"https://axieinfinity.com",
+                          @"https://kryptowar.com",
+                          @"https://fishbank.io",
+                          @"https://hyperdragons.alfakingdom.com"];
+        for (NSInteger i = 0; i < titles.count; i++) {
+            NSDictionary *dic = @{@"imgName":[imgs objectAtIndex:i],
+                                  @"title":[titles objectAtIndex:i],
+                                  @"describe":[dess objectAtIndex:i],
+                                  @"detailUrl":[urls objectAtIndex:i]};
+            FindItemModel *item = [[FindItemModel alloc] initWithDictionary:dic error:nil];
+            [_dataArray addObject:item];
+        }
+    }
+    return _dataArray;
+}
+
+
+
+
+    // 3 横项的tab 点击事件
+
+    if (i == 0) {
+        //bit
+        NSString *url = @"https://www.bitstar.in";
+        FindTransDetailController *con = [[FindTransDetailController alloc] initWithUrl:url];
+        con.zh_title = @"Bitstar";
+        [TheAppDelegate.rootNavigationController pushViewController:con animated:YES];
+    } else if (i == 1) {
+        //cca
+        NSString *url = @"https://www.ccash.com";
+        FindTransDetailController *con = [[FindTransDetailController alloc] initWithUrl:url];
+        con.zh_title = @"CCash";
+        [TheAppDelegate.rootNavigationController pushViewController:con animated:YES];
+    } else if (i == 2) {
+        //bib
+        NSString *url = @"https://www.bibox365.com";
+        FindTransDetailController *con = [[FindTransDetailController alloc] initWithUrl:url];
+        con.zh_title = @"Bibox";
+        [TheAppDelegate.rootNavigationController pushViewController:con animated:YES];
+    }

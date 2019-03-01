@@ -3,10 +3,27 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#00000000</color>
+    <color name="c_text_title">#4c4948</color>
+    <color name="white">#FFFFFF</color>
+    <color name="dark">#000000</color>
 
     <!--通用颜色-->
     <color name="common_page_bg">#000000</color>
     <color name="common_page_btn">#FFFFFF</color>
+
+    <color name="red">#b90606</color>
+    <color name="divide_gray_color">#010101</color>
+
+    <color name="title_color">#161616</color>
+
+    <color name="dialog_confirm_disable">#000000</color>
+    <color name="dialog_confirm_enable">#FFFFFF</color>
+
+
+    <color name="default_blue_color">#bc9873</color>
+    <color name="black">#000000</color>
+    <color name="gold">#bc9873</color>
 
 
 </resources>

@@ -2,12 +2,45 @@
 <resources>
 
     <declare-styleable name="WheelProgress">
-
-        <attr name="itemColor" format="color"></attr>
-        <attr name="itemWidth" format="integer"></attr>
-        <attr name="itemCornersRadius" format="float"></attr>
-        <attr name="oneSeftRotate" format="boolean"></attr>
+        <attr name="itemColor" format="color"/>
+        <attr name="itemWidth" format="integer"/>
+        <attr name="itemCornersRadius" format="float"/>
+        <attr name="oneSeftRotate" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_circle_background_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="LSettingView">
+        <attr name="leftText" format="string"/>
+        <attr name="leftIcon" format="integer"/>
+        <attr name="rightIcon" format="integer"/>
+        <attr name="LtextSize" format="float"/>
+        <attr name="LtextColor" format="color"/>
+        <attr name="isShowUnderLine" format="boolean"/>
+        <attr name="leftIconSize" format="dimension"/>
+        <attr name="leftTextMarginLeft" format="dimension"/>
+        <attr name="rightStyle" format="enum">
+            <enum name="iconShow" value="0"/>
+            <enum name="iconHide" value="1"/>
+            <enum name="iconCheck" value="2"/>
+            <enum name="iconSwitch" value="3"/>
+        </attr>
+        <attr name="isShowRightText" format="boolean"/>
+        <attr name="rightText" format="string"/>
+        <attr name="rightTextSize" format="float"/>
+        <attr name="rightTextColor" format="color"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="SwipeMenuView">
+        <attr name="swipeEnable" format="boolean"/>
+        <attr name="ios" format="boolean"/>
+        <attr name="leftSwipe" format="boolean"/>
+    </declare-styleable>
 
 </resources>

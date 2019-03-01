@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:leon="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="#010101"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_top_heard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#161616"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <fanrong.cwvwalled.ui.view.CircleImageView
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_marginTop="35dp"
+            android:src="@drawable/about_us_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="34dp"
+            android:text="SMM-user"
+            android:textColor="#fff"
+            android:textSize="13.4sp" />
+    </LinearLayout>
+
+
+    <fanrong.cwvwalled.ui.view.LSettingItem
+        android:id="@+id/setting_item_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_top_heard"
+        android:background="@drawable/setting_item_bg"
+        android:layout_marginTop="15dp"
+        leon:LtextColor="#fff"
+        leon:LtextSize="13.4"
+        leon:leftIcon="@drawable/contact_icon"
+        leon:leftText="地址本"
+        leon:rightIcon="@drawable/setting_item_goto_icon" />
+
+    <fanrong.cwvwalled.ui.view.LSettingItem
+        android:id="@+id/setting_item_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_item_contact"
+        android:background="@drawable/setting_item_bg"
+        leon:LtextColor="#fff"
+        leon:LtextSize="13.4"
+        leon:leftIcon="@drawable/setting_icon"
+        leon:leftText="使用设置"
+        leon:rightIcon="@drawable/setting_item_goto_icon" />
+
+    <fanrong.cwvwalled.ui.view.LSettingItem
+        android:id="@+id/setting_item_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_item_setting"
+        android:background="@drawable/setting_item_bg"
+        leon:LtextColor="#fff"
+        leon:LtextSize="13.4"
+        leon:leftIcon="@drawable/agreement_icon"
+        leon:leftText="用户协议"
+        leon:rightIcon="@drawable/setting_item_goto_icon" />
+
+    <fanrong.cwvwalled.ui.view.LSettingItem
+        android:id="@+id/setting_item_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_item_agreement"
+        android:background="@drawable/setting_item_bg"
+        leon:LtextColor="#fff"
+        leon:LtextSize="13.4"
+        leon:leftIcon="@drawable/about_us_icon"
+        leon:leftText="关于我们"
+        leon:rightIcon="@drawable/setting_item_goto_icon" />
+
+
+    <TextView
+        android:id="@+id/tv_mine_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:text="退出当前身份"
+        android:textColor="@color/gold"
+        android:textSize="16sp" />
+
+</RelativeLayout>

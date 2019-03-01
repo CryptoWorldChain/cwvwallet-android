@@ -35,10 +35,9 @@ class CreateAccountPasswordActivity : BaseActivity() {
         })
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_account_password)
-        initView()
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_create_account_password
     }
 
 

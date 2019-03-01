@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_page_bg"
+    tools:context=".ui.activity.CreateAccountPreActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginTop="120dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="恢复身份"
+            android:textColor="#bc9873"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="使用助记词导入的同时可以修改密码。"
+            android:textColor="#999999"
+            android:textSize="11sp" />
+
+
+        <EditText
+            android:id="@+id/et_mnemonic"
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/backup_mnemic_bg"
+            android:gravity="top"
+            android:hint="请输入助记词，用空格隔开"
+            android:paddingLeft="11dp"
+            android:paddingTop="15dp"
+            android:textColor="#999999"
+            android:textColorHint="#bfbfbf"
+            android:textSize="13.4sp" />
+
+        <EditText
+            android:id="@+id/et_userpassword"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="18dp"
+            android:background="#00000000"
+            android:hint="钱包密码"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textColorHint="#bfbfbf"
+            android:textSize="11sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#505050" />
+
+
+        <EditText
+            android:id="@+id/et_userpassword_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="18dp"
+            android:background="#00000000"
+            android:hint="重新确认密码"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textColorHint="#bfbfbf"
+            android:textSize="11sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#505050" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/common_page_btn"
+        android:text="下一步"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

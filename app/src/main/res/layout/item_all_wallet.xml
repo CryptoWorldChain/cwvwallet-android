@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xianchao.com.basiclib.widget.BgLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/bgll_eth_wallet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="@dimen/page_left_padding"
+    android:layout_marginRight="@dimen/page_left_padding"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/all_wallet_eth_bg"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:src="@drawable/all_wallet_defaut_coin" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_eth_wallet_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ETH-Wallet "
+            android:textColor="#ffffff"
+            android:textSize="15.4sp" />
+
+
+        <TextView
+            android:id="@+id/tv_eth_address"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textSize="11.5sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="11dp"
+        android:src="@drawable/white_diandiandian" />
+
+</xianchao.com.basiclib.widget.BgLinearLayout>

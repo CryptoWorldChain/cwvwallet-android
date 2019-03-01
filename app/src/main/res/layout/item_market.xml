@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="76dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="26dp"
+    android:paddingRight="26dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/tv_coin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BTC"
+            android:textColor="#ffffff"
+            android:textSize="15.4sp" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="约4.81千亿"
+            android:textColor="#999999"
+            android:textSize="11.5sp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_price_rmb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="70dp"
+        android:gravity="center_horizontal"
+        android:text="¥2.27"
+        android:textColor="#ffffff"
+        android:textSize="13.4sp" />
+
+    <TextView
+        android:id="@+id/tv_advance_decline"
+        android:layout_width="57dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/market_add_bg"
+        android:gravity="center"
+        android:text="-3.86%"
+        android:textColor="#ffffff"
+        android:textSize="13.4sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="41dp"
+        android:background="#80333333" />
+
+</RelativeLayout>

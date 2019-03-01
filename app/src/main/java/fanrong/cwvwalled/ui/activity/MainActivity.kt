@@ -1,106 +1,80 @@
 package fanrong.cwvwalled.ui.activity
 
-import android.graphics.Color
-import android.media.Image
-import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
 import fanrong.cwvwalled.R
+import fanrong.cwvwalled.base.AppApplication
 import fanrong.cwvwalled.base.BaseActivity
+import fanrong.cwvwalled.base.BaseFragment
+import fanrong.cwvwalled.ui.fragment.*
+import fanrong.cwvwalled.utils.PreferenceHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
 
-    var selectIcon = mutableListOf<Int>()
-    var unselectIcon = mutableListOf<Int>()
-
-    var imageviews = mutableListOf<ImageView>()
-    var textviews = mutableListOf<TextView>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        initView()
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
     }
 
+
+    var fragments = arrayOfNulls<BaseFragment>(5)
 
     override fun initView() {
-        ll_tab_1.setOnClickListener(this)
-        ll_tab_2.setOnClickListener(this)
-        ll_tab_3.setOnClickListener(this)
-        ll_tab_4.setOnClickListener(this)
-        ll_tab_5.setOnClickListener(this)
-
-        imageviews.add(imageview1)
-        imageviews.add(imageview2)
-        imageviews.add(imageview3)
-        imageviews.add(imageview4)
-        imageviews.add(imageview5)
-
-        textviews.add(textview1)
-        textviews.add(textview2)
-        textviews.add(textview3)
-        textviews.add(textview4)
-        textviews.add(textview5)
-
-        unselectIcon.add(R.drawable.home_icon_unselect_1)
-        unselectIcon.add(R.drawable.home_icon_unselect_2)
-        unselectIcon.add(R.drawable.home_icon_unselect_3)
-        unselectIcon.add(R.drawable.home_icon_unselect_4)
-        unselectIcon.add(R.drawable.home_icon_unselect_5)
-
-        selectIcon.add(R.drawable.home_icon_select_1)
-        selectIcon.add(R.drawable.home_icon_select_2)
-        selectIcon.add(R.drawable.home_icon_select_3)
-        selectIcon.add(R.drawable.home_icon_select_4)
-        selectIcon.add(R.drawable.home_icon_select_5)
-
-        updataTab(0)
-        changePage(0)
-
-    }
-
-    fun changePage(index: Int) {
-    }
-
-
-    fun updataTab(index: Int) {
-        for (textview in textviews) {
-            textview.setTextColor(Color.parseColor("#908e8e"))
-        }
-        imageviews.forEachIndexed { index, imageView ->
-            imageView.setImageResource(selectIcon[index])
+        rg_home_tab.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.rb_home_tab_wallet -> {
+                    if (fragments[0] == null) {
+                        fragments[0] = HomeFragment()
+                    }
+                    supportFragmentManager.beginTransaction().replace(R.id.main_frame_layout, fragments[0]!!).commitAllowingStateLoss()
+                }
+                R.id.rb_home_tab_market -> {
+                    if (fragments[1] == null) {
+                        fragments[1] = MarketFragment()
+                    }
+                    supportFragmentManager.beginTransaction().replace(R.id.main_frame_layout, fragments[1]!!).commitAllowingStateLoss()
+                }
+                R.id.rb_home_tab_financial -> {
+                    if (fragments[2] == null) {
+                        fragments[2] = FinancialFragment()
+                    }
+                    supportFragmentManager.beginTransaction().replace(R.id.main_frame_layout, fragments[2]!!).commitAllowingStateLoss()
+                }
+                R.id.rb_home_tab_found -> {
+                    if (fragments[3] == null) {
+                        fragments[3] = FoundFragment()
+                    }
+                    supportFragmentManager.beginTransaction().replace(R.id.main_frame_layout, fragments[3]!!).commitAllowingStateLoss()
+                }
+                R.id.rb_home_tab_mine -> {
+                    if (fragments[4] == null) {
+                        fragments[4] = MineFragment()
+                    }
+                    supportFragmentManager.beginTransaction().replace(R.id.main_frame_layout, fragments[4]!!).commitAllowingStateLoss()
+                }
+            }
         }
 
-        imageviews[index].setImageResource(selectIcon[index])
-        textviews[index].setTextColor(Color.parseColor("#ffe5bd"))
-
+        supportFragmentManager.beginTransaction().replace(R.id.main_frame_layout, HomeFragment()).commitAllowingStateLoss()
     }
+
 
     override fun onClick(v: View) {
-        when (v.id) {
-            R.id.ll_tab_1 -> {
-                updataTab(1)
-            }
-            R.id.ll_tab_2 -> {
-                updataTab(2)
-            }
-            R.id.ll_tab_3 -> {
-                updataTab(3)
-            }
-            R.id.ll_tab_4 -> {
-                updataTab(4)
-            }
-            R.id.ll_tab_5 -> {
-                updataTab(5)
-            }
-        }
     }
 
     override fun loadData() {
+    }
+
+    var mExitUtcMs = 0L
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - mExitUtcMs > 2000) {
+            mExitUtcMs = System.currentTimeMillis()
+            Toast.makeText(this,"再按一次退出应用",Toast.LENGTH_SHORT).show()
+        } else {
+            PreferenceHelper.getInstance().clearObjectForKey(PreferenceHelper.PreferenceKey.KEY_NEWS_SELECT_LIST)
+            AppApplication.instance.exit()
+        }
     }
 
 }

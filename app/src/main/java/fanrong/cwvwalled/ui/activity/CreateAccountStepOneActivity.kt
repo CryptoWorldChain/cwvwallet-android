@@ -35,20 +35,20 @@ class CreateAccountStepOneActivity : BaseActivity() {
     }
 
     override fun initView() {
-        btn_confirm.setOnClickListener(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_account_step_one)
 
         CallJsCodeUtils.generateMnemonic {
             mnemonic = CallJsCodeUtils.readStringJsValue(it)
             tv_mnemic.text = mnemonic.replace(" ", "      ")
         }
 
-        initView()
+        btn_confirm.setOnClickListener(this)
 
+    }
+
+
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_create_account_step_one
     }
 
 

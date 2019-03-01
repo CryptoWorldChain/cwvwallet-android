@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Zxing Library</string>
+    <!--zxing-->
+    <string name="msg_camera_framework_bug">相机被占用或没有相机权限，请检查</string>
+    <string name="button_ok">退出</string>
+
+
+</resources>

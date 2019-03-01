@@ -1,0 +1,54 @@
+package fanrong.cwvwalled.litepal;
+
+import org.litepal.LitePal;
+
+import java.util.List;
+
+import fanrong.cwvwalled.litepal.GreWalletModel;
+import xianchao.com.basiclib.utils.CheckedUtils;
+
+public class GreWalletOperator {
+
+    public static List<GreWalletModel> queryImport() {
+        return LitePal.where("isImport like ?", "1")
+                .find(GreWalletModel.class);
+    }
+
+    public static GreWalletModel queryAddress(String addr) {
+        List<GreWalletModel> walletModels = LitePal.where("address like ?", addr).find(GreWalletModel.class);
+        if (CheckedUtils.INSTANCE.isEmpty(walletModels)) {
+            return null;
+        } else {
+            return walletModels.get(0);
+        }
+    }
+
+    public static void insert(GreWalletModel greWallet) {
+        greWallet.save();
+    }
+
+    public static List<GreWalletModel> queryAll() {
+        return LitePal.findAll(GreWalletModel.class);
+    }
+
+    public static GreWalletModel queryMainCWV() {
+        List<GreWalletModel> all = LitePal.where("isImport != 1")
+                .where("walletType like ?", "CWV")
+                .find(GreWalletModel.class);
+        if (CheckedUtils.INSTANCE.nonEmpty(all)) {
+            return all.get(0);
+        }
+        return null;
+    }
+
+    public static GreWalletModel queryMainETH() {
+
+        List<GreWalletModel> all = LitePal.where("isImport != 1")
+                .where("walletType like ?", "ETH")
+                .find(GreWalletModel.class);
+        if (CheckedUtils.INSTANCE.nonEmpty(all)) {
+            return all.get(0);
+        }
+        return null;
+    }
+}

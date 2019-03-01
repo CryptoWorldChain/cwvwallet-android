@@ -4,4 +4,9 @@
     <!--通用属性-->
     <dimen name="page_btn_to_bottom">45dp</dimen>
 
+
+    <dimen name="page_left_padding">15dp</dimen>
+
+
+
 </resources>

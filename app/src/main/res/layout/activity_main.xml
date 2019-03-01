@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,156 +7,80 @@
     tools:context=".ui.activity.MainActivity">
 
     <FrameLayout
+        android:id="@+id/main_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#010101"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#010101" />
 
-    </FrameLayout>
-
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/rg_home_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:paddingTop="8dp"
         android:background="#161616"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/ll_tab_1"
-            android:layout_width="1dp"
+        <RadioButton
+            android:id="@+id/rb_home_tab_wallet"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="钱包"
+            android:textColor="@color/home_tab_color_sel"
+            android:textSize="11.5sp" />
 
-            <ImageView
-                android:id="@+id/imageview1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/home_tab_wallet" />
-
-            <TextView
-                android:id="@+id/textview1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_horizontal"
-                android:text="钱包"
-                android:textColor="#ffe5bd"
-                android:textSize="11.5sp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_tab_2"
-            android:layout_width="1dp"
+        <RadioButton
+            android:id="@+id/rb_home_tab_market"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:button="@null"
+            android:drawableTop="@drawable/home_tab_market_sel"
+            android:gravity="center"
+            android:text="行情"
+            android:textColor="@color/home_tab_color_sel"
+            android:textSize="11.5sp" />
 
-            <ImageView
-                android:id="@+id/imageview2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/home_icon_unselect_2" />
-
-            <TextView
-                android:id="@+id/textview2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_horizontal"
-                android:text="行情"
-                android:textColor="#ffe5bd"
-                android:textSize="11.5sp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_tab_3"
-            android:layout_width="1dp"
+        <RadioButton
+            android:id="@+id/rb_home_tab_financial"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:button="@null"
+            android:drawableTop="@drawable/home_tab_financial_sel"
+            android:gravity="center"
+            android:text="理财"
+            android:textColor="@color/home_tab_color_sel"
+            android:textSize="11.5sp" />
 
-            <ImageView
-                android:id="@+id/imageview3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/home_icon_unselect_3" />
-
-            <TextView
-                android:id="@+id/textview3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_horizontal"
-                android:text="理财"
-                android:textColor="#ffe5bd"
-                android:textSize="11.5sp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_tab_4"
-            android:layout_width="1dp"
+        <RadioButton
+            android:id="@+id/rb_home_tab_found"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:button="@null"
+            android:drawableTop="@drawable/home_tab_found_sel"
+            android:gravity="center"
+            android:text="发现"
+            android:textColor="@color/home_tab_color_sel"
+            android:textSize="11.5sp" />
 
-            <ImageView
-                android:id="@+id/imageview4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/home_icon_unselect_4" />
-
-            <TextView
-                android:id="@+id/textview4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_horizontal"
-                android:text="发现"
-                android:textColor="#ffe5bd"
-                android:textSize="11.5sp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_tab_5"
-            android:layout_width="1dp"
+        <RadioButton
+            android:id="@+id/rb_home_tab_mine"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:button="@null"
+            android:drawableTop="@drawable/home_tab_mine_sel"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@color/home_tab_color_sel"
+            android:textSize="11.5sp" />
 
-            <ImageView
-                android:id="@+id/imageview5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/home_icon_unselect_5" />
-
-            <TextView
-                android:id="@+id/textview5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_horizontal"
-                android:text="我的"
-                android:textColor="#ffe5bd"
-                android:textSize="11.5sp" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
+    </RadioGroup>
 </LinearLayout>

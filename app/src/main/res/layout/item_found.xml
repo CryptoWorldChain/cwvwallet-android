@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_found_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/find_item_image_1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_found_image"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_found_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="EtherCraft"
+            android:textColor="@color/white"
+            android:textSize="17.3sp" />
+
+        <TextView
+            android:id="@+id/tv_found_dess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="最活跃的以太坊游戏，超过100个智能合约！"
+            android:textColor="#999"
+            android:textSize="11.5sp" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@color/title_color"
+    android:orientation="vertical"
+    android:paddingLeft="34dp"
+    android:paddingRight="34dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:text="注意："
+        android:textColor="#d0021b"
+        android:textSize="11.5sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:gravity="center_horizontal"
+        android:text="离线保存"
+        android:textColor="#8b572a"
+        android:textSize="11.5sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:gravity="center_horizontal"
+        android:text="切勿保存至邮箱、记事本、网盘、聊天工具等，非常危险"
+        android:textColor="#999999"
+        android:textSize="11.5sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="请勿使用网络传输"
+        android:textColor="#8b572a"
+        android:textSize="11.5sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:lineSpacingExtra="1.9sp"
+        android:text="请勿通过网络工具传输，一旦被黑客获取将造成不可挽回的资产损失。建议离线设备通过二维码方式传输"
+        android:textColor="#999999"
+        android:textSize="11.5sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="密码管理工具保存"
+        android:textColor="#8b572a"
+        android:textSize="11.5sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="建议使用密码管理工具管理"
+        android:textColor="#999999"
+        android:textSize="11.5sp" />
+
+    <TextView
+        android:id="@+id/tv_private_key"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="11.5sp"
+        android:textColor="#ffffff"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/backup_mnemic_bg"
+        android:padding="12dp"
+
+        />
+
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+
+    <Button
+        android:id="@+id/btn_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="37dp"
+        android:background="@drawable/export_key_copy_bg"
+        android:gravity="center"
+        android:text="复制Keystore"
+        android:textColor="#ffffff"
+        android:textAllCaps="false"
+        android:textSize="15.4sp" />
+
+</LinearLayout>

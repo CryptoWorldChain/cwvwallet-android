@@ -99,6 +99,12 @@ public class CallJsCodeUtils {
     }
 
 
+    public static void privateToAddress(String privateKey, ValueCallback<String> valueCallback) {
+        // ETH 通过私钥获取 地址，CWV 私钥和ETH 生成出来是一样的
+        final String english = String.format("bip44.privateToAddress('%s');", privateKey);
+        webView.evaluateJavascript(english, valueCallback);
+
+    }
     public static void cwv_GenFromPrikey(String dPrivateKey, ValueCallback<String> valueCallback) {
 
         final String english = String.format("cwv.genFromPrikey('%s');", dPrivateKey);

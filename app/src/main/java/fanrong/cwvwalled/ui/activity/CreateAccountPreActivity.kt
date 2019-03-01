@@ -21,7 +21,7 @@ class CreateAccountPreActivity : BaseActivity() {
             R.id.btn_back -> {
                 btn_create.setBackgroundResource(R.drawable.create_account_btn_unselect)
                 btn_back.setBackgroundResource(R.drawable.create_account_btn_select)
-
+                startActivity(RetrieveAccountActivity::class.java)
             }
             else -> {
 
@@ -31,12 +31,16 @@ class CreateAccountPreActivity : BaseActivity() {
     }
 
     override fun initView() {
+
+        btn_create.setOnClickListener(this)
+        btn_back.setOnClickListener(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_account_pre)
-        btn_create.setOnClickListener(this)
-        btn_back.setOnClickListener(this)
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_create_account_pre
     }
 }
