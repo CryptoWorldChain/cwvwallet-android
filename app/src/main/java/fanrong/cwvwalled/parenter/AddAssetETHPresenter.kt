@@ -31,8 +31,9 @@ class AddAssetETHPresenter : AddAssetPresenter() {
                         if ("1".equals(response.body()?.err_code)) {
                             val tokens = response.body()!!.token!!
 
-                            for (allETH in hasCoins) {
-                                for (token in tokens) {
+                            for (token in tokens) {
+                                token.coin_symbol = token.coin_symbol + "(e)"
+                                for (allETH in hasCoins) {
                                     if (allETH.coin_name.equals(token.coin_name)) {
                                         token.isOpen = true
                                     }
