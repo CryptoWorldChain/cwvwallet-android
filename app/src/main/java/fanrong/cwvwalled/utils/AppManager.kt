@@ -16,11 +16,15 @@ object AppManager {
     }
 
     fun finishActivity(clazz: Class<out Activity>) {
-        stack.forEach {
-            if (it.javaClass == clazz) {
-                stack.remove(it)
-                it.finish()
+        val iterator = stack.iterator()
+        while (iterator.hasNext()) {
+            val next = iterator.next()
+            if (next.javaClass == clazz) {
+                iterator.remove()
+                next.finish()
             }
+        }
+        stack.forEach {
         }
     }
 

@@ -57,12 +57,16 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
 
     fun startActivity(clazz: Class<out Activity>) {
         startActivity(Intent(this, clazz))
+        overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit)
     }
 
     fun startActivity(clazz: Class<out Activity>, bundle: Bundle) {
         var intent = Intent(this, clazz)
         intent.putExtras(bundle)
         startActivity(intent)
+        overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit)
     }
 
 
@@ -112,5 +116,12 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+
+    override fun finish() {
+        super.finish()
+
+        overridePendingTransition(android.R.anim.fade_in,
+                android.R.anim.fade_out)
+    }
 
 }

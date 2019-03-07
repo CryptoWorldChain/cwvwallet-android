@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import fanrong.cwvwalled.R
 
 abstract class BaseFragment : Fragment(), View.OnClickListener {
 
@@ -39,12 +40,16 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
 
     fun startActivity(clazz: Class<out Activity>) {
         activity!!.startActivity(Intent(activity, clazz))
+        activity!!.overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit)
     }
 
     fun startActivity(clazz: Class<out Activity>, bundle: Bundle) {
         val intent = Intent(activity, clazz)
         intent.putExtras(bundle)
         activity!!.startActivity(intent)
+        activity!!.overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit)
     }
 
     fun showTopMsg(msg: String) {
