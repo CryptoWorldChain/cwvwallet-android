@@ -18,7 +18,7 @@ class AddressListAdapter(data: List<AddressModel>)
         }
 
         helper.itemView.contentview.setOnClickListener {
-            onItemClickListener?.onItemClick(this@AddressListAdapter, null, data.indexOf(item))
+            onItemClickListener?.onItemClick(this@AddressListAdapter, it, helper.adapterPosition)
         }
     }
 
