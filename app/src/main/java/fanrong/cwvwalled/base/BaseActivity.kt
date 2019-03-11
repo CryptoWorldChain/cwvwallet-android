@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
-import android.media.Image
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -103,17 +102,17 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
 
 
         for (callback in callbacks) {
-            handler.removeCallbacks(callback)
+            dismissHandler.removeCallbacks(callback)
         }
         callbacks.clear()
         var callback = Runnable { popupwindow.dismiss() }
         callbacks.add(callback)
-        handler.postDelayed(callback, 1500)
+        dismissHandler.postDelayed(callback, 1500)
 
     }
 
-    var handler = Handler()
-    var callbacks = mutableListOf<Runnable>()
+    private var dismissHandler = Handler()
+    private var callbacks = mutableListOf<Runnable>()
 
     fun showTopMsgWithDialog(msg: String, dialog: Dialog) {
 
@@ -124,12 +123,12 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
         popupwindow.showAtLocation(viewById1, Gravity.NO_GRAVITY, 0, 0)
 
         for (callback in callbacks) {
-            handler.removeCallbacks(callback)
+            dismissHandler.removeCallbacks(callback)
         }
         callbacks.clear()
         var callback = Runnable { popupwindow.dismiss() }
         callbacks.add(callback)
-        handler.postDelayed(callback, 1500)
+        dismissHandler.postDelayed(callback, 1500)
     }
 
 
