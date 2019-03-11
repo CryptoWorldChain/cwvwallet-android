@@ -47,7 +47,7 @@ class ImportWalletActivity : BaseActivity() {
     override fun initView() {
 
         walletType = intent.getStringExtra(PageParamter.PAREMTER_WALLET_TYPE)
-        SWLog.e("ImportWalletActivity  wallet   ->${walletType}")
+        SWLog.e("ImportWalletActivity  coinBeanModel   ->${walletType}")
 
         setTitleText("导入${walletType}钱包")
         setLeftImgOnclickListener(View.OnClickListener { finish() })

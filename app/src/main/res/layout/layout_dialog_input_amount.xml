@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xianchao.com.basiclib.widget.BgLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="60dp"
+    android:layout_marginRight="60dp"
+    android:background="@drawable/dialog_input_money_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="0.5dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:text="请输入收款金额"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/et_count"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/input_dialog_edit_bg"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp"
+            android:textColor="#bc9873"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_coin_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:text="SPDT"
+            android:textColor="#c1c1c1" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_cancel_btn_corner_11"
+            android:text="取消"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_comfirm_btn_seleter"
+            android:enabled="false"
+            android:text="确定"
+            android:textColor="@color/dialog_confirm_disable"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+</xianchao.com.basiclib.widget.BgLinearLayout>

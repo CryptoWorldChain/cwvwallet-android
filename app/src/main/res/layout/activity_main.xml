@@ -29,6 +29,7 @@
             android:layout_weight="1"
             android:button="@null"
             android:checked="true"
+            android:drawableTop="@drawable/home_tab_wallet_sel"
             android:gravity="center"
             android:text="钱包"
             android:textColor="@color/home_tab_color_sel"

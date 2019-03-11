@@ -65,6 +65,7 @@ class AddAssetActivity : BaseActivity() {
         adapter!!.checkedChangeListener = object : AddAssetAdapter.OnItemCheckedChangeListener {
             override fun onItemChange(coinBean: CoinBean, isChecked: Boolean) {
                 coinBean.sourceAddr = wallet.address
+                coinBean.walletName = wallet.walletName
                 presenter.changeAssetStatus(coinBean, isChecked)
             }
         }

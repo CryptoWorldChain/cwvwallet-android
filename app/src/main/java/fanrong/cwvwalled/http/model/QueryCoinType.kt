@@ -26,8 +26,12 @@ data class CoinBean(var coin_name: String) : Serializable {
     var coin_icon: String? = null
     var single_max_amt: String? = null
     var single_min_amt: String? = null
+
+
+    // 非接口返回
     var sourceAddr: String? = null
-    // 非接口返回，，用于adapter 判断 switch
+    var walletName: String? = null
+    //，，用于adapter 判断 switch
     var isOpen: Boolean? = null
         get() {
             if (field == null) {

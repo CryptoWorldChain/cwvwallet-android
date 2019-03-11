@@ -16,6 +16,10 @@ class AddressListAdapter(data: List<AddressModel>)
         helper.itemView.tv_del_address.setOnClickListener {
             onSwipeListener?.onDel(helper, item.id)
         }
+
+        helper.itemView.contentview.setOnClickListener {
+            onItemClickListener?.onItemClick(this@AddressListAdapter, null, data.indexOf(item))
+        }
     }
 
     /**

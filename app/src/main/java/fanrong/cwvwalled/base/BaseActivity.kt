@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.media.Image
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -54,6 +55,12 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<ImageView>(R.id.iv_left_image).setOnClickListener { callback() }
     }
 
+    fun setRightImgOnclickListener(resourceId: Int, callback: () -> Unit) {
+
+        findViewById<ImageView>(R.id.iv_right_image).setImageResource(resourceId)
+        findViewById<ImageView>(R.id.iv_right_image).setOnClickListener { callback() }
+    }
+
 
     fun startActivity(clazz: Class<out Activity>) {
         startActivity(Intent(this, clazz))
@@ -70,6 +77,23 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
+    fun startActivityForResult(clazz: Class<out Activity>, bundle: Bundle) {
+        var intent = Intent(this, clazz)
+        intent.putExtras(bundle)
+        startActivityForResult(intent, 0)
+        overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit)
+    }
+
+    fun startActivityForResult(clazz: Class<out Activity>, bundle: Bundle, requestCode: Int) {
+        var intent = Intent(this, clazz)
+        intent.putExtras(bundle)
+        startActivityForResult(intent, requestCode)
+        overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit)
+    }
+
+
     fun showTopMsg(msg: String) {
         val viewById1 = window.decorView.findViewById<ViewGroup>(android.R.id.content)
         val popupwindow = MsgPopupWindow.getPopupwindow()
@@ -78,8 +102,18 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
         popupwindow.showAtLocation(viewById1.getChildAt(0), Gravity.NO_GRAVITY, 0, 0)
 
 
-        Handler().postDelayed({ popupwindow.dismiss() }, 1500)
+        for (callback in callbacks) {
+            handler.removeCallbacks(callback)
+        }
+        callbacks.clear()
+        var callback = Runnable { popupwindow.dismiss() }
+        callbacks.add(callback)
+        handler.postDelayed(callback, 1500)
+
     }
+
+    var handler = Handler()
+    var callbacks = mutableListOf<Runnable>()
 
     fun showTopMsgWithDialog(msg: String, dialog: Dialog) {
 
@@ -89,7 +123,13 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
         viewById.setText(msg)
         popupwindow.showAtLocation(viewById1, Gravity.NO_GRAVITY, 0, 0)
 
-        Handler().postDelayed({ popupwindow.dismiss() }, 1500)
+        for (callback in callbacks) {
+            handler.removeCallbacks(callback)
+        }
+        callbacks.clear()
+        var callback = Runnable { popupwindow.dismiss() }
+        callbacks.add(callback)
+        handler.postDelayed(callback, 1500)
     }
 
 

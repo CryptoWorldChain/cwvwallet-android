@@ -4,30 +4,34 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.base.BaseFragment
 import fanrong.cwvwalled.base.Constants
 import fanrong.cwvwalled.common.PageParamter
+import fanrong.cwvwalled.eventbus.WalletChangeEvent
 import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.GetBalanceReq
 import fanrong.cwvwalled.http.model.WalletBalanceModel
-import fanrong.cwvwalled.litepal.GreNodeOperator
-import fanrong.cwvwalled.litepal.GreWalletModel
-import fanrong.cwvwalled.litepal.GreWalletOperator
-import fanrong.cwvwalled.litepal.LiteCoinBeanOperator
+import fanrong.cwvwalled.litepal.*
 import fanrong.cwvwalled.parenter.ToRMBPresenter
 import fanrong.cwvwalled.ui.activity.AddAssetActivity
 import fanrong.cwvwalled.ui.activity.AllWalletActivity
 import fanrong.cwvwalled.ui.activity.ImportWalletTypeActivity
+import fanrong.cwvwalled.ui.activity.WalletDetailActivity
 import fanrong.cwvwalled.ui.adapter.HomeAssertsAdapter
 import fanrong.cwvwalled.ui.adapter.HomeCardAdatper
 import fanrong.cwvwalled.ui.view.ZoomOutPageTransformer
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import xianchao.com.basiclib.utils.BundleUtils
 
 class HomeFragment : BaseFragment() {
 
@@ -68,6 +72,8 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun initView() {
+        EventBus.getDefault().register(this)
+
         tv_wallet.setOnClickListener(this)
         tv_addmore.setOnClickListener(this)
         iv_add_assets.setOnClickListener(this)
@@ -85,6 +91,14 @@ class HomeFragment : BaseFragment() {
         assertsAdapter = HomeAssertsAdapter(R.layout.item_home_assert)
         rl_recycler.layoutManager = LinearLayoutManager(activity)
         rl_recycler.adapter = assertsAdapter
+        assertsAdapter!!.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+                var bundle = BundleUtils.createWith(PageParamter.PAREMTER_LITE_COINBEAN
+                        , adapter!!.data[position] as LiteCoinBeanModel)
+                startActivity(WalletDetailActivity::class.java, bundle)
+            }
+
+        }
 
         loadData()
     }
@@ -189,4 +203,19 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun walletChange(walletChangeEvent: WalletChangeEvent) {
+        homeCardAdatper.allWallet = GreWalletOperator.queryAll()
+        homeCardAdatper.notifyDataSetChanged()
+    }
+
+
 }
+
+
+
+
+
+
+

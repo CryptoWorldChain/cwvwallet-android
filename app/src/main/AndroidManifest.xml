@@ -54,8 +54,10 @@
         <activity android:name=".ui.activity.ImportWalletActivity" />
         <activity android:name=".ui.activity.AddAssetActivity" />
         <activity android:name=".ui.activity.WebViewActivity" />
-        <activity android:name=".ui.activity.CoinMarketActivity"></activity>
-
+        <activity android:name=".ui.activity.CoinMarketActivity" />
+        <activity android:name=".ui.activity.WalletDetailActivity" />
+        <activity android:name=".ui.activity.ReceiptActivity" />
+        <activity android:name=".ui.activity.TransferActivity"></activity>
     </application>
 
 </manifest>

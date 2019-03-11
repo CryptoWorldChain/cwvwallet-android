@@ -92,7 +92,7 @@ class WalletSettingActivity : BaseActivity() {
                 dialog.dismiss()
                 val nameDialog = dialog as ChangeWalletNameDialog
                 walletModel.walletName = nameDialog.walletName
-                GreWalletOperator.insert(walletModel)
+                GreWalletOperator.updateWalletName(walletModel)
                 tv_wallet_name.text = walletModel.walletName
             }
         }

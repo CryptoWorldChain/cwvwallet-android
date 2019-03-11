@@ -9,11 +9,16 @@ import com.yanzhenjie.recyclerview.swipe.*
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
+import fanrong.cwvwalled.eventbus.WalletChangeEvent
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.ui.adapter.WalletAdapter
 import fanrong.cwvwalled.utils.DensityUtil
 import kotlinx.android.synthetic.main.activity_all_wallet.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import org.litepal.LitePal
 
 class AllWalletActivity : BaseActivity() {
 
@@ -31,10 +36,12 @@ class AllWalletActivity : BaseActivity() {
     }
 
     override fun initView() {
+        EventBus.getDefault().register(this)
+
         bgll_cwv_wallet.setOnClickListener(this)
         bgll_eth_wallet.setOnClickListener(this)
 
-        setTitleText("wallet")
+        setTitleText("coinBeanModel")
         setLeftImgOnclickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 finish()
@@ -109,9 +116,20 @@ class AllWalletActivity : BaseActivity() {
     }
 
     override fun loadData() {
-
         val import = GreWalletOperator.queryImport()
         walletAdapter.setNewData(import)
-
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun walletChange(walletChangeEvent: WalletChangeEvent) {
+        queryCWV = GreWalletOperator.queryMainCWV()
+        tv_cwv_wallet_name.text = queryCWV?.walletName
+        tv_cwv_address.text = queryCWV?.walletType
+        queryETH = GreWalletOperator.queryMainETH()
+        tv_eth_wallet_name.text = queryETH?.walletName
+        tv_eth_address.text = queryETH?.walletType
+
+        loadData()
+    }
+
 }

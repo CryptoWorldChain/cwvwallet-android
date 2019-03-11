@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fanrong.cwvwalled.ui.view.SwipeMenuView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<fanrong.cwvwalled.ui.view.SwipeMenuView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="57dp">
 
@@ -8,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:background="#292a2a"
+        android:id="@+id/contentview"
         android:gravity="center_vertical">
 
         <ImageView
@@ -30,13 +30,13 @@
         <TextView
             android:id="@+id/tv_address_remark"
             android:layout_width="0dp"
-            android:layout_weight="3"
-            android:maxLines="1"
-            android:gravity="right"
-            android:ellipsize="end"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="15dp"
+            android:layout_weight="3"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="1"
             android:text="0x0543b4e1186…5eg302"
             android:textColor="@color/white"
             android:textSize="13.4sp" />
@@ -45,12 +45,12 @@
 
     <TextView
         android:id="@+id/tv_del_address"
-        android:textSize="15.3sp"
-        android:text="删除"
+        android:layout_width="114dp"
+        android:layout_height="57dp"
         android:background="@color/red"
         android:gravity="center"
+        android:text="删除"
         android:textColor="@color/white"
-        android:layout_width="114dp"
-        android:layout_height="57dp" />
+        android:textSize="15.3sp" />
 
 </fanrong.cwvwalled.ui.view.SwipeMenuView>

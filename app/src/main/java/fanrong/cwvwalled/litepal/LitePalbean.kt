@@ -5,7 +5,7 @@ import org.litepal.crud.LitePalSupport
 import java.io.Serializable
 
 
-data class AddressModel(val name: String, val address: String, var remark: String = "") : LitePalSupport() {
+data class AddressModel(val name: String, val address: String, var remark: String = "") : LitePalSupport(), Serializable {
     val id: Long = 0
     override fun toString(): String {
         return "AddressModel(name='$name', address='$address', remark='$remark', id=$id)"
@@ -50,7 +50,7 @@ data class GreWalletModel(@Column(unique = true) var address: String) : LitePalS
 }
 
 
-data class LiteCoinBeanModel(@Column(unique = true) var coin_name: String) : LitePalSupport() {
+data class LiteCoinBeanModel(@Column(unique = true) var coin_name: String) : LitePalSupport(), Serializable {
 
     var id: Long = 0
     var contract_addr: String? = null
@@ -64,6 +64,7 @@ data class LiteCoinBeanModel(@Column(unique = true) var coin_name: String) : Lit
     var count: String? = null
     var countCNY: String? = null
     var sourceAddr: String? = null
+    var walletName: String? = null
 
     override fun toString(): String {
         return "LiteCoinBeanModel(coin_name='$coin_name', id=$id, contract_addr=$contract_addr, channel_name=$channel_name, coin_symbol=$coin_symbol, coin_decimals=$coin_decimals, coin_total_supply=$coin_total_supply, coin_icon=$coin_icon, single_max_amt=$single_max_amt, single_min_amt=$single_min_amt, count=$count, countCNY=$countCNY)"

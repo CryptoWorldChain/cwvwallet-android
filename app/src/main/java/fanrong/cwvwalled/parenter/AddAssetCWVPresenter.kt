@@ -33,14 +33,16 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
 
                             var tokens = response.body()!!.token!!
 
-                            for (allETH in hasCoins) {
-                                for (token in tokens) {
+                            for (token in tokens) {
+                                token.coin_symbol = token.coin_symbol + "(c)"
+                                token.walletName = token.walletName
+
+                                for (allETH in hasCoins) {
                                     if (allETH.coin_name.equals(token.coin_name)) {
                                         token.isOpen = true
                                     }
                                 }
                             }
-
                             valueCallBack.valueBack(tokens)
                         }
                     }

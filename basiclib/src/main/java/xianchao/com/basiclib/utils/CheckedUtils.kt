@@ -1,6 +1,7 @@
 package xianchao.com.basiclib.utils
 
 import android.text.TextUtils
+import android.util.Log.i
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -30,6 +31,12 @@ object CheckedUtils {
 
     fun nonEmpty(str: String?): Boolean {
         return !TextUtils.isEmpty(str)
+    }
+
+    fun nonEmpty(str: String?, nonEmpty: () -> Unit) {
+        if (!TextUtils.isEmpty(str)) {
+            nonEmpty()
+        }
     }
 
 

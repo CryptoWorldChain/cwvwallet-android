@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.util.regex.Pattern;
 
 import fanrong.cwvwalled.http.model.BaseResponse;
+import xianchao.com.basiclib.utils.CheckedUtils;
 
 /**
  * Created by terry.c on 29/03/2018.
@@ -146,6 +147,9 @@ public class FanRongTextUtils {
      * @return
      */
     public static boolean isNumeric(String str) {
+        if (CheckedUtils.INSTANCE.isEmpty(str)) {
+            return false;
+        }
         Pattern pattern = Pattern.compile("[0-9]*");
         Pattern decimal = Pattern.compile("[0-9]*.[0-9]*");
 

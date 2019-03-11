@@ -1,5 +1,6 @@
 package fanrong.cwvwalled.litepal
 
+import android.content.ContentValues
 import net.sourceforge.http.model.CoinBean
 import org.litepal.LitePal
 
@@ -14,7 +15,7 @@ object LiteCoinBeanOperator {
         beanModel.coin_total_supply = coinBean.coin_total_supply
         beanModel.contract_addr = coinBean.contract_addr
         beanModel.sourceAddr = coinBean.sourceAddr
-
+        beanModel.walletName = coinBean.walletName
         return beanModel
     }
 
@@ -31,6 +32,13 @@ object LiteCoinBeanOperator {
 
     fun findAllFromParent(addr: String): MutableList<LiteCoinBeanModel> {
         return LitePal.where("sourceAddr like ?", addr).find(LiteCoinBeanModel::class.java)
+    }
+
+    fun updateAllWalletName(walletModel: GreWalletModel) {
+        val contentValues = ContentValues()
+        contentValues.put("walletName", walletModel.walletName)
+        LitePal.updateAll(LiteCoinBeanModel::class.java, contentValues, "sourceAddr like ?", walletModel.address)
+
     }
 
 

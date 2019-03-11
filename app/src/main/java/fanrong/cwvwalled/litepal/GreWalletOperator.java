@@ -1,9 +1,13 @@
 package fanrong.cwvwalled.litepal;
 
+import android.content.ContentValues;
+
+import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
 
 import java.util.List;
 
+import fanrong.cwvwalled.eventbus.WalletChangeEvent;
 import fanrong.cwvwalled.litepal.GreWalletModel;
 import xianchao.com.basiclib.utils.CheckedUtils;
 
@@ -25,6 +29,17 @@ public class GreWalletOperator {
 
     public static void insert(GreWalletModel greWallet) {
         greWallet.save();
+        EventBus.getDefault().post(new WalletChangeEvent());
+    }
+
+    public static void updateWalletName(GreWalletModel greWallet) {
+        ContentValues values = new ContentValues();
+        values.put("walletName", greWallet.getWalletName());
+        LitePal.update(GreWalletModel.class, values, greWallet.getId());
+
+        LiteCoinBeanOperator.INSTANCE.updateAllWalletName(greWallet);
+
+        EventBus.getDefault().post(new WalletChangeEvent());
     }
 
     public static List<GreWalletModel> queryAll() {
