@@ -26,9 +26,11 @@ import fanrong.cwvwalled.litepal.AddressModel
 import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
 import fanrong.cwvwalled.parenter.TransferEthPresenter
+import fanrong.cwvwalled.parenter.TransferFbcPresenter
 import fanrong.cwvwalled.parenter.TransferPresenter
 import fanrong.cwvwalled.ui.view.InputPasswordDialog
 import fanrong.cwvwalled.ui.view.TransferConfirmDialog
+import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import kotlinx.android.synthetic.main.activity_transfer.*
 import net.sourceforge.listener.TextWatcherAfter
@@ -81,7 +83,9 @@ class TransferActivity : BaseActivity() {
         if ("ETH".equals(coinBeanModel.channel_name)) {
             transferPresenter = TransferEthPresenter(coinBeanModel)
         } else {
-            transferPresenter = TransferEthPresenter(coinBeanModel)
+            transferPresenter = TransferFbcPresenter(coinBeanModel)
+            sb_seekbar.visibility = View.GONE
+            ll_tip.visibility = View.GONE
         }
 
         et_address.addTextChangedListener(object : TextWatcherAfter() {
@@ -161,11 +165,12 @@ class TransferActivity : BaseActivity() {
         val passwordDialog = InputPasswordDialog(this)
         passwordDialog.btnListener = object : FRDialogBtnListener {
             override fun onCancel(dialog: Dialog) {
+                dialog.dismiss()
             }
 
             override fun onConfirm(dialog: Dialog) {
                 if (UserInfoObject.password.equals(passwordDialog.inputPassword)) {
-
+                    dialog.dismiss()
                     toCommit()
 
                 } else {
@@ -201,9 +206,7 @@ class TransferActivity : BaseActivity() {
         req.to_addr = address
         req.value = money
         req.gas_price = gas_price
-        var coinSymbol = coinBeanModel.coin_symbol!!.replace("(e)", "")
-        coinSymbol = coinSymbol.replace("(c)", "")
-        req.symbol = coinSymbol
+        req.symbol = AppUtils.getRealSymbol(coinBeanModel.coin_symbol)
 
 
         val exData = HashMap<String, String>()

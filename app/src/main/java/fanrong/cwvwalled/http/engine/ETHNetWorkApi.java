@@ -4,7 +4,6 @@ import net.sourceforge.http.model.QueryCoinTypeResp;
 import net.sourceforge.http.model.spdt.TransactionRecordResp;
 
 import fanrong.cwvwalled.http.model.NodeListResp;
-import fanrong.cwvwalled.http.model.NodeModel;
 import fanrong.cwvwalled.http.model.WalletBalanceModel;
 import fanrong.cwvwalled.http.model.WalletNonceModel;
 import fanrong.cwvwalled.http.model.WalletTransferModel;
@@ -16,7 +15,7 @@ import retrofit2.http.POST;
 
 public interface ETHNetWorkApi {
 
-    String ETH_ROOT = FBCNetWorkApi.SPDT_ROOT;
+    String ETH_ROOT = FBCNetWorkApi.FBC_ROOT;
 
 
     @POST(ETH_ROOT + "eth/pbqnl.do")

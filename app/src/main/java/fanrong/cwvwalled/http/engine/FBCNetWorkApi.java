@@ -18,16 +18,16 @@ import retrofit2.http.POST;
 public interface FBCNetWorkApi {
 
 
-    String SPDT_ROOT = "https://dev.wallet.icwv.co/";
+    String FBC_ROOT = "https://dev.wallet.icwv.co/";
 
 
-    @POST(SPDT_ROOT + "fbc/pbqnl.do")
+    @POST(FBC_ROOT + "fbc/pbqnl.do")
     Call<NodeListResp> requestNodeList(@Body RequestBody map);
 
-    @POST(SPDT_ROOT + "fbc/pbqbe.do")
+    @POST(FBC_ROOT + "fbc/pbqbe.do")
     Call<WalletBalanceModel> fbcGetBalance(@Body RequestBody map);
 
-    @POST(SPDT_ROOT + "fbc/pbqne.do")
+    @POST(FBC_ROOT + "fbc/pbqne.do")
     Call<WalletNonceModel> fbcWalletNonce(@Body RequestBody map);
 
     /**
@@ -36,7 +36,7 @@ public interface FBCNetWorkApi {
      * @param map
      * @return
      */
-    @POST(SPDT_ROOT + "fbc/pbqgs.do")
+    @POST(FBC_ROOT + "fbc/pbqgs.do")
     Call<QueryNodeGasResp> fbcQueryNodeGas(@Body RequestBody map);
 
     /**
@@ -45,29 +45,38 @@ public interface FBCNetWorkApi {
      * @param map
      * @return
      */
-    @POST(SPDT_ROOT + "fbc/pbtxt.do")
+    @POST(FBC_ROOT + "fbc/pbtxt.do")
     Call<WalletTransferModel> fbcTransfer(@Body RequestBody map);
+
+    /**
+     * 主币-转账
+     *
+     * @param map
+     * @return
+     */
+    @POST(FBC_ROOT + "fbc/pbtxe.do")
+    Call<WalletTransferModel> mainTransfer(@Body RequestBody map);
 
     /**
      * 查询第三方服务
      */
-    @POST(SPDT_ROOT + "spdt/pbapl.do")
+    @POST(FBC_ROOT + "spdt/pbapl.do")
     Call<QueryOtherServiceResp> queryOtherService(@Body RequestBody map);
 
     /**
      * 查询首页广告图
      */
-    @POST(SPDT_ROOT + "spdt/pbbal.do")
+    @POST(FBC_ROOT + "spdt/pbbal.do")
     Call<HomeAdvertResp> queryHomeAdvert(@Body RequestBody map);
 
     /**
      * 查询交易记录
      */
-    @POST(SPDT_ROOT + "eth/pbqta.do")
+    @POST(FBC_ROOT + "fbc/pbqta.do")
     Call<TransactionRecordResp> queryTransactionRecord(@Body RequestBody map);
     /**
      * 查询交易记录
      */
-    @POST(SPDT_ROOT + "fbc/pbqti.do")
+    @POST(FBC_ROOT + "fbc/pbqti.do")
     Call<QueryCoinTypeResp> queryCoinType(@Body RequestBody map);
 }

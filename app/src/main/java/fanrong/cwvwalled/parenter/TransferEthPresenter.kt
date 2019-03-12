@@ -11,10 +11,7 @@ import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
-import fanrong.cwvwalled.utils.CallJsCodeUtils
-import fanrong.cwvwalled.utils.FanRongTextUtils
-import fanrong.cwvwalled.utils.MoneyUtils
-import fanrong.cwvwalled.utils.SWLog
+import fanrong.cwvwalled.utils.*
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -22,6 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import xianchao.com.basiclib.utils.CheckedUtils
 import xianchao.com.basiclib.utils.XCJsonUtils
+import java.lang.RuntimeException
 import java.math.BigDecimal
 
 class TransferEthPresenter : TransferPresenter {
@@ -81,7 +79,14 @@ class TransferEthPresenter : TransferPresenter {
 
 
         SWLog.e(signParamter)
-        CallJsCodeUtils.eth_ecHexSign(signParamter, GreWalletOperator.queryMainCWV().privateKey, ValueCallback<String> { value ->
+        var privateKey = ""
+        val withAddress = GreWalletOperator.queryWalletWithAddress(coinBeanModel.sourceAddr)
+        if ("ETH".equals(withAddress.walletType)) {
+            privateKey = withAddress.privateKey!!
+        } else {
+            throw RuntimeException("没有对应的钱包地址")
+        }
+        CallJsCodeUtils.eth_ecHexSign(signParamter, privateKey, ValueCallback<String> { value ->
             signedMessage = CallJsCodeUtils.readStringJsValue(value)
             SWLog.e(value)
             if (isEth()) {
@@ -101,7 +106,7 @@ class TransferEthPresenter : TransferPresenter {
      */
     private fun transfer() {
         transferReq.dapp_id = Constants.DAPP_ID
-        transferReq.symbol = coinBeanModel.coin_symbol
+        transferReq.symbol = AppUtils.getRealSymbol(coinBeanModel.coin_symbol)
         transferReq.node_url = GreNodeOperator.queryETHnode().node_url
         transferReq.contract_addr = coinBeanModel.contract_addr
         transferReq.tx_type = "转帐"
@@ -144,7 +149,7 @@ class TransferEthPresenter : TransferPresenter {
      */
     private fun daiTransfer() {
         transferReq.dapp_id = Constants.DAPP_ID
-        transferReq.symbol = coinBeanModel.coin_symbol
+        transferReq.symbol = AppUtils.getRealSymbol(coinBeanModel.coin_symbol)
         transferReq.node_url = GreNodeOperator.queryETHnode().node_url
         transferReq.contract_addr = coinBeanModel.contract_addr
         transferReq.tx_type = "转帐"
@@ -183,9 +188,7 @@ class TransferEthPresenter : TransferPresenter {
 
 
     private fun isEth(): Boolean {
-        var symbol = coinBeanModel.coin_symbol!!.replace("(c)", "")
-        symbol = symbol.replace("(e)", "")
-        return "ETH".equals(symbol)
+        return "ETH".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))
     }
 
 

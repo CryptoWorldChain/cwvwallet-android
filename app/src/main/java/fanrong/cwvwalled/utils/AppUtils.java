@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 import java.lang.reflect.Field;
 
+import xianchao.com.basiclib.utils.CheckedUtils;
+
 /**
  * Created by terry.c on 12/04/2018.
  */
@@ -61,6 +63,15 @@ public class AppUtils {
             return field.get(object);
         }
         return null;
+    }
+
+    public static String getRealSymbol(String symbol){
+        if (CheckedUtils.INSTANCE.isEmpty(symbol)) {
+            return symbol;
+        }
+        symbol = symbol.replace("(c)","");
+        symbol = symbol.replace("(e)","");
+        return symbol;
     }
 
 }

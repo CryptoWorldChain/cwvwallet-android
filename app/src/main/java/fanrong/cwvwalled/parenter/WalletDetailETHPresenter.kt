@@ -8,6 +8,7 @@ import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.GetBalanceReq
 import fanrong.cwvwalled.http.model.WalletBalanceModel
 import fanrong.cwvwalled.litepal.GreNodeOperator
+import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import net.sourceforge.http.model.spdt.TransactionRecordReq
 import net.sourceforge.http.model.spdt.TransactionRecordResp
@@ -26,8 +27,8 @@ class WalletDetailETHPresenter() : WalletDetailPresenter() {
         recordReq.node_url = GreNodeOperator.queryETHnode().node_url
         recordReq.limit = "" + pageSize
         recordReq.page_num = "" + pageNum
-        var coin_symbol = liteCoinBeanModel.coin_symbol!!.replace("(e)", "")
-        if ("ETH".equals(liteCoinBeanModel.coin_symbol)) {
+        var coin_symbol = AppUtils.getRealSymbol(liteCoinBeanModel.coin_symbol)
+        if ("ETH".equals(coin_symbol)) {
             recordReq.contract_addr = "null"
         } else {
             recordReq.contract_addr = liteCoinBeanModel.contract_addr

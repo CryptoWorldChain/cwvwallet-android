@@ -24,6 +24,7 @@ import fanrong.cwvwalled.ui.activity.WalletDetailActivity
 import fanrong.cwvwalled.ui.adapter.HomeAssertsAdapter
 import fanrong.cwvwalled.ui.adapter.HomeCardAdatper
 import fanrong.cwvwalled.ui.view.ZoomOutPageTransformer
+import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
@@ -111,7 +112,7 @@ class HomeFragment : BaseFragment() {
         for (asset in assets) {
             val req = GetBalanceReq()
             req.dapp_id = Constants.DAPP_ID
-            req.node_url = GreNodeOperator.queryETHnode().node_url
+            req.node_url = GreNodeOperator.queryCWVnode().node_url
             req.address = assets[0].sourceAddr
             req.contract_addr = assets[0].contract_addr
             RetrofitClient.getFBCNetWorkApi()
@@ -122,8 +123,7 @@ class HomeFragment : BaseFragment() {
                             val rightNum = MoneyUtils.getRightNum(body!!.balance)
                             asset.count = rightNum
 
-                            var coin_symbol = asset.coin_symbol!!.replace("(e)", "")
-                            coin_symbol = coin_symbol.replace("(c)", "")
+                            var coin_symbol = AppUtils.getRealSymbol(asset.coin_symbol)
                             ToRMBPresenter.toRMB(rightNum, coin_symbol) {
                                 asset.countCNY = it
                                 assertsAdapter!!.notifyDataSetChanged()

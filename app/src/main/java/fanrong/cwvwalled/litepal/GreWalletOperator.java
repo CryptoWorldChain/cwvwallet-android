@@ -66,4 +66,16 @@ public class GreWalletOperator {
         }
         return null;
     }
+
+    public static GreWalletModel queryWalletWithAddress(String address) {
+
+        List<GreWalletModel> all = LitePal.where("address like ?", address)
+                .find(GreWalletModel.class);
+        if (CheckedUtils.INSTANCE.nonEmpty(all)) {
+            return all.get(0);
+        }
+        return null;
+
+    }
+
 }
