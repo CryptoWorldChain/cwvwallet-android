@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#292A2A"
-    android:paddingTop="20dp"
+    android:background="#000000"
     tools:context="com.yzq.zxinglibrary.android.CaptureActivity">
     <!-- 整体透明画布 -->
 
@@ -14,7 +13,7 @@
         android:id="@+id/preview_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="48dp" />
+        android:layout_marginTop="70dp" />
 
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -27,22 +26,24 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolBarHeight"
+            android:layout_height="70dp"
+            android:paddingTop="20dp"
+            android:background="#161616"
             android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/backIv"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
                 android:src="@drawable/zxing_ic_back_white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="付款"
+                android:text=""
                 android:textColor="#FFFFFF"
                 android:textSize="16dp" />
 
@@ -56,26 +57,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
-
-
-    </android.support.v7.widget.LinearLayoutCompat>
-
-    <android.support.v7.widget.LinearLayoutCompat
-        android:id="@+id/bottomLayout"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:id="@+id/albumIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="在相册中选择照片"
-            android:textColor="#bf9113" />
 
 
     </android.support.v7.widget.LinearLayoutCompat>

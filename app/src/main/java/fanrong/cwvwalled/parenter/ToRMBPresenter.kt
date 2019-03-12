@@ -26,7 +26,7 @@ object ToRMBPresenter {
                         if (body!!.kline != null && !body!!.kline.isEmpty()) {
                             val floatNote = body!!.kline.get(0)
                             val multiplyValue = MoneyUtils.getMultiplyValue(money, floatNote.rmbclose)
-                            callBcak("")
+                            callBcak(multiplyValue)
                         }
                     }
 

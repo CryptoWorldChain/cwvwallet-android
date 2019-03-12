@@ -64,12 +64,12 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
         rl_recycler.adapter = detailAdapter
         detailAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-
                 val item = adapter!!.getItem(position) as TransRecordItem
-//                TransDetailActivity.start(activity, item, coinName)
+                val createWith = BundleUtils.createWith(PageParamter.PAREMTER_TRANS_RECORD, item)
+                createWith.putSerializable(PageParamter.PAREMTER_LITE_COINBEAN, coinBeanModel)
+                startActivity(TransRecordActivity::class.java, createWith)
             }
         })
-
         tv_count_cny.text = "≈0 CNY"
 
 
@@ -84,7 +84,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
             }
 
             override fun onRefresh(refreshlayout: RefreshLayout) {
-                presenter.pageNum++
+                presenter.pageNum = 1
                 refreshlayout.resetNoMoreData()
                 presenter.queryRecord(recordValueBack)
             }
@@ -132,8 +132,9 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
         override fun valueBack(t: String?) {
             val handleDecimal = MoneyUtils.commonHandleDecimal(t)
             tv_count.text = "${handleDecimal} ${coinBeanModel.coin_symbol}"
-
-            ToRMBPresenter.toRMB(t!!, coinBeanModel.coin_symbol!!) {
+            var coin_symbol = coinBeanModel.coin_symbol!!.replace("(c)", "")
+            coin_symbol = coin_symbol.replace("(e)", "")
+            ToRMBPresenter.toRMB(t!!, coin_symbol) {
                 val rmbDecimal = MoneyUtils.commonRMBDecimal(it)
                 tv_count_cny.text = "≈ ${rmbDecimal} CNY"
             }

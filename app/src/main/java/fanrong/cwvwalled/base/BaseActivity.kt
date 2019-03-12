@@ -55,8 +55,9 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun setRightImgOnclickListener(resourceId: Int, callback: () -> Unit) {
-
-        findViewById<ImageView>(R.id.iv_right_image).setImageResource(resourceId)
+        var rightImage = findViewById<ImageView>(R.id.iv_right_image)
+        rightImage.visibility = View.VISIBLE
+        rightImage.setImageResource(resourceId)
         findViewById<ImageView>(R.id.iv_right_image).setOnClickListener { callback() }
     }
 
@@ -75,6 +76,13 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
                 R.anim.fragment_slide_left_exit)
     }
 
+
+    fun startActivityForResult(clazz: Class<out Activity>, requestCode: Int) {
+        var intent = Intent(this, clazz)
+        startActivityForResult(intent, requestCode)
+        overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit)
+    }
 
     fun startActivityForResult(clazz: Class<out Activity>, bundle: Bundle) {
         var intent = Intent(this, clazz)
@@ -162,5 +170,13 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
         overridePendingTransition(android.R.anim.fade_in,
                 android.R.anim.fade_out)
     }
+
+
+    fun delayFinish(vararg delay: Long) {
+        Handler().postDelayed({
+            finish()
+        }, if (delay.isEmpty()) {1500} else {delay[0]})
+    }
+
 
 }

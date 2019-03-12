@@ -61,7 +61,7 @@ public class MoneyUtils {
 
     public static String commonHandleDecimal(String value) {
         if (CheckedUtils.INSTANCE.isEmpty(value)) {
-            return "";
+            return "0.0000";
         }
 
         String string = new BigDecimal(value).setScale(4, BigDecimal.ROUND_DOWN).doubleValue() + "";
@@ -77,7 +77,7 @@ public class MoneyUtils {
 
     public static String commonRMBDecimal(String value) {
         if (CheckedUtils.INSTANCE.isEmpty(value)) {
-            return "";
+            return "0.00";
         }
         return new BigDecimal(value).setScale(2, BigDecimal.ROUND_DOWN).toString();
 

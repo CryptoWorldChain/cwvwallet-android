@@ -14,6 +14,7 @@ import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.utils.AppUtils
+import fanrong.cwvwalled.utils.MoneyUtils
 import fanrong.cwvwalled.utils.WordReplacement
 
 class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
@@ -48,7 +49,7 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
         view.findViewById<TextView>(R.id.tv_address).text = walletModel.address
         var tv_price = view.findViewById<TextView>(R.id.tv_price)
         var tv_unit = view.findViewById<TextView>(R.id.tv_unit)
-        tv_price.text = walletModel.balance
+        tv_price.text = MoneyUtils.commonRMBDecimal(walletModel.rmb)
         view.findViewById<CheckBox>(R.id.ib_hide_assert).setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 tv_unit.visibility = View.INVISIBLE

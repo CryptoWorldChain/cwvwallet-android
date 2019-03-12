@@ -57,7 +57,9 @@
         <activity android:name=".ui.activity.CoinMarketActivity" />
         <activity android:name=".ui.activity.WalletDetailActivity" />
         <activity android:name=".ui.activity.ReceiptActivity" />
-        <activity android:name=".ui.activity.TransferActivity"></activity>
+        <activity android:name=".ui.activity.TransferActivity" />
+        <activity android:name="com.yzq.zxinglibrary.android.CaptureActivity" />
+        <activity android:name=".ui.activity.TransRecordActivity"></activity>
     </application>
 
 </manifest>

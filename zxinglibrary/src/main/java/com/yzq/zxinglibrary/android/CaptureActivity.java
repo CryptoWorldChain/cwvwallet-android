@@ -94,7 +94,9 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(Color.TRANSPARENT);
+            }
         }
 
         /*先获取配置信息*/
@@ -137,8 +139,6 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
         backIv = findViewById(R.id.backIv);
         backIv.setOnClickListener(this);
 
-        bottomLayout = findViewById(R.id.bottomLayout);
-        findViewById(R.id.albumIv).setOnClickListener(this);
 
     }
 
@@ -305,17 +305,6 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
 
     @Override
     public void onClick(View view) {
-
-        int id = view.getId();
-        if (id == R.id.albumIv) {
-            /*打开相册*/
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            startActivityForResult(intent, Constant.REQUEST_IMAGE);
-        } else if (id == R.id.backIv) {
-            finish();
-        }
 
 
     }

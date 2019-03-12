@@ -32,11 +32,11 @@ class EthDetailAdapter(var coinBeanModel: LiteCoinBeanModel, layoutId: Int) : Ba
         if (coinBeanModel.sourceAddr.equals(item.from_addr, true)) {
             helper.setText(R.id.tv_address, item.to_addr)
             helper.setText(R.id.tv_count, "-" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.value)))
-            helper.setTextColor(R.id.tv_count, Color.parseColor("#eca703"))
+            helper.setTextColor(R.id.tv_count, Color.parseColor("#7cb1f9"))
         } else {
             helper.setText(R.id.tv_address, item.from_addr)
             helper.setText(R.id.tv_count, "+" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.value)))
-            helper.setTextColor(R.id.tv_count, Color.parseColor("#00b858"))
+            helper.setTextColor(R.id.tv_count, Color.parseColor("#3090ff"))
         }
 
 
@@ -45,24 +45,24 @@ class EthDetailAdapter(var coinBeanModel: LiteCoinBeanModel, layoutId: Int) : Ba
             // 成功
             // 初始地址 和自己钱包地址一样 是转出
             if (coinBeanModel.sourceAddr == item.from_addr) {
-//                helper.setImageResource(R.id.iv_image, R.drawable.eth_item_status_out)
+                helper.setImageResource(R.id.iv_image, R.drawable.detail_item_out)
                 helper.getView<TextView>(R.id.tv_status).visibility = View.INVISIBLE
             } else {
-//                helper.setImageResource(R.id.iv_image, R.drawable.eth_item_status_in)
+                helper.setImageResource(R.id.iv_image, R.drawable.detail_item_in)
                 helper.getView<TextView>(R.id.tv_status).visibility = View.INVISIBLE
             }
         } else if ("失败".equals(item.des)) {
             // 失败
-//            helper.setImageResource(R.id.iv_image, R.drawable.eth_item_status_error)
+            helper.setImageResource(R.id.iv_image, R.drawable.detail_item_error)
             helper.setText(R.id.tv_count, "交易失败")
             helper.setTextColor(R.id.tv_count, Color.parseColor("#fd674b"))
             helper.setText(R.id.tv_status, item.des)
             helper.getView<TextView>(R.id.tv_status).visibility = View.VISIBLE
         } else {
             // icon 等待
-//            helper.setImageResource(R.id.iv_image, R.drawable.eth_item_status_wait)
+            helper.setImageResource(R.id.iv_image, R.drawable.detail_item_wait)
             helper.setText(R.id.tv_status, item.des)
-            helper.setTextColor(R.id.tv_count, Color.parseColor("#4a90e2"))
+            helper.setTextColor(R.id.tv_count, Color.parseColor("#3090ff"))
             helper.getView<TextView>(R.id.tv_status).visibility = View.VISIBLE
         }
     }

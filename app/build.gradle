@@ -10,6 +10,7 @@ android {
         applicationId "fanrong.cwvwalled"
         minSdkVersion 19
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -60,6 +61,8 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-7'
     //eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.facebook.fresco:fresco:1.9.0'
+    implementation 'com.android.support:multidex:1.0.3'
 
 
     implementation 'org.litepal.android:core:2.0.0'

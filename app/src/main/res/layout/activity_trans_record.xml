@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_page_bg"
+    tools:context=".ui.activity.TransRecordActivity">
+
+
+    <include layout="@layout/layout_title" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <xianchao.com.basiclib.widget.BgLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="33dp"
+            android:layout_marginRight="33dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/trans_detail_card_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="48dp"
+            android:paddingTop="38dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="-5400.00CWV"
+                android:textColor="#ffffff"
+                android:textSize="19.2sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:text="收款方："
+                    android:textColor="#999999"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/tv_to_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:gravity="left"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textSize="13.4sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="发款方："
+                    android:textColor="#999999"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/tv_from_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_weight="1"
+                    android:ellipsize="middle"
+                    android:gravity="left"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textSize="13.4sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="矿工费："
+                    android:textColor="#999999"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/tv_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textSize="13.4sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="备注："
+                    android:textColor="#999999"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/tv_remark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textSize="13.4sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="34dp"
+                    android:layout_marginRight="34dp"
+                    android:background="#505050" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="交易号："
+                    android:textColor="#999999"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/tv_trans_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_home_copy"
+                    android:ellipsize="middle"
+                    android:gravity="left"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textSize="13.4sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="区块："
+                    android:textColor="#999999"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/tv_block_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textSize="13.4sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="交易时间："
+                    android:textColor="#999999"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/tv_trans_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textSize="13.4sp" />
+
+            </LinearLayout>
+
+
+        </xianchao.com.basiclib.widget.BgLinearLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_trans_status"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:src="@drawable/trans_detail_item_out" />
+
+    </FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>

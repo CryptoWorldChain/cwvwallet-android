@@ -23,10 +23,10 @@ class WalletDetailETHPresenter() : WalletDetailPresenter() {
 
         val recordReq = TransactionRecordReq(Constants.DAPP_ID)
         recordReq.account_addr = liteCoinBeanModel.sourceAddr
-        recordReq.node_url = GreNodeOperator.queryCWVnode().node_url
+        recordReq.node_url = GreNodeOperator.queryETHnode().node_url
         recordReq.limit = "" + pageSize
         recordReq.page_num = "" + pageNum
-        liteCoinBeanModel.coin_symbol = liteCoinBeanModel.coin_symbol!!.replace("(e)", "")
+        var coin_symbol = liteCoinBeanModel.coin_symbol!!.replace("(e)", "")
         if ("ETH".equals(liteCoinBeanModel.coin_symbol)) {
             recordReq.contract_addr = "null"
         } else {

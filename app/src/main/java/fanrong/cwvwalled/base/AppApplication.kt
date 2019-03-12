@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.os.StrictMode
+import android.support.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.*
@@ -16,7 +17,7 @@ import fanrong.cwvwalled.utils.AppManager
 import fanrong.cwvwalled.utils.CallJsCodeUtils
 import org.litepal.LitePal
 
-class AppApplication : Application() {
+class AppApplication : MultiDexApplication() {
 
     init {
 

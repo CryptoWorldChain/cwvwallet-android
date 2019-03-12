@@ -24,6 +24,7 @@ import fanrong.cwvwalled.ui.activity.WalletDetailActivity
 import fanrong.cwvwalled.ui.adapter.HomeAssertsAdapter
 import fanrong.cwvwalled.ui.adapter.HomeCardAdatper
 import fanrong.cwvwalled.ui.view.ZoomOutPageTransformer
+import fanrong.cwvwalled.utils.MoneyUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -37,8 +38,6 @@ class HomeFragment : BaseFragment() {
 
     var assertsAdapter: HomeAssertsAdapter? = null
     lateinit var homeCardAdatper: HomeCardAdatper
-    var cwvAssert = LiteCoinBeanOperator.findAllCWVs()
-    var ethAssert = LiteCoinBeanOperator.findAllETHs()
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
@@ -56,19 +55,86 @@ class HomeFragment : BaseFragment() {
         override fun onPageSelected(index: Int) {
             val wallet = homeCardAdatper.allWallet[vp_container.currentItem % homeCardAdatper.allWallet.size]
             changeWallet(wallet)
+            loadData()
+
         }
 
     }
 
 
     fun changeWallet(wallet: GreWalletModel) {
+        var assets = LiteCoinBeanOperator.findAllFromParent(wallet.address)
+        assertsAdapter?.setNewData(assets)
+
         if ("ETH".equals(wallet.walletType)) {
             tv_asset.text = "ETH-Asset"
+            queryEthAssetBalance(assets)
         } else {
             tv_asset.text = "CWV-Asset"
+            queryFbcAssetBalance(assets)
         }
-        GreWalletOperator.queryAll()
-        assertsAdapter?.setNewData(LiteCoinBeanOperator.findAllFromParent(wallet.address))
+    }
+
+    private fun queryEthAssetBalance(assets: MutableList<LiteCoinBeanModel>) {
+
+        for (asset in assets) {
+            val req = GetBalanceReq()
+            req.dapp_id = Constants.DAPP_ID
+            req.node_url = GreNodeOperator.queryETHnode().node_url
+            req.address = asset.sourceAddr
+            req.contract_addr = asset.contract_addr
+            RetrofitClient.getETHNetWorkApi()
+                    .ethGetBalance(ConvertToBody.ConvertToBody(req))
+                    .enqueue(object : Callback<WalletBalanceModel> {
+                        override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
+                            val body = response.body()
+                            val rightNum = MoneyUtils.getRightNum(body!!.balance)
+                            asset.count = rightNum
+
+                            var coin_symbol = asset.coin_symbol!!.replace("(e)", "")
+                            coin_symbol = coin_symbol.replace("(c)", "")
+                            ToRMBPresenter.toRMB(rightNum, coin_symbol) {
+                                asset.countCNY = it
+                                assertsAdapter!!.notifyDataSetChanged()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<WalletBalanceModel>, t: Throwable) {
+
+                        }
+                    })
+        }
+    }
+
+    private fun queryFbcAssetBalance(assets: MutableList<LiteCoinBeanModel>) {
+
+        for (asset in assets) {
+            val req = GetBalanceReq()
+            req.dapp_id = Constants.DAPP_ID
+            req.node_url = GreNodeOperator.queryETHnode().node_url
+            req.address = assets[0].sourceAddr
+            req.contract_addr = assets[0].contract_addr
+            RetrofitClient.getFBCNetWorkApi()
+                    .fbcGetBalance(ConvertToBody.ConvertToBody(req))
+                    .enqueue(object : Callback<WalletBalanceModel> {
+                        override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
+                            val body = response.body()
+                            val rightNum = MoneyUtils.getRightNum(body!!.balance)
+                            asset.count = rightNum
+
+                            var coin_symbol = asset.coin_symbol!!.replace("(e)", "")
+                            coin_symbol = coin_symbol.replace("(c)", "")
+                            ToRMBPresenter.toRMB(rightNum, coin_symbol) {
+                                asset.countCNY = it
+                                assertsAdapter!!.notifyDataSetChanged()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<WalletBalanceModel>, t: Throwable) {
+
+                        }
+                    })
+        }
     }
 
     override fun initView() {
@@ -122,19 +188,23 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun loadData() {
-        reqestCWVbalance()
-        reqestETHbalance()
+        var wallet = homeCardAdatper.allWallet[vp_container.currentItem % homeCardAdatper.allWallet.size]
+        if ("ETH".equals(wallet.walletType)) {
+            reqestETHbalance(wallet)
+        } else {
+            reqestCWVbalance(wallet)
+        }
+
     }
 
-    fun reqestCWVbalance() {
+    fun reqestCWVbalance(wallet: GreWalletModel) {
 
         val cwvnode = GreNodeOperator.queryCWVnode()
-        val cwvWallet = GreWalletOperator.queryMainCWV()
 
         val req = GetBalanceReq()
         req.dapp_id = Constants.DAPP_ID
         req.node_url = cwvnode.node_url
-        req.address = cwvWallet.address
+        req.address = wallet.address
         req.contract_addr = "CWV"
 
         RetrofitClient.getFBCNetWorkApi()
@@ -146,9 +216,8 @@ class HomeFragment : BaseFragment() {
 
                     override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
                         val body = response.body()!!
-//                        homeCardAdatper.getCWVWallet().balance = body.balance
-                        ToRMBPresenter.toRMB(body.balance, "CWV") {
-                            //                            homeCardAdatper.getCWVWallet().rmb = it
+                        ToRMBPresenter.toRMB(MoneyUtils.getRightNum(body.balance), "CWV") {
+                            wallet.rmb = it
                             homeCardAdatper.notifyDataSetChanged()
                         }
                     }
@@ -156,14 +225,13 @@ class HomeFragment : BaseFragment() {
     }
 
 
-    fun reqestETHbalance() {
+    fun reqestETHbalance(wallet: GreWalletModel) {
         val gnodeModel = GreNodeOperator.queryETHnode()
-        val spdtWallet = GreWalletOperator.queryMainETH()
 
         val req = GetBalanceReq()
         req.dapp_id = Constants.DAPP_ID
         req.node_url = gnodeModel.node_url
-        req.address = spdtWallet.address
+        req.address = wallet.address
 
         RetrofitClient.getETHNetWorkApi()
                 .ethGetBalance(ConvertToBody.ConvertToBody(req))
@@ -174,9 +242,8 @@ class HomeFragment : BaseFragment() {
                     override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
 
                         val body = response.body()!!
-//                        homeCardAdatper.getCWVWallet().balance = body.balance
-                        ToRMBPresenter.toRMB(body.balance, "ETH") {
-                            //                            homeCardAdatper.getETHWallet().rmb = it
+                        ToRMBPresenter.toRMB(MoneyUtils.getRightNum(body.balance), "ETH") {
+                            wallet.rmb = it
                             homeCardAdatper.notifyDataSetChanged()
                         }
                     }
