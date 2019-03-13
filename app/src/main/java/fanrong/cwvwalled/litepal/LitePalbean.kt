@@ -69,7 +69,7 @@ data class GreWalletModel(@Column(unique = true) var address: String) : LitePalS
 }
 
 
-data class LiteCoinBeanModel(@Column(unique = true) var coin_name: String) : LitePalSupport(), Serializable {
+data class LiteCoinBeanModel(var coin_name: String) : LitePalSupport(), Serializable {
 
     var id: Long = 0
     var contract_addr: String? = null

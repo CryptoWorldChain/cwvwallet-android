@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -44,7 +45,7 @@ class WalletAdapter(var layoutResId: Int) : RecyclerView.Adapter<WalletAdapter.V
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        var bgll_eth_wallet = view.findViewById<BgLinearLayout>(R.id.bgll_eth_wallet)
+        var bgll_eth_wallet = view.findViewById<LinearLayout>(R.id.bgll_eth_wallet)
         var tv_eth_wallet_name = view.findViewById<TextView>(R.id.tv_eth_wallet_name)
         var tv_eth_address = view.findViewById<TextView>(R.id.tv_eth_address)
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xianchao.com.basiclib.widget.BgLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:id="@+id/bgll_eth_wallet"
     android:layout_width="match_parent"
@@ -50,4 +50,4 @@
         android:layout_marginRight="11dp"
         android:src="@drawable/white_diandiandian" />
 
-</xianchao.com.basiclib.widget.BgLinearLayout>
+</LinearLayout>

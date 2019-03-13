@@ -293,6 +293,7 @@ public class PreferenceHelper {
         public static final String HEADER_PATH = "HEADER_PATH";
         public static final String AUTH_NAME_NO = "AUTH_NAME_NO";
         public static final String ADDRESS_BOOKS = "ADDRESS_BOOKS";
+        public static final String CHAIN_ID = "CHAIN_ID";
 
 
         public PreferenceKey() {

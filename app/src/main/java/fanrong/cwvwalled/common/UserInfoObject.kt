@@ -1,6 +1,7 @@
 package fanrong.cwvwalled.common
 
 import android.text.TextUtils
+import fanrong.cwvwalled.base.Constants
 import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.litepal.GreWalletModel
@@ -57,7 +58,6 @@ class UserInfoObject {
             password = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.PASSWORD, "")
             nickName = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME, "")
             userHeader = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.HEADER_PATH, "")
-
             if (!TextUtils.isEmpty(userid)) {
                 checkRealNameState()
             }

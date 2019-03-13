@@ -230,7 +230,6 @@ class TransferActivity : BaseActivity() {
                 hideProgressDialog()
                 val successDialog = TransferSuccessDialog(this@TransferActivity)
                 successDialog.show()
-                showTopMsg("转账成功")
                 android.os.Handler().postDelayed({
                     successDialog.dismiss()
                     finish()

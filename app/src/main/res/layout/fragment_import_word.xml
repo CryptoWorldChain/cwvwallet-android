@@ -38,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
+        android:inputType="textPassword"
         android:background="#00000000"
         android:hint="钱包密码"
         android:singleLine="true"
@@ -57,6 +58,7 @@
         android:background="#00000000"
         android:textColorHint="#999999"
         android:hint="重复输入密码"
+        android:inputType="textPassword"
         android:singleLine="true"
         android:textColor="#ffffff"
         android:textSize="11.5sp" />

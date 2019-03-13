@@ -77,6 +77,7 @@ class AllWalletActivity : BaseActivity() {
                 val greWalletModel = walletAdapter.datas[position]
                 greWalletModel.delete()
                 walletAdapter.datas.remove(greWalletModel)
+                walletAdapter.notifyDataSetChanged()
             }
         })
         rv_recyclerview.adapter = walletAdapter

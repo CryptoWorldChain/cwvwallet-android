@@ -12,8 +12,9 @@ class NodeListETHPresenter : NodeListPresenter {
     }
 
     override fun changeUsingNode(gnodeModel: GreNodeModel) {
-        if (gnodeModel.is_def!!) {
+        if (gnodeModel.isFromService!!) {
             Constants.chain_Id = "1"
+
         } else {
             Constants.chain_Id = "1337"
         }

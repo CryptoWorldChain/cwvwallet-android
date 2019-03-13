@@ -113,7 +113,7 @@ class ImportKeyFragment : BaseFragment() {
             if (CheckedUtils.isEmpty(jsValue)) {
                 showTopMsg("导入失败")
             } else {
-                ethWallet.walletName = "ETH" + RandomUtils.getRandomString(4)
+                ethWallet.walletName = "ETH-" + RandomUtils.getRandomString(4)
                 ethWallet.walletType = "ETH"
                 ethWallet.address = jsValue
                 ethWallet.isImport = true
@@ -142,7 +142,7 @@ class ImportKeyFragment : BaseFragment() {
                 showTopMsg("导入失败")
                 return@cwv_GenFromPrikey
             }
-            cwvWallet.walletName = "CWV" + RandomUtils.getRandomString(4)
+            cwvWallet.walletName = "CWV-" + RandomUtils.getRandomString(4)
             cwvWallet.walletType = "CWV"
             cwvWallet.isImport = true
 

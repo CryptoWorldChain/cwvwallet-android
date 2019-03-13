@@ -193,12 +193,12 @@ class ImportWordFragment : BaseFragment() {
                 cwvWallet.privateKey = jsonObject.getString("hexPrikey")
                 cwvWallet.address = "0x" + jsonObject.getString("hexAddress")
             }
-            cwvWallet.walletName = "CWV" + RandomUtils.getRandomString(4)
+            cwvWallet.walletName = "CWV-" + RandomUtils.getRandomString(4)
             cwvWallet.walletType = "CWV"
             cwvWallet.mnemonic = mnemonic
             cwvWallet.isImport = true
 
-            ethWallet.walletName = "ETH" + RandomUtils.getRandomString(4)
+            ethWallet.walletName = "ETH-" + RandomUtils.getRandomString(4)
             ethWallet.walletType = "ETH"
             ethWallet.mnemonic = mnemonic
             ethWallet.isImport = true
@@ -214,7 +214,7 @@ class ImportWordFragment : BaseFragment() {
                 }
             } else {
                 SWLog.e(ethWallet)
-                if (GreWalletOperator.queryAddress(cwvWallet.address) == null) {
+                if (GreWalletOperator.queryAddress(ethWallet.address) == null) {
                     GreWalletOperator.insert(ethWallet)
                     showTopMsg("导入成功")
                     finishActivityDelay(2000)

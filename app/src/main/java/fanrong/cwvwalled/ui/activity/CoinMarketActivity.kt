@@ -48,6 +48,7 @@ class CoinMarketActivity : BaseActivity() {
 
         lcv_chartview.setShowTable(true)
         lcv_chartview.setStepSpace(60)
+        rg_market_tab.check(R.id.rb_left)
         rg_market_tab.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
 
             override fun onCheckedChanged(group: RadioGroup, checkedId: Int) {
@@ -65,8 +66,8 @@ class CoinMarketActivity : BaseActivity() {
             }
 
         })
+        loadKline("60min")
 
-        rg_market_tab.check(R.id.rb_left)
     }
 
     override fun onClick(v: View) {
