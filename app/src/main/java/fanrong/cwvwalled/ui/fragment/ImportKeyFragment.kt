@@ -1,5 +1,6 @@
 package fanrong.cwvwalled.ui.fragment
 
+import android.app.Dialog
 import android.icu.text.StringSearch
 import android.text.TextUtils
 import android.view.View
@@ -8,8 +9,10 @@ import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.base.BaseFragment
 import fanrong.cwvwalled.common.PageParamter
+import fanrong.cwvwalled.listener.FRDialogBtnListener
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
+import fanrong.cwvwalled.ui.view.PasswordHintDialog
 import fanrong.cwvwalled.utils.CallJsCodeUtils
 import fanrong.cwvwalled.utils.PreferenceHelper
 import fanrong.cwvwalled.utils.SWLog
@@ -45,7 +48,18 @@ class ImportKeyFragment : BaseFragment() {
             R.id.tv_import -> {
                 import()
             }
-            else -> {
+            R.id.tv_pasword_dialog -> {
+                val hintDialog = PasswordHintDialog(activity!!)
+                hintDialog.btnlistener = object : FRDialogBtnListener {
+                    override fun onCancel(dialog: Dialog) {
+                        dialog.dismiss()
+                    }
+                    override fun onConfirm(dialog: Dialog) {
+                        dialog.dismiss()
+                    }
+
+                }
+                hintDialog.show()
             }
         }
     }

@@ -30,6 +30,8 @@ import fanrong.cwvwalled.parenter.TransferFbcPresenter
 import fanrong.cwvwalled.parenter.TransferPresenter
 import fanrong.cwvwalled.ui.view.InputPasswordDialog
 import fanrong.cwvwalled.ui.view.TransferConfirmDialog
+import fanrong.cwvwalled.ui.view.TransferErrorDialog
+import fanrong.cwvwalled.ui.view.TransferSuccessDialog
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import kotlinx.android.synthetic.main.activity_transfer.*
@@ -42,6 +44,7 @@ import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
 import java.math.BigDecimal
 import java.util.HashMap
+import java.util.logging.Handler
 
 class TransferActivity : BaseActivity() {
 
@@ -225,8 +228,13 @@ class TransferActivity : BaseActivity() {
 
             override fun success() {
                 hideProgressDialog()
+                val successDialog = TransferSuccessDialog(this@TransferActivity)
+                successDialog.show()
                 showTopMsg("转账成功")
-                delayFinish()
+                android.os.Handler().postDelayed({
+                    successDialog.dismiss()
+                    finish()
+                }, 1500)
                 //                            val successDialog = TransferSuccessDialog(getActivity())
                 //                            successDialog.show()
                 //                            Handler().postDelayed({
@@ -235,8 +243,12 @@ class TransferActivity : BaseActivity() {
             }
 
             override fun failed(msg: String) {
-                showTopMsg("转账失败")
-                delayFinish()
+                val errorDialog = TransferErrorDialog(this@TransferActivity)
+                errorDialog.show()
+                android.os.Handler().postDelayed({
+                    errorDialog.dismiss()
+                    finish()
+                }, 1500)
             }
         })
     }
