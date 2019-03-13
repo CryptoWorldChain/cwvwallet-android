@@ -5,6 +5,31 @@ import android.util.Log.i
 import org.json.JSONException
 import org.json.JSONObject
 
+public inline fun String?.checkIsEmpty(): Boolean {
+    return this == null || this.isEmpty()
+}
+
+public inline fun String?.checkNotEmpty(): Boolean {
+    return this != null && !this.isEmpty()
+}
+
+public inline fun List<*>?.checkIsEmpty(): Boolean {
+    return this == null || this.isEmpty()
+}
+
+public inline fun List<*>?.checkNotEmpty(): Boolean {
+    return this != null && !this.isEmpty()
+}
+
+
+public inline fun Map<*, *>?.checkIsEmpty(): Boolean {
+    return this == null || this.isEmpty()
+}
+
+public inline fun Map<*, *>?.checkNotEmpty(): Boolean {
+    return this != null && !this.isEmpty()
+}
+
 object CheckedUtils {
     fun isEmpty(list: List<*>?): Boolean {
         return list == null || list.isEmpty()
