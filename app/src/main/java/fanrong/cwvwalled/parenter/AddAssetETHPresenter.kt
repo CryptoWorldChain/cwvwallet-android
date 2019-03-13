@@ -12,6 +12,7 @@ import net.sourceforge.http.model.QueryCoinTypeResp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import xianchao.com.basiclib.utils.checkNotEmpty
 
 class AddAssetETHPresenter : AddAssetPresenter() {
 
@@ -28,7 +29,7 @@ class AddAssetETHPresenter : AddAssetPresenter() {
                     }
 
                     override fun onResponse(call: Call<QueryCoinTypeResp>, response: Response<QueryCoinTypeResp>) {
-                        if ("1".equals(response.body()?.err_code)) {
+                        if ("1".equals(response.body()?.err_code) && response.body()!!.token.checkNotEmpty()) {
                             val tokens = response.body()!!.token!!
 
                             for (token in tokens) {
