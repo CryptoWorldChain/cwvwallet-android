@@ -77,7 +77,7 @@ class TransRecordActivity : BaseActivity() {
 
     override fun onClick(v: View) {
         AppUtils.clipboardString(this,tv_trans_id.text.toString())
-        showTopMsg("也复制")
+        showTopMsg("已复制")
     }
 
     override fun loadData() {

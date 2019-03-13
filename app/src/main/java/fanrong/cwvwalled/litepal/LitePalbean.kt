@@ -15,11 +15,30 @@ data class AddressModel(val name: String, val address: String, var remark: Strin
 
 data class GreNodeModel(var node_url: String) : LitePalSupport() {
     var isUsing: Boolean? = null
+        get() {
+            if (field == null) {
+                return false
+            }
+            return field
+        }
+
     var node_des: String? = null
     var node_name: String? = null
     var node_net: String? = null
     var is_def: Boolean? = null
+        get() {
+            if (field == null) {
+                return false
+            }
+            return field
+        }
     var id: Long = 0
+    var isFromService: Boolean? = null
+        get() {
+            return if (field == null) false else field
+        }
+
+
     override fun toString(): String {
         return "GreNodeModel(node_url='$node_url', isUsing=$isUsing, node_des='$node_des', node_name='$node_name', node_net='$node_net', is_def=$is_def, id=$id)"
     }

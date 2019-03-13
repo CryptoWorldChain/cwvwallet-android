@@ -7,6 +7,6 @@
 
     <dimen name="page_left_padding">15dp</dimen>
 
-
+    <dimen name="pay_mode_item_menu_widht">80dp</dimen>
 
 </resources>

@@ -10,6 +10,8 @@ import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.base.BaseFragment
 import fanrong.cwvwalled.base.Constants
 import fanrong.cwvwalled.common.PageParamter
+import fanrong.cwvwalled.eventbus.CWVNoteChangeEvent
+import fanrong.cwvwalled.eventbus.ETHNoteChangeEvent
 import fanrong.cwvwalled.eventbus.WalletChangeEvent
 import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
@@ -34,6 +36,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import xianchao.com.basiclib.utils.BundleUtils
+import xianchao.com.basiclib.utils.CheckedUtils
+import java.math.BigDecimal
 
 class HomeFragment : BaseFragment() {
 
@@ -69,14 +73,34 @@ class HomeFragment : BaseFragment() {
 
         if ("ETH".equals(wallet.walletType)) {
             tv_asset.text = "ETH-Asset"
-            queryEthAssetBalance(assets)
+            queryEthAssetBalance(assets, wallet)
         } else {
             tv_asset.text = "CWV-Asset"
-            queryFbcAssetBalance(assets)
+            queryFbcAssetBalance(assets, wallet)
         }
     }
 
-    private fun queryEthAssetBalance(assets: MutableList<LiteCoinBeanModel>) {
+    private fun queryEthAssetBalance(assets: MutableList<LiteCoinBeanModel>, wallet: GreWalletModel) {
+
+        // 获取到所有 coinbean 下边的余额计算总和
+        fun updataCardBalance() {
+//            wallet.balance
+            val data = assertsAdapter!!.data
+            if (CheckedUtils.isEmpty(data)) {
+                wallet.rmb = ""
+                homeCardAdatper.notifyDataSetChanged()
+                return@updataCardBalance
+            }
+            var allBalance = BigDecimal.ZERO
+            for (datum in assets) {
+                if (CheckedUtils.nonEmpty(datum.countCNY)) {
+                    allBalance = allBalance.add(BigDecimal(datum.countCNY))
+                }
+            }
+            wallet.rmb = allBalance.toString()
+            homeCardAdatper.notifyDataSetChanged()
+        }
+
 
         for (asset in assets) {
             val req = GetBalanceReq()
@@ -94,10 +118,18 @@ class HomeFragment : BaseFragment() {
 
                             var coin_symbol = asset.coin_symbol!!.replace("(e)", "")
                             coin_symbol = coin_symbol.replace("(c)", "")
+
                             ToRMBPresenter.toRMB(rightNum, coin_symbol) {
-                                asset.countCNY = it
+                                asset.countCNY = MoneyUtils.commonRMBDecimal(it)
                                 assertsAdapter!!.notifyDataSetChanged()
+
+                                if (assets.indexOf(asset) == assets.lastIndex) {
+                                    // 更新card
+                                    updataCardBalance()
+                                }
                             }
+
+
                         }
 
                         override fun onFailure(call: Call<WalletBalanceModel>, t: Throwable) {
@@ -107,7 +139,28 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun queryFbcAssetBalance(assets: MutableList<LiteCoinBeanModel>) {
+    private fun queryFbcAssetBalance(assets: MutableList<LiteCoinBeanModel>, wallet: GreWalletModel) {
+
+
+        // 获取到所有 coinbean 下边的余额计算总和
+        fun updataCardBalance() {
+//            wallet.balance
+            val data = assertsAdapter!!.data
+            if (CheckedUtils.isEmpty(data)) {
+                wallet.rmb = ""
+                homeCardAdatper.notifyDataSetChanged()
+                return@updataCardBalance
+            }
+            var allBalance = BigDecimal.ZERO
+            for (datum in assets) {
+                if (CheckedUtils.nonEmpty(datum.countCNY)) {
+                    allBalance = allBalance.add(BigDecimal(datum.countCNY))
+                }
+            }
+            wallet.rmb = allBalance.toString()
+            homeCardAdatper.notifyDataSetChanged()
+        }
+
 
         for (asset in assets) {
             val req = GetBalanceReq()
@@ -125,8 +178,13 @@ class HomeFragment : BaseFragment() {
 
                             var coin_symbol = AppUtils.getRealSymbol(asset.coin_symbol)
                             ToRMBPresenter.toRMB(rightNum, coin_symbol) {
-                                asset.countCNY = it
+                                asset.countCNY =  MoneyUtils.commonRMBDecimal(it)
                                 assertsAdapter!!.notifyDataSetChanged()
+
+                                if (assets.indexOf(asset) == assets.lastIndex) {
+                                    // 更新card
+                                    updataCardBalance()
+                                }
                             }
                         }
 
@@ -189,65 +247,7 @@ class HomeFragment : BaseFragment() {
 
     override fun loadData() {
         var wallet = homeCardAdatper.allWallet[vp_container.currentItem % homeCardAdatper.allWallet.size]
-        if ("ETH".equals(wallet.walletType)) {
-            reqestETHbalance(wallet)
-        } else {
-            reqestCWVbalance(wallet)
-        }
-
-    }
-
-    fun reqestCWVbalance(wallet: GreWalletModel) {
-
-        val cwvnode = GreNodeOperator.queryCWVnode()
-
-        val req = GetBalanceReq()
-        req.dapp_id = Constants.DAPP_ID
-        req.node_url = cwvnode.node_url
-        req.address = wallet.address
-        req.contract_addr = "CWV"
-
-        RetrofitClient.getFBCNetWorkApi()
-                .fbcGetBalance(ConvertToBody.ConvertToBody(req))
-                .enqueue(object : Callback<WalletBalanceModel> {
-
-                    override fun onFailure(call: Call<WalletBalanceModel>, t: Throwable) {
-                    }
-
-                    override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
-                        val body = response.body()!!
-                        ToRMBPresenter.toRMB(MoneyUtils.getRightNum(body.balance), "CWV") {
-                            wallet.rmb = it
-                            homeCardAdatper.notifyDataSetChanged()
-                        }
-                    }
-                })
-    }
-
-
-    fun reqestETHbalance(wallet: GreWalletModel) {
-        val gnodeModel = GreNodeOperator.queryETHnode()
-
-        val req = GetBalanceReq()
-        req.dapp_id = Constants.DAPP_ID
-        req.node_url = gnodeModel.node_url
-        req.address = wallet.address
-
-        RetrofitClient.getETHNetWorkApi()
-                .ethGetBalance(ConvertToBody.ConvertToBody(req))
-                .enqueue(object : Callback<WalletBalanceModel> {
-                    override fun onFailure(call: Call<WalletBalanceModel>, t: Throwable) {
-                    }
-
-                    override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
-
-                        val body = response.body()!!
-                        ToRMBPresenter.toRMB(MoneyUtils.getRightNum(body.balance), "ETH") {
-                            wallet.rmb = it
-                            homeCardAdatper.notifyDataSetChanged()
-                        }
-                    }
-                })
+        changeWallet(wallet)
 
     }
 
@@ -270,11 +270,20 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun walletChange(walletChangeEvent: WalletChangeEvent) {
         homeCardAdatper.allWallet = GreWalletOperator.queryAll()
         homeCardAdatper.notifyDataSetChanged()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun ethNodeChange(ethEvent: ETHNoteChangeEvent) {
+        loadData()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun cwvNodeChange(cwvEvent: CWVNoteChangeEvent) {
+        loadData()
     }
 
 

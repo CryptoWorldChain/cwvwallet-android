@@ -59,7 +59,12 @@
         <activity android:name=".ui.activity.ReceiptActivity" />
         <activity android:name=".ui.activity.TransferActivity" />
         <activity android:name="com.yzq.zxinglibrary.android.CaptureActivity" />
-        <activity android:name=".ui.activity.TransRecordActivity"></activity>
+        <activity android:name=".ui.activity.TransRecordActivity" />
+        <activity android:name=".ui.activity.UseSettingActivity" />
+        <activity android:name=".ui.activity.NodeListActivity" />
+        <activity android:name=".ui.activity.NodeConfigActivity" />
+
+        <activity android:name=".ui.activity.UnitSettingActivity"></activity>
     </application>
 
 </manifest>

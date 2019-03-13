@@ -1,6 +1,5 @@
 package fanrong.cwvwalled.ui.activity
 
-import android.os.Bundle
 import android.view.View
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
@@ -11,6 +10,7 @@ import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.NodeListReq
 import fanrong.cwvwalled.http.model.NodeListResp
 import fanrong.cwvwalled.utils.BgUtils
+import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.activity_splash.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,7 +55,13 @@ class SplashActivity : BaseActivity() {
     }
 
     fun requestETHNodeList() {
-        val req = NodeListReq("dev")
+
+        if (CheckedUtils.nonEmpty(GreNodeOperator.queryAllETHnode())) {
+            SWLog.e("已加载，不需要在获取  eth node")
+            return
+        }
+
+        val req = NodeListReq("main")
         RetrofitClient.getETHNetWorkApi()
                 .requestNodeList(ConvertToBody.ConvertToBody(req))
                 .enqueue(object : Callback<NodeListResp> {
@@ -66,10 +72,16 @@ class SplashActivity : BaseActivity() {
                     override fun onResponse(call: Call<NodeListResp>, response: Response<NodeListResp>) {
                         val body = response.body()!!
                         if ("1".equals(body.err_code)) {
-                            if (CheckedUtils.nonEmpty(body.dev_net)) {
-                                val nodeModel = GreNodeOperator.copyFromNodeModel(body.dev_net!![0])
-                                nodeModel.node_name = "ETH"
-                                GreNodeOperator.insert(nodeModel)
+                            if (CheckedUtils.nonEmpty(body.main_net)) {
+                                val main_net = body.main_net
+
+                                main_net!!.forEach {
+                                    val nodeModel = GreNodeOperator.copyFromNodeModel(it)
+                                    nodeModel.node_name = "ETH"
+                                    nodeModel.isUsing = nodeModel.is_def
+                                    nodeModel.isFromService = true
+                                    GreNodeOperator.insert(nodeModel)
+                                }
                             }
                         }
                     }
@@ -81,7 +93,12 @@ class SplashActivity : BaseActivity() {
 
     fun requestFBCNodeList() {
 
-        val req = NodeListReq("dev")
+        if (CheckedUtils.nonEmpty(GreNodeOperator.queryAllCWVnode())) {
+            SWLog.e("已加载，不需要在获取  cwv node")
+            return
+        }
+
+        val req = NodeListReq("main")
         RetrofitClient.getFBCNetWorkApi()
                 .requestNodeList(ConvertToBody.ConvertToBody(req))
                 .enqueue(object : Callback<NodeListResp> {
@@ -92,10 +109,16 @@ class SplashActivity : BaseActivity() {
                     override fun onResponse(call: Call<NodeListResp>, response: Response<NodeListResp>) {
                         val body = response.body()!!
                         if ("1".equals(body.err_code)) {
-                            if (CheckedUtils.nonEmpty(body.dev_net)) {
-                                val nodeModel = GreNodeOperator.copyFromNodeModel(body.dev_net!![0])
-                                nodeModel.node_name = "CWV"
-                                GreNodeOperator.insert(nodeModel)
+                            if (CheckedUtils.nonEmpty(body.main_net)) {
+                                val main_net = body.main_net
+
+                                main_net!!.forEach {
+                                    val nodeModel = GreNodeOperator.copyFromNodeModel(it)
+                                    nodeModel.node_name = "CWV"
+                                    nodeModel.isUsing = nodeModel.is_def
+                                    nodeModel.isFromService = true
+                                    GreNodeOperator.insert(nodeModel)
+                                }
                             }
                         }
                     }

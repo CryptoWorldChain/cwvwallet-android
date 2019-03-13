@@ -20,7 +20,7 @@ class HomeAssertsAdapter(layoutResId: Int) : BaseQuickAdapter<LiteCoinBeanModel,
         helper.setImageResource(R.id.iv_image, R.drawable.asset_defaut_icon)
         helper.setText(R.id.tv_name, item.coin_symbol)
         helper.setText(R.id.tv_count, MoneyUtils.commonHandleDecimal(item.count))
-        val handleDecimal = MoneyUtils.commonRMBDecimal(item.countCNY)
+        val handleDecimal = (item.countCNY)
 
         if (CheckedUtils.isEmpty(handleDecimal) || BigDecimal.ZERO.compareTo(BigDecimal(handleDecimal)) == 0) {
             helper.setText(R.id.tv_countCNY, "¥ --")

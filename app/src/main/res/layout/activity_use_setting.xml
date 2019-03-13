@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_page_bg"
+    android:orientation="vertical"
+    tools:context=".ui.activity.UseSettingActivity">
+
+
+    <include layout="@layout/layout_title" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_language"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:background="@color/title_color"
+        android:layout_marginTop="11dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="多语言"
+            android:textColor="#ffffff"
+            android:textSize="13.4sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:gravity="center_horizontal"
+            android:text="简体中文"
+            android:textColor="#999999"
+            android:textSize="13.4sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting_item_goto_icon" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title_color">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="41dp"
+            android:background="#505050" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_coin_unit"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:background="@color/title_color"
+
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="货币单位"
+            android:textColor="#ffffff"
+            android:textSize="13.4sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:gravity="center_horizontal"
+            android:text="CNY"
+            android:textColor="#999999"
+            android:textSize="13.4sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting_item_goto_icon" />
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title_color">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="41dp"
+            android:background="#505050" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_node_setting"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+
+        android:background="@color/title_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="节点设置"
+            android:textColor="#ffffff"
+            android:textSize="13.4sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting_item_goto_icon" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

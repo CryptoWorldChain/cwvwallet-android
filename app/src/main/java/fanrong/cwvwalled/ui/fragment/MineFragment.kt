@@ -20,6 +20,10 @@ class MineFragment : BaseFragment() {
         tv_mine_logout.paint.flags = Paint.UNDERLINE_TEXT_FLAG
         tv_mine_logout.paint.isAntiAlias = true
 
+        setting_item_setting.setmOnLSettingItemClick {
+            startActivity(UseSettingActivity::class.java)
+        }
+
         setting_item_contact.setmOnLSettingItemClick {
             startActivity(AddressListActivity::class.java)
         }

@@ -118,8 +118,6 @@ class TransferFbcPresenter : TransferPresenter {
     private fun transfer() {
         transferReq.signed_message = if (signedMessage.startsWith("0x")) signedMessage.replaceFirst("0x".toRegex(), "") else signedMessage
         transferReq.node_url = GreNodeOperator.queryCWVnode().node_url
-//        transferReq.symbol = "SPDT"
-//        transferReq.contract_addr = "SPDT"
         transferReq.dapp_id = Constants.DAPP_ID
         transferReq.from_addr = coinBeanModel.sourceAddr!!.replaceFirst("0x", "")
         transferReq.ex_data = Hex.encodeHex(transferReq.ex_data.toByteArray(), false)
