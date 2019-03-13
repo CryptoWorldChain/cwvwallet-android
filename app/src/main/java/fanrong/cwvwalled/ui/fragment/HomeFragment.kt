@@ -58,8 +58,6 @@ class HomeFragment : BaseFragment() {
         }
 
         override fun onPageSelected(index: Int) {
-            val wallet = homeCardAdatper.allWallet[vp_container.currentItem % homeCardAdatper.allWallet.size]
-            changeWallet(wallet)
             loadData()
 
         }
@@ -166,8 +164,8 @@ class HomeFragment : BaseFragment() {
             val req = GetBalanceReq()
             req.dapp_id = Constants.DAPP_ID
             req.node_url = GreNodeOperator.queryCWVnode().node_url
-            req.address = assets[0].sourceAddr
-            req.contract_addr = assets[0].contract_addr
+            req.address = asset.sourceAddr
+            req.contract_addr = asset.contract_addr
             RetrofitClient.getFBCNetWorkApi()
                     .fbcGetBalance(ConvertToBody.ConvertToBody(req))
                     .enqueue(object : Callback<WalletBalanceModel> {
@@ -178,7 +176,7 @@ class HomeFragment : BaseFragment() {
 
                             var coin_symbol = AppUtils.getRealSymbol(asset.coin_symbol)
                             ToRMBPresenter.toRMB(rightNum, coin_symbol) {
-                                asset.countCNY =  MoneyUtils.commonRMBDecimal(it)
+                                asset.countCNY = MoneyUtils.commonRMBDecimal(it)
                                 assertsAdapter!!.notifyDataSetChanged()
 
                                 if (assets.indexOf(asset) == assets.lastIndex) {
@@ -208,7 +206,7 @@ class HomeFragment : BaseFragment() {
 
         homeCardAdatper = HomeCardAdatper(activity as BaseActivity)
         vp_container.adapter = homeCardAdatper
-        var defaultIndex = Integer.MAX_VALUE / 2
+        var defaultIndex = homeCardAdatper.allWallet.size * 100
         vp_container.setCurrentItem(defaultIndex)
         vp_container.setOnPageChangeListener(pageChangeListener)
 //
@@ -258,7 +256,6 @@ class HomeFragment : BaseFragment() {
         super.onResume()
         if (!hidden) {
             loadData()
-            changeWallet(homeCardAdatper.allWallet[vp_container.currentItem % homeCardAdatper.allWallet.size])
         }
     }
 
