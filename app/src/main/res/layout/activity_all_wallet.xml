@@ -24,7 +24,7 @@
         android:textColor="#e5e5e5"
         android:textSize="11.5sp" />
 
-    <xianchao.com.basiclib.widget.BgLinearLayout
+    <LinearLayout
         android:id="@+id/bgll_cwv_wallet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,10 +73,10 @@
             android:layout_marginRight="11dp"
             android:src="@drawable/white_diandiandian" />
 
-    </xianchao.com.basiclib.widget.BgLinearLayout>
+    </LinearLayout>
 
 
-    <xianchao.com.basiclib.widget.BgLinearLayout
+    <LinearLayout
         android:id="@+id/bgll_eth_wallet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
             android:layout_marginRight="11dp"
             android:src="@drawable/white_diandiandian" />
 
-    </xianchao.com.basiclib.widget.BgLinearLayout>
+    </LinearLayout>
 
 
     <TextView

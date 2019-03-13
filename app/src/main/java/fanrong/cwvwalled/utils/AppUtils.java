@@ -1,9 +1,16 @@
 package fanrong.cwvwalled.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentUris;
 import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -51,8 +58,6 @@ public class AppUtils {
         ClipData mClipData = ClipData.newPlainText("Label", str);
         cm.setPrimaryClip(mClipData);
     }
-
-
 
 
     public static Object getField(Object object, String fieldName)

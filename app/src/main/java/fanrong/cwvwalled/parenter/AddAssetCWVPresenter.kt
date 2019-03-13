@@ -12,6 +12,7 @@ import net.sourceforge.http.model.QueryCoinTypeResp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import xianchao.com.basiclib.utils.CheckedUtils
 
 class AddAssetCWVPresenter : AddAssetPresenter() {
 
@@ -29,13 +30,15 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
                     }
 
                     override fun onResponse(call: Call<QueryCoinTypeResp>, response: Response<QueryCoinTypeResp>) {
-                        if ("1".equals(response.body()?.err_code)) {
+                        if ("1".equals(response.body()?.err_code) && CheckedUtils.nonEmpty(response.body()!!.token)) {
 
                             var tokens = response.body()!!.token!!
 
                             for (token in tokens) {
-                                token.coin_symbol = token.coin_symbol + "(c)"
-                                token.walletName = token.walletName
+                                token.coin_symbol = token.coin_symbol!!.trim()
+                                if (!"CWV".equals(token.coin_symbol)) {
+                                    token.coin_symbol = token.coin_symbol + "(c)"
+                                }
 
                                 for (allETH in hasCoins) {
                                     if (allETH.coin_name.equals(token.coin_name)) {

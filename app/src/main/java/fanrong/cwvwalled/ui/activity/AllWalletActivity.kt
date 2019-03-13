@@ -41,7 +41,7 @@ class AllWalletActivity : BaseActivity() {
         bgll_cwv_wallet.setOnClickListener(this)
         bgll_eth_wallet.setOnClickListener(this)
 
-        setTitleText("coinBeanModel")
+        setTitleText("Wallet")
         setLeftImgOnclickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 finish()
@@ -51,9 +51,11 @@ class AllWalletActivity : BaseActivity() {
         queryCWV = GreWalletOperator.queryMainCWV()
         tv_cwv_wallet_name.text = queryCWV?.walletName
         tv_cwv_address.text = queryCWV?.walletType
+
         queryETH = GreWalletOperator.queryMainETH()
         tv_eth_wallet_name.text = queryETH?.walletName
         tv_eth_address.text = queryETH?.walletType
+
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_recyclerview.layoutManager = linearLayoutManager

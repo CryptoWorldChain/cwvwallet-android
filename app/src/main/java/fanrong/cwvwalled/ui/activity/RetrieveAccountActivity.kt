@@ -2,6 +2,7 @@ package fanrong.cwvwalled.ui.activity
 
 import android.os.Bundle
 import android.os.Handler
+import android.text.InputType
 import android.text.TextUtils
 import android.view.View
 import android.webkit.ValueCallback
@@ -47,6 +48,17 @@ class RetrieveAccountActivity : BaseActivity() {
                 }
             }
         })
+
+
+        cb_password.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                et_userpassword.setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
+                et_userpassword_confirm.setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
+            } else {
+                et_userpassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
+                et_userpassword_confirm.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
+            }
+        }
     }
 
 

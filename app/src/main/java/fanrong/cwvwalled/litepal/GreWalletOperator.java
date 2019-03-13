@@ -47,8 +47,7 @@ public class GreWalletOperator {
     }
 
     public static GreWalletModel queryMainCWV() {
-        List<GreWalletModel> all = LitePal.where("isImport != ? and walletType like ?"
-                , "1", "CWV")
+        List<GreWalletModel> all = LitePal.where("isImport is null and walletType like ?", "CWV")
                 .find(GreWalletModel.class);
         if (CheckedUtils.INSTANCE.nonEmpty(all)) {
             return all.get(0);
@@ -58,8 +57,7 @@ public class GreWalletOperator {
 
     public static GreWalletModel queryMainETH() {
 
-        List<GreWalletModel> all = LitePal.where("isImport != ? and walletType like ?"
-                , "1", "ETH")
+        List<GreWalletModel> all = LitePal.where("isImport is null and walletType like ?", "ETH")
                 .find(GreWalletModel.class);
         if (CheckedUtils.INSTANCE.nonEmpty(all)) {
             return all.get(0);

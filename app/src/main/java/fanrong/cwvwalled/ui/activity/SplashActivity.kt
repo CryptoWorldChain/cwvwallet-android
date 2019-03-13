@@ -3,6 +3,7 @@ package fanrong.cwvwalled.ui.activity
 import android.view.View
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
+import fanrong.cwvwalled.common.UserInfoObject
 import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.http.engine.ConvertToBody
@@ -38,6 +39,7 @@ class SplashActivity : BaseActivity() {
     override fun initView() {
         contentView.setBackgroundResource(BgUtils.getBg(BgUtils.YINDAO))
         iv_tonext.setOnClickListener(this)
+        UserInfoObject.init()
         loadData()
     }
 
