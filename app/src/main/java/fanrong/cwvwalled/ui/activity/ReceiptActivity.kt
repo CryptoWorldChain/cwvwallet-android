@@ -15,7 +15,7 @@ import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.FanRongTextUtils
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.layout_receipt.*
-import xianchao.com.basiclib.Singletons
+import xianchao.com.basiclib.XcSingletons
 
 /**
  * Created by terry.c on 06/03/2018.
@@ -64,7 +64,7 @@ class ReceiptActivity : BaseActivity() {
         var moneyQRCodeModel = MoneyQRCodeModel()
         moneyQRCodeModel.address = coinBeanModel.sourceAddr;
         moneyQRCodeModel.amount = "0"
-        var s = Singletons.obtainGson().toJson(moneyQRCodeModel).toString();
+        var s = XcSingletons.obtainGson().toJson(moneyQRCodeModel).toString();
         SWLog.e(s)
         var bitmap = CodeCreator.createQRCode(s, 400, 400, null);
         iv_qr_image.setImageBitmap(bitmap)
@@ -89,7 +89,7 @@ class ReceiptActivity : BaseActivity() {
                     moneyQRCodeModel.address = coinBeanModel.sourceAddr;
                     moneyQRCodeModel.amount = count;
 
-                    var bitmap = CodeCreator.createQRCode(Singletons.obtainGson()
+                    var bitmap = CodeCreator.createQRCode(XcSingletons.obtainGson()
                             .toJson(moneyQRCodeModel), 400, 400, null);
                     iv_qr_image.setImageBitmap(bitmap)
                 } else {

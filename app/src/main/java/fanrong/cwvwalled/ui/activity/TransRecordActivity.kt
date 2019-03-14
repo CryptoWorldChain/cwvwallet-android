@@ -1,8 +1,5 @@
 package fanrong.cwvwalled.ui.activity
 
-import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
@@ -14,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_trans_record.*
 import net.sourceforge.http.model.spdt.TransRecordItem
 import org.json.JSONObject
 import xianchao.com.basiclib.utils.CheckedUtils
-import xianchao.com.basiclib.utils.XCJsonUtils
+import xianchao.com.basiclib.utils.XcJsonUtils
 import java.text.SimpleDateFormat
 
 class TransRecordActivity : BaseActivity() {
@@ -42,7 +39,7 @@ class TransRecordActivity : BaseActivity() {
         tv_tip.text = MoneyUtils.getDownTip(transRecord.gas_used) + " ether"
 
         if (CheckedUtils.nonEmpty(transRecord.ex_data)) {
-            tv_remark.text = XCJsonUtils.getString(JSONObject(transRecord.ex_data), "note")
+            tv_remark.text = XcJsonUtils.getString(JSONObject(transRecord.ex_data), "note")
         }
 
         tv_trans_id.text = transRecord.tx_id

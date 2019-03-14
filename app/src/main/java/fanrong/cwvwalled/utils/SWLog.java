@@ -2,9 +2,7 @@ package fanrong.cwvwalled.utils;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-
-import xianchao.com.basiclib.Singletons;
+import xianchao.com.basiclib.XcSingletons;
 
 
 /**
@@ -54,7 +52,7 @@ public class SWLog {
 
     public static void e(Object paramString) {
         if (IS_DEBUG) {
-            log(LE.e, TAG, Singletons.INSTANCE.obtainGson().toJson(paramString));
+            log(LE.e, TAG, XcSingletons.INSTANCE.obtainGson().toJson(paramString));
         }
     }
 

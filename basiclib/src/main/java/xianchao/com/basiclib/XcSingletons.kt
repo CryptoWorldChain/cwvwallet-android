@@ -2,7 +2,7 @@ package xianchao.com.basiclib
 
 import com.google.gson.Gson
 
-object Singletons {
+object XcSingletons {
 
     private var gson: Gson? = null
 

@@ -1,6 +1,5 @@
 package fanrong.cwvwalled.parenter
 
-import android.webkit.ValueCallback
 import com.facebook.common.util.Hex
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
@@ -10,21 +9,16 @@ import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.*
 import fanrong.cwvwalled.litepal.GreNodeOperator
-import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
 import fanrong.cwvwalled.utils.*
 import org.brewchain.core.util.ByteUtil
 import org.fc.sdk.pbgens.BcTxInfo
-import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import xianchao.com.basiclib.utils.CheckedUtils
-import xianchao.com.basiclib.utils.XCJsonUtils
 import java.lang.RuntimeException
-import java.math.BigDecimal
 import java.math.BigInteger
 
 class TransferFbcPresenter : TransferPresenter {

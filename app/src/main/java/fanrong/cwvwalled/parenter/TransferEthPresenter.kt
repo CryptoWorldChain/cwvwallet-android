@@ -8,7 +8,6 @@ import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.*
 import fanrong.cwvwalled.litepal.GreNodeOperator
-import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
 import fanrong.cwvwalled.utils.*
@@ -18,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import xianchao.com.basiclib.utils.CheckedUtils
-import xianchao.com.basiclib.utils.XCJsonUtils
+import xianchao.com.basiclib.utils.XcJsonUtils
 import java.lang.RuntimeException
 import java.math.BigDecimal
 
@@ -38,7 +37,7 @@ class TransferEthPresenter : TransferPresenter {
         if (CheckedUtils.nonEmpty(req.ex_data)) {
             try {
                 val jsonObject = JSONObject(req.ex_data)
-                req.ex_data = XCJsonUtils.getString(jsonObject, "note")
+                req.ex_data = XcJsonUtils.getString(jsonObject, "note")
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
