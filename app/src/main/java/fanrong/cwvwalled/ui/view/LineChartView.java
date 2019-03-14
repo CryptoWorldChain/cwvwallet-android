@@ -179,7 +179,7 @@ public class LineChartView extends View {
         linePoints = new Point[dataList.size()];
 
         stepStart = tablePadding + (int) textRulerPaint.measureText(new BigDecimal(maxValue).setScale(3, BigDecimal.ROUND_DOWN).toString());
-
+        stepSpace = (int) ((getWidth() - stepStart - textRulerPaint.measureText("00:00")) / (dataList.size() - 1));
         stepEnd = stepStart + stepSpace * (dataList.size() - 1);
         initAnim();
         isInitialized = false;
@@ -193,7 +193,7 @@ public class LineChartView extends View {
         if (MeasureSpec.EXACTLY == heightMode) {
             height = getPaddingTop() + getPaddingBottom() + height;
         }
-        setMeasuredDimension(width, height);//设置自己的宽度和高度
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), height);//设置自己的宽度和高度
     }
 
     @Override
