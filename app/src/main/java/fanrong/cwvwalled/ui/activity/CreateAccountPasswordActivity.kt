@@ -30,10 +30,13 @@ class CreateAccountPasswordActivity : BaseActivity() {
         et_userpassword.setOnFocusChangeListener(object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 if (hasFocus) {
-//                    tv_password_hint.visibility =View.VISIBLE
+//                    tv_password_hint.visibility =View.VISIBLE variation
                 }
             }
         })
+
+        et_userpassword.setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        et_userpassword_confirm.setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
 
         cb_password.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {

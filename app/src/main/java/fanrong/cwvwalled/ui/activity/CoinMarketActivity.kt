@@ -48,6 +48,7 @@ class CoinMarketActivity : BaseActivity() {
 
         lcv_chartview.setShowTable(true)
         lcv_chartview.setStepSpace(60)
+        tv_coin_name.text = kmarket.coin
         rg_market_tab.check(R.id.rb_left)
         rg_market_tab.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
 

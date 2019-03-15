@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:text="P网"
+            android:visibility="invisible"
             android:textColor="#bfbfbf"
             android:textSize="11.5sp" />
 
@@ -44,6 +45,7 @@
         android:paddingTop="5dp">
 
         <TextView
+            android:id="@+id/tv_coin_name"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"

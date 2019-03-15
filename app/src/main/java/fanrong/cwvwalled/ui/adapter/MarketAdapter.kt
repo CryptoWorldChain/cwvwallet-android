@@ -23,7 +23,7 @@ class MarketAdapter(var layoutId: Int) : BaseQuickAdapter<Kmarket, BaseViewHolde
         helper.setText(R.id.tv_price_rmb, "￥ " + MoneyUtils.commonRMBDecimal(item.rmbclose))
         var decline = BigDecimal.ZERO
         if (CheckedUtils.nonEmpty(item.updown)) {
-            decline = BigDecimal(item.updown).multiply(BigDecimal(100)).setScale(2)
+            decline = BigDecimal(item.updown).multiply(BigDecimal(100)).setScale(2,BigDecimal.ROUND_HALF_UP)
         }
         if (decline.compareTo(BigDecimal.ZERO) == 1) {
             helper.setBackgroundRes(R.id.tv_advance_decline, R.drawable.market_add_bg)

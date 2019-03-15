@@ -119,6 +119,10 @@ class NodeListActivity : BaseActivity() {
     var menuCreate = object : SwipeMenuCreator {
         override fun onCreateMenu(leftMenu: SwipeMenu, rightMenu: SwipeMenu, position: Int) {
 
+            if (nodeListAdapter.nodes?.get(position)!!.is_def!!) {
+                return
+            }
+
             val compileItem = SwipeMenuItem(this@NodeListActivity)
             compileItem.text = "编辑"
             compileItem.setTextColor(Color.parseColor("#ffffff"))

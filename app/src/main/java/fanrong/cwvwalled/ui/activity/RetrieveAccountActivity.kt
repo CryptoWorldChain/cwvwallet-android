@@ -49,6 +49,8 @@ class RetrieveAccountActivity : BaseActivity() {
             }
         })
 
+        et_userpassword.setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        et_userpassword_confirm.setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
 
         cb_password.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
