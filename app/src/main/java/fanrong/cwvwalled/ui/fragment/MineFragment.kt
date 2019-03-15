@@ -1,20 +1,25 @@
 package fanrong.cwvwalled.ui.fragment
 
+import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.pm.PermissionInfoCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yzq.zxinglibrary.common.Constant
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseFragment
@@ -28,6 +33,7 @@ import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.fragment_mine.*
 import xianchao.com.basiclib.utils.CheckedUtils
 import java.io.File
+import java.security.Permission
 import kotlin.concurrent.thread
 
 class MineFragment : BaseFragment() {
@@ -64,7 +70,16 @@ class MineFragment : BaseFragment() {
 
 
         civ_header.setOnClickListener {
-            showBottomDialog()
+            val rxPermissions = RxPermissions(this)
+            rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA)
+                    .subscribe {
+                        if (it) {
+                            showBottomDialog()
+                        } else {
+                            showTopMsg("请打开相机和读取文件权限")
+                        }
+                    }
         }
         if (CheckedUtils.nonEmpty(UserInfoObject.userHeader)) {
             Thread {

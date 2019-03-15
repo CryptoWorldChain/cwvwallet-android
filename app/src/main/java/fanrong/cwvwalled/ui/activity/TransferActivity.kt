@@ -1,5 +1,6 @@
 package fanrong.cwvwalled.ui.activity
 
+import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.text.Editable
 import android.view.View
 import android.widget.SeekBar
 import com.google.gson.Gson
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yzq.zxinglibrary.android.CaptureActivity
 import com.yzq.zxinglibrary.bean.ZxingConfig
 import com.yzq.zxinglibrary.common.Constant
@@ -71,13 +73,22 @@ class TransferActivity : BaseActivity() {
         }
         setRightImgOnclickListener(R.drawable.scan_icon) {
 
-            val intent = Intent(this, CaptureActivity::class.java)
-            val zxingConfig = ZxingConfig()
-            zxingConfig.reactColor = R.color.scan_coner_color
-            zxingConfig.frameLineColor = R.color.scan_coner_color
-            zxingConfig.scanLineColor = R.color.scan_coner_color
-            intent.putExtra(Constant.INTENT_ZXING_CONFIG, zxingConfig)
-            startActivityForResult(intent, START_SCAN)
+            val rxPermissions = RxPermissions(this)
+            rxPermissions.request(Manifest.permission.CAMERA)
+                    .subscribe {
+                        if (it) {
+
+                            val intent = Intent(this, CaptureActivity::class.java)
+                            val zxingConfig = ZxingConfig()
+                            zxingConfig.reactColor = R.color.scan_coner_color
+                            zxingConfig.frameLineColor = R.color.scan_coner_color
+                            zxingConfig.scanLineColor = R.color.scan_coner_color
+                            intent.putExtra(Constant.INTENT_ZXING_CONFIG, zxingConfig)
+                            startActivityForResult(intent, START_SCAN)
+                        } else {
+                            showTopMsg("请打卡相机权限")
+                        }
+                    }
         }
 
         bt_next.setOnClickListener(this)
