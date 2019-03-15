@@ -83,7 +83,7 @@ class CreateAccountPasswordActivity : BaseActivity() {
         }
 
 
-        PreferenceHelper.getInstance().storeStringShareData(PreferenceHelper.PreferenceKey.USERNAME, username)
+        PreferenceHelper.getInstance().storeStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME, username)
         PreferenceHelper.getInstance().storeStringShareData(PreferenceHelper.PreferenceKey.PASSWORD, userPassword)
         startActivity(CreateAccountStepOneActivity::class.java)
 

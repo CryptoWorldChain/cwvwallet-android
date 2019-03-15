@@ -24,6 +24,7 @@ import io.reactivex.functions.Function
 import kotlinx.android.synthetic.main.activity_create_account_step_two.*
 import org.json.JSONObject
 import xianchao.com.basiclib.utils.CheckedUtils
+import xianchao.com.basiclib.utils.RandomUtils
 import java.util.*
 
 class CreateAccountStepTwoActivity : BaseActivity() {
@@ -164,10 +165,10 @@ class CreateAccountStepTwoActivity : BaseActivity() {
                         cwvWallet.privateKey = jsonObject.getString("hexPrikey")
                         cwvWallet.address = "0x" + jsonObject.getString("hexAddress")
                     }
-                    cwvWallet.walletName = "CWV"
+                    cwvWallet.walletName = "CWV-" + RandomUtils.getRandomString(4)
                     cwvWallet.walletType = "CWV"
                     cwvWallet.mnemonic = mnemonic
-                    ethWallet.walletName = "ETH"
+                    ethWallet.walletName = "ETH-" + RandomUtils.getRandomString(4)
                     ethWallet.walletType = "ETH"
                     ethWallet.mnemonic = mnemonic
                     SWLog.e(cwvWallet)
