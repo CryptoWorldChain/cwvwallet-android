@@ -22,6 +22,7 @@ import fanrong.cwvwalled.utils.MoneyUtils
 import kotlinx.android.synthetic.main.activity_eth_detail.*
 import net.sourceforge.http.model.spdt.TransRecordItem
 import net.sourceforge.http.model.spdt.TransactionRecordResp
+import xianchao.com.basiclib.extension.extStartActivity
 import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
 
@@ -67,7 +68,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
                 val item = adapter!!.getItem(position) as TransRecordItem
                 val createWith = BundleUtils.createWith(PageParamter.PAREMTER_TRANS_RECORD, item)
                 createWith.putSerializable(PageParamter.PAREMTER_LITE_COINBEAN, coinBeanModel)
-                startActivity(TransRecordActivity::class.java, createWith)
+                extStartActivity(TransRecordActivity::class.java, createWith)
             }
         })
         tv_count_cny.text = "≈0 CNY"

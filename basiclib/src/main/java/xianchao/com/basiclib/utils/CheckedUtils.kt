@@ -30,6 +30,10 @@ public inline fun Map<*, *>?.checkNotEmpty(): Boolean {
     return this != null && !this.isEmpty()
 }
 
+public inline fun MutableMap<String, String>.putSafety(key: String, value: String?) {
+    this.put(key, if (value.checkIsEmpty()) "" else value!!)
+}
+
 object CheckedUtils {
     fun isEmpty(list: List<*>?): Boolean {
         return list == null || list.isEmpty()

@@ -2,7 +2,7 @@ package xianchao.com.basiclib.utils
 
 import org.json.JSONObject
 
-object XCJsonUtils {
+object XcJsonUtils {
     fun isJsonStr(string: String): Boolean {
         try {
             val jsonObject = JSONObject(string)
