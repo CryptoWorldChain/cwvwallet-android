@@ -12,10 +12,7 @@ import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.litepal.GreWalletModel
-import fanrong.cwvwalled.utils.AppManager
-import fanrong.cwvwalled.utils.CallJsCodeUtils
-import fanrong.cwvwalled.utils.SWLog
-import fanrong.cwvwalled.utils.ViewUtils
+import fanrong.cwvwalled.utils.*
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
@@ -165,10 +162,12 @@ class CreateAccountStepTwoActivity : BaseActivity() {
                         cwvWallet.privateKey = jsonObject.getString("hexPrikey")
                         cwvWallet.address = "0x" + jsonObject.getString("hexAddress")
                     }
-                    cwvWallet.walletName = "CWV-" + RandomUtils.getRandomString(4)
+
+                    val shareData = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME,"AA")
+                    cwvWallet.walletName = "CWV-" + shareData
                     cwvWallet.walletType = "CWV"
                     cwvWallet.mnemonic = mnemonic
-                    ethWallet.walletName = "ETH-" + RandomUtils.getRandomString(4)
+                    ethWallet.walletName = "ETH-" + shareData
                     ethWallet.walletType = "ETH"
                     ethWallet.mnemonic = mnemonic
                     SWLog.e(cwvWallet)
