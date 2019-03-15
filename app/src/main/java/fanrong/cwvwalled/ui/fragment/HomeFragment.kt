@@ -121,10 +121,8 @@ class HomeFragment : BaseFragment() {
                                 asset.countCNY = MoneyUtils.commonRMBDecimal(it)
                                 assertsAdapter!!.notifyDataSetChanged()
 
-                                if (assets.indexOf(asset) == assets.lastIndex) {
-                                    // 更新card
-                                    updataCardBalance()
-                                }
+                                // 更新card
+                                updataCardBalance()
                             }
 
 
@@ -179,10 +177,8 @@ class HomeFragment : BaseFragment() {
                                 asset.countCNY = MoneyUtils.commonRMBDecimal(it)
                                 assertsAdapter!!.notifyDataSetChanged()
 
-                                if (assets.indexOf(asset) == assets.lastIndex) {
-                                    // 更新card
-                                    updataCardBalance()
-                                }
+                                // 更新card
+                                updataCardBalance()
                             }
                         }
 
