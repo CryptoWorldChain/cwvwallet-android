@@ -47,11 +47,11 @@ class ExportPrivateKeyActivity : BaseActivity() {
         wallet = intent.getSerializableExtra(PageParamter.PAREMTER_WALLET) as GreWalletModel
 
 
-        setTitleText("导出Keystore")
+        setTitleText("导出私钥")
         setLeftImgOnclickListener(View.OnClickListener { finish() })
 
         mDataList = ArrayList<String>()
-        mDataList.add("Keystore")
+        mDataList.add("私钥")
         mDataList.add("二维码")
 //        activity.setTitleBarBackgroundColor(Color.parseColor("#434343"));
         view_pager.setOffscreenPageLimit(2)

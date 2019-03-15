@@ -19,7 +19,7 @@ class ExportKeyQRcodeFragment : BaseFragment() {
     override fun initView() {
         wallet = arguments!!.getSerializable(PageParamter.PAREMTER_WALLET) as GreWalletModel
         btn_show.setOnClickListener(this)
-        iv_qrcode.setImageBitmap(CodeCreator.createQRCode(wallet.address, 400, 400, null))
+        iv_qrcode.setImageBitmap(CodeCreator.createQRCode(wallet.privateKey, 400, 400, null))
     }
 
     override fun loadData() {
