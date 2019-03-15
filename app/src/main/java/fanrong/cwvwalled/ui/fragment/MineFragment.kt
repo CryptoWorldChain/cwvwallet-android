@@ -27,11 +27,13 @@ import fanrong.cwvwalled.common.UserInfoObject
 import fanrong.cwvwalled.listener.FRDialogBtnListener
 import fanrong.cwvwalled.ui.activity.*
 import fanrong.cwvwalled.ui.view.ButtomDialogView
+import fanrong.cwvwalled.ui.view.EditNickNameDialog
 import fanrong.cwvwalled.ui.view.ExitDialog
 import fanrong.cwvwalled.utils.RealPathFromUriUtils
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.fragment_mine.*
 import xianchao.com.basiclib.utils.CheckedUtils
+import xianchao.com.basiclib.utils.checkNotEmpty
 import java.io.File
 import java.security.Permission
 import kotlin.concurrent.thread
@@ -67,7 +69,26 @@ class MineFragment : BaseFragment() {
             bundle.putString("title", "用户协议")
             startActivity(WebViewActivity::class.java, bundle)
         }
+        if (UserInfoObject.nickName.checkNotEmpty()) {
+            tv_username.text = UserInfoObject.nickName
+        }
+        tv_username.setOnClickListener {
+            val nameDialog = EditNickNameDialog(activity!!)
+            nameDialog.btnListener = object : FRDialogBtnListener {
+                override fun onCancel(dialog: Dialog) {
+                    dialog.dismiss()
+                }
 
+                override fun onConfirm(dialog: Dialog) {
+                    dialog.dismiss()
+                    if (nameDialog.nickname.checkNotEmpty()) {
+                        UserInfoObject.nickName = nameDialog.nickname
+                        tv_username.text = nameDialog.nickname
+                    }
+                }
+            }
+            nameDialog.show()
+        }
 
         civ_header.setOnClickListener {
             val rxPermissions = RxPermissions(this)
