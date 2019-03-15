@@ -10,7 +10,9 @@ import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.PopupWindow
 import fanrong.cwvwalled.R
+import fanrong.cwvwalled.base.BaseActivity
 import kotlinx.android.synthetic.main.pop_add_address.view.*
+import xianchao.com.basiclib.utils.checkIsEmpty
 
 class AddAddressDialog(context: Activity) {
 
@@ -24,10 +26,24 @@ class AddAddressDialog(context: Activity) {
         val view = context.layoutInflater.inflate(
                 R.layout.pop_add_address, null)
         pop_parent = view.pop_parent
+
         view.iv_add_address_cancel.setOnClickListener {
             pop.dismiss()
         }
         view.tv_address_ok.setOnClickListener {
+
+            if (view.edit_add_address_name.text.toString().checkIsEmpty()) {
+                val baseActivity = context as BaseActivity
+                baseActivity.showTopMsg("姓名不能为空")
+                return@setOnClickListener
+            }
+
+
+            if (view.edit_add_address_address.text.toString().checkIsEmpty()) {
+                val baseActivity = context as BaseActivity
+                baseActivity.showTopMsg("地址不能为空")
+                return@setOnClickListener
+            }
             onOkListener.OnOk(view.edit_add_address_name.text.toString(),
                     view.edit_add_address_address.text.toString())
             pop.dismiss()
