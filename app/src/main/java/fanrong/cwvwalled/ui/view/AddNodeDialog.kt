@@ -8,12 +8,15 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.EditText
 import fanrong.cwvwalled.R
+import fanrong.cwvwalled.R.id.btn_confirm
+import fanrong.cwvwalled.R.id.et_url
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.listener.FRDialogBtnListener
 import kotlinx.android.synthetic.main.layout_dialog_add_node.*
 import net.sourceforge.UI.view.FullScreenHalfUpDialog
 import net.sourceforge.listener.TextWatcherAfter
 import xianchao.com.basiclib.utils.CheckedUtils
+import xianchao.com.basiclib.utils.checkIsEmpty
 
 class AddNodeDialog : FullScreenHalfUpDialog, View.OnClickListener {
 
@@ -26,7 +29,6 @@ class AddNodeDialog : FullScreenHalfUpDialog, View.OnClickListener {
     }
 
 
-    lateinit var url: String
     lateinit var et_url: EditText
     var selfContext: Context
 
@@ -43,6 +45,9 @@ class AddNodeDialog : FullScreenHalfUpDialog, View.OnClickListener {
         btn_cancel.setOnClickListener(this)
         btn_confirm.setOnClickListener(this)
         et_url.setSelection(et_url.text.length)
+        if (!node_url.checkIsEmpty()) {
+            et_url.setText(node_url)
+        }
         et_url.addTextChangedListener(object : TextWatcherAfter() {
             override fun afterTextChanged(s: Editable) {
                 btn_confirm.setEnabled(CheckedUtils.nonEmpty(et_url.getText().toString()))
@@ -65,7 +70,7 @@ class AddNodeDialog : FullScreenHalfUpDialog, View.OnClickListener {
                     (ownerActivity as BaseActivity).showTopMsgWithDialog("地址不能为空", this)
                 }
 
-                url = et_url.text.toString()
+                node_url = et_url.text.toString()
 
                 if (btnlistener != null) {
                     btnlistener!!.onConfirm(this)

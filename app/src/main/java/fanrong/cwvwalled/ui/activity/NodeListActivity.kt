@@ -97,12 +97,12 @@ class NodeListActivity : BaseActivity() {
             override fun onConfirm(dialog: Dialog) {
                 dialog.dismiss()
                 if (model != null) {
-                    model.node_url = (dialog as AddNodeDialog).url
+                    model.node_url = (dialog as AddNodeDialog).node_url
                     model.node_name = nodeType
                     model.is_def = false
                     GreNodeOperator.insertOrReplace(model)
                 } else {
-                    var newModel = GreNodeModel((dialog as AddNodeDialog).url)
+                    var newModel = GreNodeModel((dialog as AddNodeDialog).node_url)
                     newModel.node_name = nodeType
                     newModel.is_def = false
                     GreNodeOperator.insert(newModel)
