@@ -92,7 +92,7 @@ class ImportWordFragment : BaseFragment() {
             stringBuilder.append("$string ")
         }
         mnemonic = stringBuilder.toString().trim { it <= ' ' }
-        if (split.size != 12) {
+        if (strings.size != 12) {
             showTopMsg("请正确填写助记词")
             return
         }

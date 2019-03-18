@@ -92,10 +92,10 @@ class CoinMarketActivity : BaseActivity() {
                     override fun onResponse(call: Call<ToRMBResp>, response: Response<ToRMBResp>) {
                         if (CheckedUtils.nonEmpty(response.body()!!.kline)) {
                             val first = response.body()!!.kline[0]
-                            tv_open.text = "￥" + DecimalUtils.scale2Down(first.rmbopen)
-                            tv_high.text = "￥" + DecimalUtils.scale2Down(first.rmbhigh)
-                            tv_low.text = "￥" + DecimalUtils.scale2Down(first.rmblow)
-                            val toString = "￥" + BigDecimal(first.vol).divide(BigDecimal(Math.pow(10.0, 7.0))).setScale(2, RoundingMode.DOWN).toString()
+                            tv_open.text = "$" + DecimalUtils.scale2Down(first.open)
+                            tv_high.text = "$" + DecimalUtils.scale2Down(first.high)
+                            tv_low.text = "$" + DecimalUtils.scale2Down(first.low)
+                            val toString = "$" + BigDecimal(first.vol).divide(BigDecimal(Math.pow(10.0, 7.0))).setScale(2, RoundingMode.DOWN).toString()
                             tv_trans.text = "约${toString}千万"
                         }
                         refreshChart(response.body()!!.kline, period)
@@ -137,7 +137,7 @@ class CoinMarketActivity : BaseActivity() {
 
         val datas = ArrayList<LineChartView.Data>()
         kline.forEachIndexed { index, floatNote ->
-            val data = LineChartView.Data(BigDecimal(kline[index].rmbclose).setScale(3, RoundingMode.DOWN).toFloat())
+            val data = LineChartView.Data(BigDecimal(kline[index].close).setScale(3, RoundingMode.DOWN).toFloat())
             data.xText = chartXText[index]
             datas.add(data)
         }

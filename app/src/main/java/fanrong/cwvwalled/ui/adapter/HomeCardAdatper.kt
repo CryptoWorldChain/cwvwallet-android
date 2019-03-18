@@ -11,11 +11,14 @@ import android.widget.TextView
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.AppApplication
 import fanrong.cwvwalled.base.BaseActivity
+import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
+import fanrong.cwvwalled.ui.activity.WalletSettingActivity
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import fanrong.cwvwalled.utils.WordReplacement
+import xianchao.com.basiclib.utils.BundleUtils
 
 class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
 
@@ -63,6 +66,10 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
         view.findViewById<ImageView>(R.id.iv_copy).setOnClickListener {
             AppUtils.clipboardString(activity, walletModel.address)
             activity.showTopMsg("已复制")
+        }
+        view.findViewById<ImageView>(R.id.iv_detail).setOnClickListener {
+            var walletData = BundleUtils.createWith(PageParamter.PAREMTER_WALLET, walletModel)
+            activity.startActivity(WalletSettingActivity::class.java, walletData)
         }
     }
 

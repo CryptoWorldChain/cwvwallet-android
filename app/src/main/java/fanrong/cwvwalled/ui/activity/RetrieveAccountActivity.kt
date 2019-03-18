@@ -95,7 +95,7 @@ class RetrieveAccountActivity : BaseActivity() {
             stringBuilder.append("$string ")
         }
         mnemonic = stringBuilder.toString().trim { it <= ' ' }
-        if (split.size != 12) {
+        if (strings.size != 12) {
             val errorDialog = BackErrorDialog(this)
             errorDialog.show()
             Handler().postDelayed({ errorDialog.dismiss() }, 1500)

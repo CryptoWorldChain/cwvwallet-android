@@ -71,7 +71,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
                 extStartActivity(TransRecordActivity::class.java, createWith)
             }
         })
-        tv_count_cny.text = "≈0 CNY"
+        tv_count_cny.text = "≈ ￥ 0"
 
 
 
@@ -137,7 +137,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
             coin_symbol = coin_symbol.replace("(e)", "")
             ToRMBPresenter.toRMB(t!!, coin_symbol) {
                 val rmbDecimal = MoneyUtils.commonRMBDecimal(it)
-                tv_count_cny.text = "≈ ${rmbDecimal} CNY"
+                tv_count_cny.text = "≈ ￥ ${rmbDecimal}"
             }
         }
 

@@ -151,6 +151,7 @@ class TransferActivity : BaseActivity() {
                 confirmDialog.fromAddress = coinBeanModel.sourceAddr
                 confirmDialog.toAddress = et_address.text.toString()
                 confirmDialog.count = tv_money.text.toString()
+                confirmDialog.gas = tv_current.text.toString()
                 confirmDialog.remark = tv_remark.text.toString()
 
                 confirmDialog.listener = object : FRDialogBtnListener {

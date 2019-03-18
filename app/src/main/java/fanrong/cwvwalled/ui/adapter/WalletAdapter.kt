@@ -32,11 +32,6 @@ class WalletAdapter(var layoutResId: Int) : RecyclerView.Adapter<WalletAdapter.V
 
     override fun onBindViewHolder(viewholder: ViewHolder, p1: Int) {
         var item = datas[p1]
-        if ("CWV".equals(item.walletType)) {
-            viewholder.bgll_eth_wallet.setBackgroundResource(R.drawable.all_wallet_cwv_bg)
-        } else {
-            viewholder.bgll_eth_wallet.setBackgroundResource(R.drawable.all_wallet_eth_bg)
-        }
 
         viewholder.tv_eth_wallet_name.text = item.walletName
         viewholder.tv_eth_address.text = item.address

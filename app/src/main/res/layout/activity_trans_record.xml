@@ -24,11 +24,11 @@
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="33dp"
             android:layout_marginRight="33dp"
-            android:paddingRight="20dp"
             android:background="@drawable/trans_detail_card_bg"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingBottom="48dp"
+            android:paddingRight="20dp"
             android:paddingTop="38dp"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -122,6 +122,35 @@
 
                 <TextView
                     android:id="@+id/tv_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textSize="13.4sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="交易时间："
+                    android:textColor="#999999"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/tv_trans_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="17dp"
@@ -235,35 +264,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="交易时间："
-                    android:textColor="#999999"
-                    android:textSize="13.4sp" />
-
-                <TextView
-                    android:id="@+id/tv_trans_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="17dp"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text=""
-                    android:textColor="#ffffff"
-                    android:textSize="13.4sp" />
-
-            </LinearLayout>
-
-
         </xianchao.com.basiclib.widget.BgLinearLayout>
 
 
@@ -280,11 +280,11 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="45dp"
         android:layout_marginBottom="50dp"
-        android:src="@drawable/buttom_logo"/>
+        android:layout_marginRight="45dp"
+        android:src="@drawable/buttom_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

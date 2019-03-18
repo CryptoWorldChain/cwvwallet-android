@@ -38,6 +38,7 @@ class ImportKeyFragment : BaseFragment() {
     override fun initView() {
         walletType = arguments!!.getString(PageParamter.PAREMTER_WALLET_TYPE)
         tv_import.setOnClickListener(this)
+        tv_pasword_dialog.setOnClickListener(this)
     }
 
     override fun loadData() {

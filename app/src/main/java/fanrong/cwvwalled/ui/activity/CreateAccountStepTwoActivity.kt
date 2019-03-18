@@ -176,6 +176,7 @@ class CreateAccountStepTwoActivity : BaseActivity() {
                     GreWalletOperator.insert(ethWallet)
                     startActivity(MainActivity::class.java)
                     AppManager.finishActivity(CreateAccountPreActivity::class.java)
+                    AppManager.finishActivity(CreateAccountPasswordActivity::class.java)
                     AppManager.finishActivity(CreateAccountStepOneActivity::class.java)
                     finish()
                 }

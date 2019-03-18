@@ -98,7 +98,7 @@
         android:layout_marginBottom="37dp"
         android:background="@drawable/export_key_copy_bg"
         android:gravity="center"
-        android:text="复制Keystore"
+        android:text="复制私钥"
         android:textColor="#ffffff"
         android:textAllCaps="false"
         android:textSize="15.4sp" />

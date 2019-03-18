@@ -70,10 +70,10 @@ class HomeFragment : BaseFragment() {
         assertsAdapter?.setNewData(assets)
 
         if ("ETH".equals(wallet.walletType)) {
-            tv_asset.text = "ETH-Asset"
+            tv_asset.text = "ETH Asset"
             queryEthAssetBalance(assets, wallet)
         } else {
-            tv_asset.text = "CWV-Asset"
+            tv_asset.text = "CWV Asset"
             queryFbcAssetBalance(assets, wallet)
         }
     }

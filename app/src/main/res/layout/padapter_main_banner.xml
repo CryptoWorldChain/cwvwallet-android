@@ -37,26 +37,33 @@
             android:layout_marginTop="6dp"
             android:layout_weight="1"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_address"
-                android:layout_width="150dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="middle"
-                android:paddingLeft="10dp"
-                android:layout_weight="1"
-                android:paddingRight="10dp"
-                android:singleLine="true"
-                android:text="0x0543b4e1186…4d9f724d9f72"
-                android:textColor="#e5e5e5"
-                android:textSize="11.5sp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-            <ImageView
-                android:id="@+id/iv_copy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="100dp"
-                android:src="@drawable/fuzhi_01" />
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:text="0x0543b4e1186…4d9f724d9f72"
+                    android:textColor="#e5e5e5"
+                    android:textSize="11.5sp" />
+
+                <ImageView
+                    android:id="@+id/iv_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_marginRight="100dp"
+                    android:src="@drawable/fuzhi_01" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -105,11 +112,12 @@
 
 
     <ImageView
+        android:id="@+id/iv_detail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/white_diandiandian" />
 
 </xianchao.com.basiclib.widget.BgRelativeLayout>
