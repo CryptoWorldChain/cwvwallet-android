@@ -63,7 +63,7 @@ class ReceiptActivity : BaseActivity() {
 
         var moneyQRCodeModel = MoneyQRCodeModel()
         moneyQRCodeModel.address = coinBeanModel.sourceAddr;
-        moneyQRCodeModel.amount = "0"
+        moneyQRCodeModel.amount = ""
         var s = XcSingletons.obtainGson().toJson(moneyQRCodeModel).toString();
         SWLog.e(s)
         var bitmap = CodeCreator.createQRCode(s, 400, 400, null);

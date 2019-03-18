@@ -111,6 +111,10 @@ class NodeListActivity : BaseActivity() {
                 loadData()
             }
         }
+
+        if (model != null) {
+            nodeDialog.node_url = (model.node_url)
+        }
         nodeDialog.show()
 
     }
