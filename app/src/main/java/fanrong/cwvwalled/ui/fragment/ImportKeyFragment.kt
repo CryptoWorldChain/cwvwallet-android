@@ -55,6 +55,7 @@ class ImportKeyFragment : BaseFragment() {
                     override fun onCancel(dialog: Dialog) {
                         dialog.dismiss()
                     }
+
                     override fun onConfirm(dialog: Dialog) {
                         dialog.dismiss()
                     }
@@ -68,7 +69,7 @@ class ImportKeyFragment : BaseFragment() {
 
     private fun import() {
         var privateKey = et_private_key.getText().toString()
-
+        privateKey = privateKey.trim()
         if (TextUtils.isEmpty(privateKey)) {
             showTopMsg("请输入助记词")
             return
@@ -116,11 +117,16 @@ class ImportKeyFragment : BaseFragment() {
             } else {
                 ethWallet.walletName = "ETH-" + RandomUtils.getRandomString(4)
                 ethWallet.walletType = "ETH"
-                ethWallet.address = jsValue
-                ethWallet.isImport = true
-                showTopMsg("导入成功")
-                SWLog.e(ethWallet)
-                finishActivityDelay(2000)
+                ethWallet.address = "0x" + jsValue
+
+                if (GreWalletOperator.queryAddress(ethWallet.address) == null) {
+                    ethWallet.isImport = true
+                    showTopMsg("导入成功")
+                    SWLog.e(ethWallet)
+                    finishActivityDelay(2000)
+                } else {
+                    showTopMsg("相应的钱包已存在")
+                }
             }
         }
 
@@ -153,7 +159,7 @@ class ImportKeyFragment : BaseFragment() {
                 showTopMsg("导入成功")
                 finishActivityDelay(2000)
             } else {
-                showTopMsg("导入失败")
+                showTopMsg("相应的钱包已存在")
             }
         }
     }

@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import fanrong.cwvwalled.utils.SWLog;
 import xianchao.com.basiclib.utils.CheckedUtils;
 
 /**
@@ -53,7 +54,6 @@ public class LineChartView extends View {
 
     private float maxValue, minValue;
     private int rulerValueDefault = 10;
-    private int rulerValue = rulerValueDefault;//刻度单位跨度
     private int rulerValuePadding;//刻度单位与轴的间距
     private int rulerValuePaddingDP = 8;//刻度单位与轴的间距默认dp
     private float heightPercent = 1f;
@@ -191,7 +191,7 @@ public class LineChartView extends View {
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);//父类期望的高度
         if (MeasureSpec.EXACTLY == heightMode) {
-            height = getPaddingTop() + getPaddingBottom() + height;
+            height = getPaddingTop() + getPaddingBottom() + dip2px(40) + height;
         }
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), height);//设置自己的宽度和高度
     }
@@ -216,7 +216,7 @@ public class LineChartView extends View {
             stepEnd = stepStart + stepSpace * dataList.size();
         }
         canvas.drawColor(Color.TRANSPARENT);//绘制背景颜色
-        canvas.translate(0f, mHeight / 2f + (getViewDrawHeight()) / 2f - sp2px(textRulerPaint.getTextSize()));//设置画布中心点垂直居中
+        canvas.translate(0f, (getViewDrawHeight()) - sp2px(textRulerPaint.getTextSize()));//设置画布中心点垂直居中
 
         if (!isInitialized) {
             setupLine();
@@ -309,8 +309,10 @@ public class LineChartView extends View {
 //        int startValue = minValue - (minValue > 0 ? 0 : minValue % rulerValue);
 //        int endValue = (maxValue + rulerValue);
 
-        int rulerCount = 6;
-        float rulerValue = (maxValue - minValue) / 6;
+        if (maxValue == 0 || minValue == 0) {
+            return;
+        }
+
         float rulerMax = maxValue;
 
         tablePath.moveTo(stepStart, -getValueHeight(rulerMax));//加上顶部的间隔
@@ -319,17 +321,17 @@ public class LineChartView extends View {
 
         float startValue = minValue;
         float endValue = maxValue;
-
         //标尺y轴连接线
         do {
+            SWLog.e("startValue->" + startValue);
             int startHeight = -getValueHeight(startValue);
             //绘制横线
 //            tablePath.moveTo(stepStart, startHeight);
 //            tablePath.lineTo(tableEnd, startHeight);
             //绘制y轴刻度单位
             drawRulerYText(canvas, new BigDecimal(startValue).setScale(3, BigDecimal.ROUND_DOWN).toString(), stepStart, startHeight);
-            startValue += rulerValue;
-        } while (startValue < endValue);
+            startValue += rulerValue1;
+        } while (startValue <= endValue);
 
         canvas.drawPath(tablePath, tablePaint);
         //绘制x轴刻度单位
@@ -513,11 +515,16 @@ public class LineChartView extends View {
             }
         }).getValue();
 
-        maxValue = maxValue * 1.1f;
-        minValue = minValue * 0.9f;
+        maxValue = maxValue * 1.03f;
 
+        minValue = minValue * 0.97f;
+
+        rulerValue1 = (maxValue - minValue) / 4;
+        maxValue = maxValue + rulerValue1;
         refreshLayout();
     }
+
+    float rulerValue1;
 
     /**
      * 设置是否显示标尺表格
@@ -546,19 +553,6 @@ public class LineChartView extends View {
      */
     public void setCubePoint(boolean isCube) {
         isCubePoint = isCube;
-        refreshLayout();
-    }
-
-    /**
-     * 设置标尺y轴间距
-     *
-     * @param space
-     */
-    public void setRulerYSpace(int space) {
-        if (space <= 0) {
-            space = rulerValueDefault;
-        }
-        this.rulerValue = space;
         refreshLayout();
     }
 

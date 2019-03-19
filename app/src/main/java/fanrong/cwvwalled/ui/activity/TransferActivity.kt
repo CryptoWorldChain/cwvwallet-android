@@ -45,8 +45,8 @@ import retrofit2.Response
 import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.HashMap
-import java.util.logging.Handler
 
 class TransferActivity : BaseActivity() {
 
@@ -272,16 +272,13 @@ class TransferActivity : BaseActivity() {
             override fun valueBack(t: String?) {
                 CheckedUtils.nonEmpty(t) { nonce = t!! }
 
-                if (CheckedUtils.nonEmpty(t)) {
-
-                }
             }
         })
 
         transferPresenter.getBalance(object : ValueCallBack<String?> {
             override fun valueBack(t: String?) {
                 balanceBigdecimal = MoneyUtils.commonHandleDecimal(t)
-                tv_useable_money.text = "余额 ${balanceBigdecimal} ${coinBeanModel.coin_symbol}"
+                tv_useable_money.text = "余额：${balanceBigdecimal} ${coinBeanModel.coin_symbol}"
             }
         })
 
@@ -292,19 +289,23 @@ class TransferActivity : BaseActivity() {
 
     fun initSeekbar() {
         sb_seekbar.max = 100
-        val plainString = BigDecimal(gas_price).multiply(BigDecimal(400000))
+        val minValue = BigDecimal(gas_price).multiply(BigDecimal(400000))
                 .divide(BigDecimal(Math.pow(10.0, 18.0)))
 
-        gas_price = plainString.toString()
-        tv_current.setText(gas_price + " ether")
+        gas_price = minValue.toString()
 
-        val initialValue = plainString.multiply(BigDecimal(Math.pow(10.0, 5.0)))
-        sb_seekbar.max = initialValue.multiply(BigDecimal.TEN).toInt()
-        sb_seekbar.progress = initialValue.toInt()
+        val maxValue = minValue.multiply(BigDecimal.TEN)
+        sb_seekbar.max = 100
+        sb_seekbar.progress = minValue.multiply(BigDecimal("1.5")).divide(maxValue).multiply(BigDecimal("100")).toInt()
+        tv_current.setText(minValue.multiply(BigDecimal("1.5")).setScale(9, RoundingMode.DOWN).toPlainString() + " ether")
 
         sb_seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                gas_price = BigDecimal(progress).divide(BigDecimal(Math.pow(10.0, 5.0))).toPlainString()
+                gas_price = BigDecimal(progress)
+                        .divide(BigDecimal("100"))
+                        .multiply(maxValue)
+                        .setScale(9, RoundingMode.DOWN)
+                        .toPlainString()
                 tv_current.text = gas_price + " ether"
 
             }
@@ -313,9 +314,13 @@ class TransferActivity : BaseActivity() {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                if (initialValue.compareTo(BigDecimal(seekBar.progress)) == 1) {
+                val currentValue = BigDecimal(seekBar.progress)
+                        .divide(BigDecimal("100"))
+                        .multiply(maxValue)
+                        .setScale(9, RoundingMode.DOWN)
+                if (minValue.compareTo(currentValue) == 1) {
                     showTopMsg("不能小于最低矿工费")
-                    seekBar.progress = initialValue.toInt()
+                    seekBar.progress = minValue.divide(maxValue).multiply(BigDecimal("100")).toInt()
                 }
             }
         })
@@ -332,8 +337,10 @@ class TransferActivity : BaseActivity() {
                 .enqueue(object : Callback<QueryNodeGasResp> {
                     override fun onResponse(call: Call<QueryNodeGasResp>, response: Response<QueryNodeGasResp>) {
                         val body = response.body()
-                        gas_price = body!!.gas_price
-                        initSeekbar()
+                        if (body != null && "1".equals(body.err_code)) {
+                            gas_price = body!!.gas_price
+                            initSeekbar()
+                        }
 
                     }
 

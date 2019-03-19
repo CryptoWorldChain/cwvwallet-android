@@ -95,7 +95,7 @@ class CoinMarketActivity : BaseActivity() {
                             tv_open.text = "$" + DecimalUtils.scale2Down(first.open)
                             tv_high.text = "$" + DecimalUtils.scale2Down(first.high)
                             tv_low.text = "$" + DecimalUtils.scale2Down(first.low)
-                            val toString = "$" + BigDecimal(first.vol).divide(BigDecimal(Math.pow(10.0, 7.0))).setScale(2, RoundingMode.DOWN).toString()
+                            val toString = BigDecimal(first.vol).divide(BigDecimal(Math.pow(10.0, 7.0))).setScale(2, RoundingMode.DOWN).toString()
                             tv_trans.text = "约${toString}千万"
                         }
                         refreshChart(response.body()!!.kline, period)

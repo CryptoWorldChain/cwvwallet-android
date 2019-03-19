@@ -112,12 +112,12 @@ class HomeFragment : BaseFragment() {
                         override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
                             val body = response.body()
                             val rightNum = MoneyUtils.getRightNum(body!!.balance)
-                            asset.count = rightNum
+                            asset.count = MoneyUtils.commonHandleDecimal(rightNum)
 
                             var coin_symbol = asset.coin_symbol!!.replace("(e)", "")
                             coin_symbol = coin_symbol.replace("(c)", "")
 
-                            ToRMBPresenter.toRMB(rightNum, coin_symbol) {
+                            ToRMBPresenter.toRMB(asset.count!!, coin_symbol) {
                                 asset.countCNY = MoneyUtils.commonRMBDecimal(it)
                                 assertsAdapter!!.notifyDataSetChanged()
 
@@ -170,10 +170,10 @@ class HomeFragment : BaseFragment() {
                         override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
                             val body = response.body()
                             val rightNum = MoneyUtils.getRightNum(body!!.balance)
-                            asset.count = rightNum
+                            asset.count = MoneyUtils.commonHandleDecimal(rightNum)
 
                             var coin_symbol = AppUtils.getRealSymbol(asset.coin_symbol)
-                            ToRMBPresenter.toRMB(rightNum, coin_symbol) {
+                            ToRMBPresenter.toRMB(asset.count!!, coin_symbol) {
                                 asset.countCNY = MoneyUtils.commonRMBDecimal(it)
                                 assertsAdapter!!.notifyDataSetChanged()
 

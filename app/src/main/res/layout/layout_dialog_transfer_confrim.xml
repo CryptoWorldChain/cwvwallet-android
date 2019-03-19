@@ -34,7 +34,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="收款方："
@@ -64,7 +64,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="发款方："
@@ -95,7 +95,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="矿工费："
@@ -124,7 +124,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="金额："
@@ -152,7 +152,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="备注："
             android:gravity="right"

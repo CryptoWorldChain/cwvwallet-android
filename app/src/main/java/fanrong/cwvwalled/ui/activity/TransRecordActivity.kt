@@ -1,6 +1,7 @@
 package fanrong.cwvwalled.ui.activity
 
 import android.view.View
+import com.facebook.common.util.Hex
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
@@ -33,13 +34,23 @@ class TransRecordActivity : BaseActivity() {
         tv_trans_id.setOnClickListener(this)
 
         var fuhao = if (getSelfAddr().equals(transRecord.from_addr)) "-" else "+"
-        tv_count.text = fuhao + MoneyUtils.getRightNum(transRecord.value) + " ${coinBeanModel.coin_symbol}"
+        tv_count.text = fuhao + MoneyUtils.commonRMBDecimal(MoneyUtils.getRightNum(transRecord.value)) + " ${coinBeanModel.coin_symbol}"
         tv_to_address.text = transRecord.to_addr
         tv_from_address.text = transRecord.from_addr
         tv_tip.text = MoneyUtils.getDownTip(transRecord.gas_used) + " ether"
 
         if (CheckedUtils.nonEmpty(transRecord.ex_data)) {
-            tv_remark.text = XcJsonUtils.getString(JSONObject(transRecord.ex_data), "note")
+            var ex_data = ""
+            if ("CWV".equals(coinBeanModel.channel_name)) {
+                ex_data = String(Hex.decodeHex(transRecord.ex_data))
+                tv_tip.text = "无"
+            }
+
+            if (CheckedUtils.isJson(ex_data)) {
+                tv_remark.text = XcJsonUtils.getString(JSONObject(ex_data), "note")
+            } else {
+                tv_remark.text = ex_data
+            }
         }
 
         tv_trans_id.text = transRecord.tx_id
@@ -73,7 +84,7 @@ class TransRecordActivity : BaseActivity() {
     }
 
     override fun onClick(v: View) {
-        AppUtils.clipboardString(this,tv_trans_id.text.toString())
+        AppUtils.clipboardString(this, tv_trans_id.text.toString())
         showTopMsg("已复制")
     }
 

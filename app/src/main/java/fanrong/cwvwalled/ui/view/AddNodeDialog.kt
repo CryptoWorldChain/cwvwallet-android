@@ -32,7 +32,7 @@ class AddNodeDialog : FullScreenHalfUpDialog, View.OnClickListener {
     lateinit var et_url: EditText
     var selfContext: Context
 
-    lateinit var node_url: String
+    var node_url: String = ""
     var btnlistener: FRDialogBtnListener? = null
 
 

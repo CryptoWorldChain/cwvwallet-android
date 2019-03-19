@@ -210,7 +210,7 @@ class ImportWordFragment : BaseFragment() {
                     showTopMsg("导入成功")
                     finishActivityDelay(2000)
                 } else {
-                    showTopMsg("导入失败")
+                    showTopMsg("相应的钱包已存在")
                 }
             } else {
                 SWLog.e(ethWallet)
@@ -219,7 +219,7 @@ class ImportWordFragment : BaseFragment() {
                     showTopMsg("导入成功")
                     finishActivityDelay(2000)
                 } else {
-                    showTopMsg("导入失败")
+                    showTopMsg("相应的钱包已存在")
                 }
             }
         }

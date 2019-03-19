@@ -47,7 +47,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="转账金额"
+                        android:text="输入金额"
                         android:textColor="#999999"
                         android:textSize="14sp" />
 
@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="余额"
+                        android:text="余额："
                         android:textColor="#FFFFFF"
                         android:textSize="14sp" />
 
@@ -113,7 +113,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="收款地址"
+                        android:text="地址"
                         android:textColor="#999999"
                         android:textSize="14sp" />
 
@@ -159,10 +159,9 @@
                 android:paddingLeft="11dp">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="备注（选填）"
+                    android:text="备注（选填）："
                     android:textColor="#999999"
                     android:textSize="14sp" />
 
