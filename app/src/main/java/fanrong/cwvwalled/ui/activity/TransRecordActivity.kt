@@ -39,7 +39,11 @@ class TransRecordActivity : BaseActivity() {
         tv_count.text = fuhao + MoneyUtils.commonRMBDecimal(MoneyUtils.getRightNum(transRecord.value)) + " ${coinBeanModel.coin_symbol}"
         tv_to_address.text = transRecord.to_addr
         tv_from_address.text = transRecord.from_addr
-        tv_tip.text = MoneyUtils.getDownTip(transRecord.gas_used) + " ether"
+        if (transRecord.gas_used.checkIsEmpty()) {
+            tv_tip.text = "无"
+        } else {
+            tv_tip.text = MoneyUtils.getDownTip(transRecord.gas_used) + " ether"
+        }
 
         if (CheckedUtils.nonEmpty(transRecord.ex_data)) {
 
