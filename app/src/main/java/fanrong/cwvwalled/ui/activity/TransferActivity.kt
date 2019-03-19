@@ -301,7 +301,8 @@ class TransferActivity : BaseActivity() {
         val maxValue = minValue.multiply(BigDecimal.TEN)
         sb_seekbar.max = 100
         sb_seekbar.progress = minValue.multiply(BigDecimal("1.5")).divide(maxValue).multiply(BigDecimal("100")).toInt()
-        tv_current.setText(minValue.multiply(BigDecimal("1.5")).setScale(9, RoundingMode.DOWN).toFloat().toString() + " ether")
+        tv_current.setText(minValue.multiply(BigDecimal("1.5")).setScale(9, RoundingMode.DOWN)
+                .toPlainString().removeAllZero() + " ether")
 
         sb_seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -309,7 +310,8 @@ class TransferActivity : BaseActivity() {
                         .divide(BigDecimal("100"))
                         .multiply(maxValue)
                         .setScale(9, RoundingMode.DOWN)
-                        .toFloat().toString()
+                        .toPlainString().removeAllZero()
+
                 tv_current.text = gas_price + " ether"
 
             }
@@ -325,12 +327,6 @@ class TransferActivity : BaseActivity() {
                 if (minValue.compareTo(currentValue) == 1) {
                     showTopMsg("不能小于最低矿工费")
                     seekBar.progress = minValue.divide(maxValue).multiply(BigDecimal("100")).toInt()
-                    gas_price = BigDecimal(seekBar.progress)
-                            .divide(BigDecimal("100"))
-                            .multiply(maxValue)
-                            .setScale(9, RoundingMode.DOWN)
-                            .toFloat().toString()
-                    tv_current.text = gas_price + " ether"
                 }
             }
         })
@@ -384,6 +380,11 @@ class TransferActivity : BaseActivity() {
             }
         }
 
+
+    }
+
+    public fun String.removeAllZero(): String {
+        return java.lang.String(this).replaceAll("0+?$", "")
 
     }
 
