@@ -32,11 +32,11 @@ class EthDetailAdapter(var coinBeanModel: LiteCoinBeanModel, layoutId: Int) : Ba
         if (coinBeanModel.sourceAddr.equals(item.from_addr, true)) {
             helper.setText(R.id.tv_address, item.to_addr)
             helper.setText(R.id.tv_count, "-" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.value)))
-            helper.setTextColor(R.id.tv_count, Color.parseColor("#7cb1f9"))
+            helper.setTextColor(R.id.tv_count, Color.parseColor("#b077fa"))
         } else {
             helper.setText(R.id.tv_address, item.from_addr)
             helper.setText(R.id.tv_count, "+" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.value)))
-            helper.setTextColor(R.id.tv_count, Color.parseColor("#3090ff"))
+            helper.setTextColor(R.id.tv_count, Color.parseColor("#7cb1f9"))
         }
 
 

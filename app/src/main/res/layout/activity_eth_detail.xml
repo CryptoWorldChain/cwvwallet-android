@@ -68,20 +68,26 @@
                     android:textColor="#bbbaba"
                     android:textSize="11.3sp" />
 
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rl_recycler"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:layout_weight="1"
-                    android:nestedScrollingEnabled="false"
-                    android:overScrollMode="never">
+                    android:descendantFocusability="blocksDescendants">
 
-                </android.support.v7.widget.RecyclerView>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rl_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never">
+
+                    </android.support.v7.widget.RecyclerView>
+                </RelativeLayout>
 
 
             </LinearLayout>
+
         </ScrollView>
 
 
