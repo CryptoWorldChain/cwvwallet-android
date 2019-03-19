@@ -37,6 +37,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
+import xianchao.com.basiclib.utils.checkIsEmpty
 import java.math.BigDecimal
 
 class HomeFragment : BaseFragment() {
@@ -96,11 +97,14 @@ class HomeFragment : BaseFragment() {
                 }
             }
             wallet.rmb = allBalance.toString()
-            homeCardAdatper.notifyDataSetChanged()
+            assertsAdapter!!.notifyDataSetChanged()
+            homeCardAdatper.notifyItemDataChanged(vp_container.currentItem)
         }
 
+        var allItem = mutableListOf<String>()
 
         for (asset in assets) {
+            allItem.add(asset.coin_symbol!!)
             val req = GetBalanceReq()
             req.dapp_id = Constants.DAPP_ID
             req.node_url = GreNodeOperator.queryETHnode().node_url
@@ -117,12 +121,25 @@ class HomeFragment : BaseFragment() {
                             var coin_symbol = asset.coin_symbol!!.replace("(e)", "")
                             coin_symbol = coin_symbol.replace("(c)", "")
 
-                            ToRMBPresenter.toRMB(asset.count!!, coin_symbol) {
-                                asset.countCNY = MoneyUtils.commonRMBDecimal(it)
-                                assertsAdapter!!.notifyDataSetChanged()
 
-                                // 更新card
-                                updataCardBalance()
+                            if (BigDecimal(asset.count).compareTo(BigDecimal.ZERO) == 0) {
+                                allItem.remove(asset.coin_symbol!!)
+                                if (allItem.checkIsEmpty()) {
+                                    // 更新card
+                                    updataCardBalance()
+                                }
+                            } else {
+
+                                ToRMBPresenter.toRMB(asset.count!!, coin_symbol) {
+
+                                    asset.countCNY = MoneyUtils.commonRMBDecimal(it)
+
+                                    allItem.remove(asset.coin_symbol!!)
+                                    if (allItem.checkIsEmpty()) {
+                                        // 更新card
+                                        updataCardBalance()
+                                    }
+                                }
                             }
 
 

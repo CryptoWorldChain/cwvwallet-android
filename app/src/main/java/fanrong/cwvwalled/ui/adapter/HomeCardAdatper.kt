@@ -95,7 +95,13 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
         for (allPage in allPages) {
             initView(allPage.key, allPage.value)
         }
-
     }
+
+    fun notifyItemDataChanged(position: Int) {
+        if (allPages.containsKey(position)) {
+            initView(position, allPages.get(position)!!)
+        }
+    }
+
 
 }
