@@ -121,9 +121,9 @@ class TransferEthPresenter : TransferPresenter {
         transferReq.from_addr = coinBeanModel.sourceAddr
         transferReq.value = MoneyUtils.getMultiplyEighteen(transferReq.value)
         transferReq.signed_message = if (signedMessage.startsWith("0x")) signedMessage.replaceFirst("0x".toRegex(), "") else signedMessage
-
         transferReq.timestamp = System.currentTimeMillis().toString() + ""
 
+        transferReq.ex_data = Hex.encodeHex(transferReq.ex_data.toByteArray(), false)
         RetrofitClient.getETHNetWorkApi()
                 .mainTransfer(ConvertToBody.ConvertToBody(transferReq))
                 .enqueue(object : Callback<WalletTransferModel> {
@@ -152,7 +152,6 @@ class TransferEthPresenter : TransferPresenter {
         transferReq.node_url = GreNodeOperator.queryETHnode().node_url
         transferReq.contract_addr = coinBeanModel.contract_addr
         transferReq.tx_type = "转帐"
-        transferReq.ex_data = Hex.encodeHex("".toByteArray(), false)
         transferReq.gas_limit = "400000"
         // 页面信息如下
         //        transferReq.gas_price = "";  页面进行赋值
@@ -166,6 +165,7 @@ class TransferEthPresenter : TransferPresenter {
         transferReq.signed_message = if (signedMessage.startsWith("0x")) signedMessage.replaceFirst("0x".toRegex(), "") else signedMessage
 
         transferReq.timestamp = System.currentTimeMillis().toString() + ""
+        transferReq.ex_data = Hex.encodeHex(transferReq.ex_data.toByteArray(), false)
 
         RetrofitClient.getETHNetWorkApi()
                 .transfer(ConvertToBody.ConvertToBody(transferReq))

@@ -88,8 +88,11 @@ public class GreNodeOperator {
         nodeModel.delete();
     }
 
-    public static void insertOrReplace(GreNodeModel greNodeModel) {
-        greNodeModel.update(greNodeModel.getId());
+    public static void update(GreNodeModel greNodeModel) {
+
+        ContentValues using = new ContentValues();
+        using.put("node_url", greNodeModel.getNode_url());
+        LitePal.update(GreNodeModel.class, using, greNodeModel.getId());
     }
 
 

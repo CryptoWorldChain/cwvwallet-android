@@ -132,12 +132,17 @@ class TransferActivity : BaseActivity() {
                 val address = et_address.getText().toString().trim()
                 val money = tv_money.text.toString().trim()
 
-                if (CheckedUtils.isEmpty(address)) {
+                if (CheckedUtils.isEmpty(money)) {
                     showTopMsg("请输入数量")
                     return
                 }
 
-                if (CheckedUtils.isEmpty(money)) {
+                if (BigDecimal(money).compareTo(BigDecimal.ZERO) == 0) {
+                    showTopMsg("请输入数量")
+                    return
+                }
+
+                if (CheckedUtils.isEmpty(address)) {
                     showTopMsg("请输入地址")
                     return
                 }
@@ -150,7 +155,7 @@ class TransferActivity : BaseActivity() {
                 val confirmDialog = TransferConfirmDialog(this)
                 confirmDialog.fromAddress = coinBeanModel.sourceAddr
                 confirmDialog.toAddress = et_address.text.toString()
-                confirmDialog.count = tv_money.text.toString()
+                confirmDialog.count = tv_money.text.toString() + " " + coinBeanModel.coin_symbol
                 confirmDialog.gas = tv_current.text.toString()
                 confirmDialog.remark = tv_remark.text.toString()
 
@@ -222,7 +227,6 @@ class TransferActivity : BaseActivity() {
         req.value = money
         req.gas_price = gas_price
         req.symbol = AppUtils.getRealSymbol(coinBeanModel.coin_symbol)
-
 
         val exData = HashMap<String, String>()
         val remark = tv_remark.text.toString().trim()
@@ -297,7 +301,7 @@ class TransferActivity : BaseActivity() {
         val maxValue = minValue.multiply(BigDecimal.TEN)
         sb_seekbar.max = 100
         sb_seekbar.progress = minValue.multiply(BigDecimal("1.5")).divide(maxValue).multiply(BigDecimal("100")).toInt()
-        tv_current.setText(minValue.multiply(BigDecimal("1.5")).setScale(9, RoundingMode.DOWN).toPlainString() + " ether")
+        tv_current.setText(minValue.multiply(BigDecimal("1.5")).setScale(9, RoundingMode.DOWN).toFloat().toString() + " ether")
 
         sb_seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -305,7 +309,7 @@ class TransferActivity : BaseActivity() {
                         .divide(BigDecimal("100"))
                         .multiply(maxValue)
                         .setScale(9, RoundingMode.DOWN)
-                        .toPlainString()
+                        .toFloat().toString()
                 tv_current.text = gas_price + " ether"
 
             }
@@ -321,6 +325,12 @@ class TransferActivity : BaseActivity() {
                 if (minValue.compareTo(currentValue) == 1) {
                     showTopMsg("不能小于最低矿工费")
                     seekBar.progress = minValue.divide(maxValue).multiply(BigDecimal("100")).toInt()
+                    gas_price = BigDecimal(seekBar.progress)
+                            .divide(BigDecimal("100"))
+                            .multiply(maxValue)
+                            .setScale(9, RoundingMode.DOWN)
+                            .toFloat().toString()
+                    tv_current.text = gas_price + " ether"
                 }
             }
         })

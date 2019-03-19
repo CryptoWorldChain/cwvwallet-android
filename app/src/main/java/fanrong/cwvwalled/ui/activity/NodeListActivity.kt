@@ -100,7 +100,7 @@ class NodeListActivity : BaseActivity() {
                     model.node_url = (dialog as AddNodeDialog).node_url
                     model.node_name = nodeType
                     model.is_def = false
-                    GreNodeOperator.insertOrReplace(model)
+                    GreNodeOperator.update(model)
                 } else {
                     var newModel = GreNodeModel((dialog as AddNodeDialog).node_url)
                     newModel.node_name = nodeType

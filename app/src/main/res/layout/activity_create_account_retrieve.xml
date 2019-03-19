@@ -44,7 +44,7 @@
             android:layout_marginTop="25dp"
             android:background="@drawable/backup_mnemic_bg"
             android:gravity="top"
-            android:hint="请输入助记词，用空格隔开"
+            android:hint="请输入助记词，用空格分隔"
             android:paddingLeft="11dp"
             android:paddingTop="15dp"
             android:textColor="#FFFFFF"

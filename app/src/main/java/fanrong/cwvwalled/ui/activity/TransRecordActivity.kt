@@ -13,6 +13,7 @@ import net.sourceforge.http.model.spdt.TransRecordItem
 import org.json.JSONObject
 import xianchao.com.basiclib.utils.CheckedUtils
 import xianchao.com.basiclib.utils.XcJsonUtils
+import xianchao.com.basiclib.utils.checkIsEmpty
 import java.text.SimpleDateFormat
 
 class TransRecordActivity : BaseActivity() {
@@ -40,9 +41,8 @@ class TransRecordActivity : BaseActivity() {
         tv_tip.text = MoneyUtils.getDownTip(transRecord.gas_used) + " ether"
 
         if (CheckedUtils.nonEmpty(transRecord.ex_data)) {
-            var ex_data = ""
+            var ex_data = String(Hex.decodeHex(transRecord.ex_data))
             if ("CWV".equals(coinBeanModel.channel_name)) {
-                ex_data = String(Hex.decodeHex(transRecord.ex_data))
                 tv_tip.text = "无"
             }
 

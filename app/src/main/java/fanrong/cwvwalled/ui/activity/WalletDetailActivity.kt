@@ -85,9 +85,8 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
             }
 
             override fun onRefresh(refreshlayout: RefreshLayout) {
-                presenter.pageNum = 1
                 refreshlayout.resetNoMoreData()
-                presenter.queryRecord(recordValueBack)
+                loadData()
             }
 
         })

@@ -50,11 +50,11 @@ class AllWalletActivity : BaseActivity() {
 
         queryCWV = GreWalletOperator.queryMainCWV()
         tv_cwv_wallet_name.text = queryCWV?.walletName
-        tv_cwv_address.text = queryCWV?.walletType
+        tv_cwv_address.text = queryCWV?.address
 
         queryETH = GreWalletOperator.queryMainETH()
         tv_eth_wallet_name.text = queryETH?.walletName
-        tv_eth_address.text = queryETH?.walletType
+        tv_eth_address.text = queryETH?.address
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL

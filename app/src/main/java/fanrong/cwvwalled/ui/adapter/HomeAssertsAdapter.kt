@@ -23,7 +23,7 @@ class HomeAssertsAdapter(layoutResId: Int) : BaseQuickAdapter<LiteCoinBeanModel,
         val handleDecimal = (item.countCNY)
 
         if (CheckedUtils.isEmpty(handleDecimal) || BigDecimal.ZERO.compareTo(BigDecimal(handleDecimal)) == 0) {
-            helper.setText(R.id.tv_countCNY, "¥ --")
+            helper.setText(R.id.tv_countCNY, "--")
         } else {
             helper.setText(R.id.tv_countCNY, "¥ " + MoneyUtils.commonRMBDecimal(handleDecimal))
         }
