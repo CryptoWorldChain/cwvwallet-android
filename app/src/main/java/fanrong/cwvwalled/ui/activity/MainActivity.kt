@@ -1,14 +1,27 @@
 package fanrong.cwvwalled.ui.activity
 
+import android.app.Dialog
+import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.AppApplication
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.base.BaseFragment
+import fanrong.cwvwalled.http.engine.RetrofitClient
+import fanrong.cwvwalled.http.model.UpdateResp
+import fanrong.cwvwalled.listener.FRDialogBtnListener
 import fanrong.cwvwalled.ui.fragment.*
+import fanrong.cwvwalled.ui.view.UpdateDialog
 import fanrong.cwvwalled.utils.PreferenceHelper
+import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : BaseActivity() {
 
@@ -77,6 +90,8 @@ class MainActivity : BaseActivity() {
                 .add(R.id.main_frame_layout, fragments[0]!!)
                 .show(fragments[0]!!)
                 .commitAllowingStateLoss()
+
+        checkedUpdate()
     }
 
 
@@ -95,6 +110,64 @@ class MainActivity : BaseActivity() {
             PreferenceHelper.getInstance().clearObjectForKey(PreferenceHelper.PreferenceKey.KEY_NEWS_SELECT_LIST)
             AppApplication.instance.exit()
         }
+    }
+
+
+    /**
+     *
+     */
+    private fun checkedUpdate() {
+        RetrofitClient.getNetWorkApi()
+                .update()
+                .enqueue(object : Callback<UpdateResp> {
+                    override fun onFailure(call: Call<UpdateResp>, t: Throwable) {
+                        SWLog.e("onFailure")
+                    }
+
+                    override fun onResponse(call: Call<UpdateResp>, response: Response<UpdateResp>) {
+
+                        if (response.body() == null) {
+                            return
+                        }
+
+                        val packageInfo = packageManager.getPackageInfo(packageName, 0)
+
+                        var selfVersion = packageInfo.versionName.replace(".", "").toInt()
+                        var serviceVersion = response.body()!!.current_version.replace(".", "").toInt()
+
+                        if (serviceVersion > selfVersion) {
+                            val dialog = UpdateDialog(this@MainActivity)
+                            dialog.btnListener = object : FRDialogBtnListener {
+                                override fun onCancel(dialog: Dialog) {
+                                    dialog.dismiss()
+                                }
+
+                                override fun onConfirm(dialog: Dialog) {
+                                    toweb(response.body()!!.download_url!!)
+                                }
+                            }
+
+                            dialog.setOnKeyListener(object : DialogInterface.OnKeyListener {
+                                override fun onKey(dialog: DialogInterface?, keyCode: Int, event: KeyEvent?): Boolean {
+                                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                                        return true
+                                    }
+                                    return false
+                                }
+                            })
+                            dialog.version = response.body()!!.current_version
+                            dialog.show()
+
+                        }
+                    }
+                })
+    }
+
+
+    fun toweb(url: String) {
+        val uri = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
     }
 
 }

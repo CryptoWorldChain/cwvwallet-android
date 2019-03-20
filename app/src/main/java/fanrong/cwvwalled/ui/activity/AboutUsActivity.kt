@@ -30,51 +30,15 @@ class AboutUsActivity : BaseActivity() {
     override fun initView() {
         toolbar_title.text = "关于我们"
         iv_left_image.setOnClickListener { finish() }
-
-        setting_item_update.setmOnLSettingItemClick {
-            checkedUpdate()
-
-            val dialog = UpdateDialog(this@AboutUsActivity)
-            dialog.btnListener = object : FRDialogBtnListener {
-                override fun onCancel(dialog: Dialog) {
-                    dialog.dismiss()
-                }
-
-                override fun onConfirm(dialog: Dialog) {
-                    toweb("https://www.baidu.com")
-                }
-            }
-            dialog.version = "1.1.0"
-            dialog.show()
-        }
+        tv_version.text = "V " + packageManager.getPackageInfo(packageName, 0).packageName
     }
 
     override fun onClick(v: View) {
 
     }
 
-    private fun checkedUpdate() {
-        RetrofitClient.getNetWorkApi()
-                .update(ConvertToBody.ConvertToBody(Object()))
-                .enqueue(object : Callback<UpdateResp> {
-                    override fun onFailure(call: Call<UpdateResp>, t: Throwable) {
-                        showTopMsg("onFailure")
-                    }
-
-                    override fun onResponse(call: Call<UpdateResp>, response: Response<UpdateResp>) {
-                        showTopMsg(response.body()!!.current_version)
-                    }
-                })
-    }
-
     override fun loadData() {
 
     }
 
-
-    fun toweb(url: String) {
-        val uri = Uri.parse(url)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
-    }
 }

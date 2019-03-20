@@ -7,6 +7,7 @@ import fanrong.cwvwalled.http.model.response.ToRMBResp;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface NetWorkApi {
@@ -28,11 +29,10 @@ public interface NetWorkApi {
     /**
      * 检查更新
      *
-     * @param map
      * @return
      */
-    @POST("https://dev.wallet.icwv.co/cwv/android")
-    Call<UpdateResp> update(@Body RequestBody map);
+    @GET("http://cwv-wallet.oss-cn-hongkong.aliyuncs.com/cwv_wallet_h5/cwv_apk_version.json")
+    Call<UpdateResp> update();
 
 
 
