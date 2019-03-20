@@ -22,7 +22,7 @@ abstract class FullScreenDialog : Dialog {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setCanceledOnTouchOutside(false)
+        setCanceledOnTouchOutside(true)
 
         window!!.setBackgroundDrawableResource(android.R.color.transparent)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="64dp"
+    android:layout_marginRight="64dp"
+    android:background="@drawable/dialog_white_bg_corner11"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:text="发现新版本1.2.1，立即升级"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/dialog_transfer_confirm_btn"
+        android:textColor="@color/white"
+        android:layout_weight="1"
+        android:text="确定"
+        android:textSize="14sp" />
+
+
+</LinearLayout>
