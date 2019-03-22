@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="100000.00 CWV"
+        android:textColor="#ffffff"
+        android:textSize="23sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_count_cny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="≈ ¥ 3000.00"
+            android:textColor="#999999"
+            android:textSize="15.4sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="29dp"
+        android:gravity="center_horizontal"
+        android:text="最近交易记录"
+        android:textColor="#bbbaba"
+        android:textSize="11.3sp" />
+
+
+</LinearLayout>

@@ -14,7 +14,6 @@ import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.litepal.AddressModel
 import fanrong.cwvwalled.ui.adapter.AddressListAdapter
-import fanrong.cwvwalled.ui.view.AddAddressDialog
 import fanrong.cwvwalled.ui.view.FragmentAddAddressDialog
 import fanrong.cwvwalled.ui.view.RecycleViewDivider
 import fanrong.cwvwalled.ui.view.SwipeMenuView

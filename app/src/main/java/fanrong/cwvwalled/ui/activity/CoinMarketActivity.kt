@@ -40,7 +40,7 @@ class CoinMarketActivity : BaseActivity() {
         tv_updown.text = decline.toString() + "%"
 
         tv_top_close.text = "$" + DecimalUtils.scale2Down(kmarket.close!!)
-        tv_top_rmb_close.text = "￥" + DecimalUtils.scale2Down(kmarket.rmbclose!!)
+        tv_top_rmb_close.text = "(￥${DecimalUtils.scale2Down(kmarket.rmbclose!!)})"
         setLeftImgOnclickListener {
             finish()
         }

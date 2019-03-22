@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener
@@ -20,6 +21,7 @@ import fanrong.cwvwalled.ui.adapter.EthDetailAdapter
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import kotlinx.android.synthetic.main.activity_eth_detail.*
+import kotlinx.android.synthetic.main.activity_eth_detail.view.*
 import net.sourceforge.http.model.spdt.TransRecordItem
 import net.sourceforge.http.model.spdt.TransactionRecordResp
 import xianchao.com.basiclib.extension.extStartActivity
@@ -48,6 +50,9 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
 
     var activity: WalletDetailActivity = this
 
+    lateinit var tv_count: TextView
+    lateinit var tv_count_cny: TextView
+
     override fun initView() {
 
         coinBeanModel = intent.getSerializableExtra(PageParamter.PAREMTER_LITE_COINBEAN) as LiteCoinBeanModel
@@ -71,10 +76,13 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
                 extStartActivity(TransRecordActivity::class.java, createWith)
             }
         })
+
+        val view = layoutInflater.inflate(R.layout.activity_eth_detail_header, null)
+        tv_count = view.findViewById(R.id.tv_count)
+        tv_count_cny = view.findViewById(R.id.tv_count_cny)
         tv_count_cny.text = "≈ ￥ 0"
 
-
-
+        detailAdapter.addHeaderView(view)
         refreshLayout.isEnableRefresh = true
         refreshLayout.isEnableLoadmore = true
         refreshLayout.setEnableNestedScroll(true)

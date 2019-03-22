@@ -10,53 +10,33 @@
 
     <include layout="@layout/layout_title" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="27dp"
-        android:gravity="bottom"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="P网"
-            android:visibility="invisible"
-            android:textColor="#bfbfbf"
-            android:textSize="11.5sp" />
-
-        <TextView
-            android:id="@+id/tv_top_rmb_close"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="¥ 53.84"
-            android:textColor="#bfbfbf"
-            android:textSize="11.5sp" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="96dp"
         android:layout_marginLeft="27dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingTop="5dp">
 
         <TextView
             android:id="@+id/tv_coin_name"
-            android:layout_width="1dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:text="REP"
             android:textColor="#ffffff"
             android:textSize="15.3sp" />
 
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
         <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_top_close"
@@ -66,6 +46,16 @@
                 android:textColor="#ffffff"
                 android:textSize="15.3sp"
                 tools:text="$8.15" />
+
+
+            <TextView
+                android:id="@+id/tv_top_rmb_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥ 53.84"
+                android:layout_marginRight="10dp"
+                android:textColor="#bfbfbf"
+                android:textSize="13.3sp" />
 
             <TextView
                 android:id="@+id/tv_updown"
