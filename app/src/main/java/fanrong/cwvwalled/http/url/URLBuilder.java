@@ -21,7 +21,7 @@ public class URLBuilder {
     public String getHostUrl() {
         if (IS_ON_LINE) {
             //生产
-            return "http://qc.sgs.web.cstar.tv/%s";
+            return "https://api.wallet.icwv.co/";
         } else {
 //            http://www.ruoqingzixun.com/appapi/login.php
 //            return "http://www.ruoqingzixun.com/";
