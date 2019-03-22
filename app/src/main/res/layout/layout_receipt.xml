@@ -44,13 +44,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="22dp" />
+            android:layout_marginTop="20dp" />
 
 
         <TextView
             android:id="@+id/tv_in_count"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="34dp"
+            android:visibility="invisible"
             android:gravity="center"
             android:textColor="#262626" />
 
