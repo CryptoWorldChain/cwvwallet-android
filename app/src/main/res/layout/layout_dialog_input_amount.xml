@@ -28,7 +28,8 @@
         <EditText
             android:id="@+id/et_count"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
+            android:gravity="start|center_vertical"
             android:background="@drawable/input_dialog_edit_bg"
             android:inputType="numberDecimal"
             android:paddingLeft="5dp"
@@ -38,10 +39,10 @@
         <TextView
             android:id="@+id/tv_coin_symbol"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="5dp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="SPDT"
             android:textColor="#c1c1c1" />
     </RelativeLayout>

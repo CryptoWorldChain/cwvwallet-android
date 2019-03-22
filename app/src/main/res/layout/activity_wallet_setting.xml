@@ -14,11 +14,11 @@
     <RelativeLayout
         android:id="@+id/ll_wallet"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="65dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="11dp"
-        android:background="#161616">
+        android:background="@drawable/setting_wallet_item_bg">
 
         <ImageView
             android:id="@+id/iv_wallet_icon"
@@ -73,11 +73,11 @@
     <RelativeLayout
         android:id="@+id/ll_key"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="65dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="11dp"
-        android:background="#161616">
+        android:background="@drawable/setting_wallet_item_bg">
 
         <ImageView
             android:layout_width="35dp"
@@ -112,11 +112,11 @@
     <RelativeLayout
         android:id="@+id/ll_word"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="65dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="11dp"
-        android:background="#161616">
+        android:background="@drawable/setting_wallet_item_bg">
 
         <ImageView
             android:layout_width="35dp"

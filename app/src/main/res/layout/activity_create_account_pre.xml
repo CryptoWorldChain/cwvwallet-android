@@ -16,8 +16,11 @@
 
     <Button
         android:id="@+id/btn_create"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
         android:layout_height="wrap_content"
+
         android:background="@drawable/create_account_btn_select"
         android:text="创建身份"
         android:textColor="#ffffff"
@@ -30,7 +33,9 @@
 
     <Button
         android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:background="@drawable/create_account_btn_unselect"

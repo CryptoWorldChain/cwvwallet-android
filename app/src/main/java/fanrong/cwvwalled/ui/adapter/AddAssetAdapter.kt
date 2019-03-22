@@ -15,6 +15,7 @@ import fanrong.cwvwalled.litepal.GreNodeModel
 import fanrong.cwvwalled.litepal.GreNodeOperator
 import net.sourceforge.http.model.CoinBean
 import xianchao.com.basiclib.utils.CheckedUtils
+import xianchao.com.basiclib.utils.checkIsEmpty
 
 class AddAssetAdapter() : RecyclerView.Adapter<AddAssetAdapter.MViewHolder>() {
 
@@ -43,6 +44,11 @@ class AddAssetAdapter() : RecyclerView.Adapter<AddAssetAdapter.MViewHolder>() {
         holder.tv_coin_symbol.text = coinBean.coin_symbol
         holder.tv_coin_name.text = coinBean.coin_name
         holder.tv_contract_addr.text = coinBean.contract_addr
+        if (coinBean.contract_addr.checkIsEmpty()) {
+            holder.tv_contract_addr.visibility = View.GONE
+        } else {
+            holder.tv_contract_addr.visibility = View.VISIBLE
+        }
 
         Picasso.get().load(R.drawable.asset_defaut_icon).into(holder.iv_coin_icon)
 

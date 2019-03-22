@@ -30,7 +30,7 @@ class AboutUsActivity : BaseActivity() {
     override fun initView() {
         toolbar_title.text = "关于我们"
         iv_left_image.setOnClickListener { finish() }
-        tv_version.text = "V " + packageManager.getPackageInfo(packageName, 0).packageName
+        tv_version.text = "V " + packageManager.getPackageInfo(packageName, 0).versionName
     }
 
     override fun onClick(v: View) {

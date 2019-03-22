@@ -30,16 +30,15 @@
         android:lineSpacingExtra="20dp"
         android:padding="15dp"
         android:textColorHint="#bfbfbf"
-        android:textSize="11sp" />
-
+        android:textSize="13sp" />
 
     <EditText
         android:id="@+id/et_userpassword"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:background="#00000000"
+        android:layout_height="30dp"
+        android:layout_marginTop="45dp"
         android:inputType="textPassword"
+        android:background="#00000000"
         android:hint="钱包密码"
         android:singleLine="true"
         android:textColor="#ffffff"
@@ -54,13 +53,14 @@
     <EditText
         android:id="@+id/et_userpassword_confirm"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="30dp"
         android:background="#00000000"
+        android:textColorHint="#999999"
         android:hint="重复输入密码"
         android:inputType="textPassword"
         android:singleLine="true"
         android:textColor="#ffffff"
-        android:textColorHint="#999999"
         android:textSize="11.5sp" />
 
     <View
@@ -71,13 +71,14 @@
     <EditText
         android:id="@+id/et_userpassword_hint"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="30dp"
         android:background="#00000000"
-        android:hint="密码提示信息（选填）"
         android:singleLine="true"
+        android:hint="密码提示信息（选填）"
 
-        android:textColor="#ffffff"
         android:textColorHint="#999999"
+        android:textColor="#ffffff"
         android:textSize="11.5sp" />
 
     <View
@@ -89,25 +90,21 @@
         android:id="@+id/tv_pasword_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:gravity="right"
         android:text="设置密码？"
         android:textColor="#3090ff"
-        android:textSize="9.6sp" />
+        android:textSize="11sp" />
 
 
-    <TextView
+    <Button
         android:id="@+id/tv_import"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/common_page_btn"
+        android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="37dp"
-        android:background="@drawable/export_key_copy_bg"
-        android:gravity="center"
-        android:text="开始导入"
-        android:textColor="#ffffff"
-        android:textSize="15.4sp" />
+        android:text="开始导入" />
 
 
 </LinearLayout>

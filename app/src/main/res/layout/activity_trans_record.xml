@@ -8,7 +8,15 @@
     tools:context=".ui.activity.TransRecordActivity">
 
 
+    <xianchao.com.basiclib.widget.ResizableImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="65dp"
+        android:src="@drawable/retrive_account_bg" />
+
     <include layout="@layout/layout_title" />
+
 
 
     <FrameLayout
@@ -277,8 +285,8 @@
     </FrameLayout>
 
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <xianchao.com.basiclib.widget.ResizableImageView
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:layout_marginRight="45dp"

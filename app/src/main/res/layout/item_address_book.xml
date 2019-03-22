@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fanrong.cwvwalled.ui.view.SwipeMenuView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="57dp">
+    android:layout_height="62dp">
 
     <LinearLayout
+        android:id="@+id/contentview"
         android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:background="#292a2a"
-        android:id="@+id/contentview"
+        android:background="#88292a2a"
         android:gravity="center_vertical">
 
         <ImageView
@@ -23,6 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="Andy"
             android:textColor="@color/white"
             android:textSize="15.3sp" />
@@ -34,9 +36,9 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="15dp"
             android:layout_weight="3"
-            android:ellipsize="end"
+            android:ellipsize="middle"
             android:gravity="right"
-            android:maxLines="1"
+            android:singleLine="true"
             android:text="0x0543b4e1186…5eg302"
             android:textColor="@color/white"
             android:textSize="13.4sp" />

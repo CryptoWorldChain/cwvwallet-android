@@ -17,7 +17,12 @@ import java.math.BigDecimal
 class HomeAssertsAdapter(layoutResId: Int) : BaseQuickAdapter<LiteCoinBeanModel, BaseViewHolder>(layoutResId) {
 
     override fun convert(helper: BaseViewHolder, item: LiteCoinBeanModel) {
-        helper.setImageResource(R.id.iv_image, R.drawable.home_asset_icon)
+
+        if ("ETH".equals(item.channel_name)) {
+            helper.setImageResource(R.id.iv_image, R.drawable.common_eth_icon)
+        } else {
+            helper.setImageResource(R.id.iv_image, R.drawable.common_cwv_icon)
+        }
         helper.setText(R.id.tv_name, item.coin_symbol)
         helper.setText(R.id.tv_count, MoneyUtils.commonHandleDecimal(item.count))
         val handleDecimal = (item.countCNY)

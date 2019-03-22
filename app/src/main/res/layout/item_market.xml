@@ -48,7 +48,7 @@
     <TextView
         android:id="@+id/tv_advance_decline"
         android:layout_width="57dp"
-        android:layout_height="20dp"
+        android:layout_height="24dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@drawable/market_add_bg"

@@ -158,7 +158,11 @@ class TransferActivity : BaseActivity() {
                 confirmDialog.count = tv_money.text.toString() + " " + coinBeanModel.coin_symbol
                 confirmDialog.gas = tv_current.text.toString()
                 confirmDialog.remark = tv_remark.text.toString()
-
+                if ("ETH".equals(coinBeanModel.channel_name)) {
+                    confirmDialog.isShowGas = true
+                } else {
+                    confirmDialog.isShowGas = false
+                }
                 confirmDialog.listener = object : FRDialogBtnListener {
                     override fun onCancel(dialog: Dialog) {
                     }

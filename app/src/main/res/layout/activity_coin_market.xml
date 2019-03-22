@@ -70,7 +70,7 @@
             <TextView
                 android:id="@+id/tv_updown"
                 android:layout_width="57dp"
-                android:layout_height="21dp"
+                android:layout_height="24dp"
                 android:layout_marginRight="26dp"
                 android:background="@drawable/market_add_bg"
                 android:gravity="center"
@@ -118,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="$ 8.46"
+                android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
                 android:textSize="13sp" />
 
@@ -145,6 +146,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="$ 8.46"
+                android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
                 android:textSize="13sp" />
 
@@ -171,6 +173,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="$ 8.46"
+                android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
                 android:textSize="13sp" />
 
@@ -196,6 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:layout_marginTop="5dp"
                 android:text="$ 8.46"
                 android:textColor="#ffffff"
                 android:textSize="13sp" />
@@ -207,7 +211,7 @@
     <RadioGroup
         android:id="@+id/rg_market_tab"
         android:layout_width="match_parent"
-        android:layout_height="23dp"
+        android:layout_height="30dp"
         android:layout_marginLeft="56dp"
         android:layout_marginRight="56dp"
         android:layout_marginTop="34dp"

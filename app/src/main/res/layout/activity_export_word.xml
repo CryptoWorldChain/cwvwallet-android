@@ -104,16 +104,12 @@
 
         <Button
             android:id="@+id/btn_copy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/common_page_btn"
+            android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="37dp"
-            android:background="@drawable/export_key_copy_bg"
-            android:gravity="center"
             android:text="复制助记词"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="15.4sp" />
+            />
 
     </LinearLayout>
 

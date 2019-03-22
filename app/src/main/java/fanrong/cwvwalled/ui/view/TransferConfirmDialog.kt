@@ -1,6 +1,7 @@
 package fanrong.cwvwalled.ui.view
 
 import android.content.Context
+import android.view.View
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.listener.FRDialogBtnListener
 import kotlinx.android.synthetic.main.layout_dialog_transfer_confrim.*
@@ -17,6 +18,7 @@ class TransferConfirmDialog : FullScreenDialog {
     var gas: String? = null
     var count: String? = null
     var remark: String? = null
+    var isShowGas = false
 
     override fun getContentView(): Int {
         return R.layout.layout_dialog_transfer_confrim
@@ -28,6 +30,14 @@ class TransferConfirmDialog : FullScreenDialog {
             if (listener != null) {
                 listener!!.onConfirm(this@TransferConfirmDialog)
             }
+        }
+
+        if (isShowGas) {
+            ll_gas.visibility = View.VISIBLE
+            ll_place_hold.visibility = View.GONE
+        } else {
+            ll_gas.visibility = View.GONE
+            ll_place_hold.visibility = View.VISIBLE
         }
 
         tv_to_address.text = toAddress

@@ -25,12 +25,15 @@ import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseFragment
 import fanrong.cwvwalled.common.UserInfoObject
 import fanrong.cwvwalled.listener.FRDialogBtnListener
+import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.ui.activity.*
 import fanrong.cwvwalled.ui.view.ButtomDialogView
+import fanrong.cwvwalled.ui.view.ChangeWalletNameDialog
 import fanrong.cwvwalled.ui.view.EditNickNameDialog
 import fanrong.cwvwalled.ui.view.ExitDialog
 import fanrong.cwvwalled.utils.RealPathFromUriUtils
 import fanrong.cwvwalled.utils.SWLog
+import kotlinx.android.synthetic.main.activity_wallet_setting.*
 import kotlinx.android.synthetic.main.fragment_mine.*
 import xianchao.com.basiclib.utils.CheckedUtils
 import xianchao.com.basiclib.utils.checkNotEmpty
@@ -188,6 +191,7 @@ class MineFragment : BaseFragment() {
 
     override fun onClick(v: View?) {
     }
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

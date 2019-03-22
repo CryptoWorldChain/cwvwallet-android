@@ -127,6 +127,10 @@ class NodeListActivity : BaseActivity() {
                 return
             }
 
+            if (nodeListAdapter.nodes?.get(position)!!.isFromService!!) {
+                return
+            }
+
             val compileItem = SwipeMenuItem(this@NodeListActivity)
             compileItem.text = "编辑"
             compileItem.setTextColor(Color.parseColor("#ffffff"))

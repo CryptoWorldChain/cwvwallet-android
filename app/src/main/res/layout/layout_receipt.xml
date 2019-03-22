@@ -50,17 +50,15 @@
         <TextView
             android:id="@+id/tv_in_count"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textColor="#262626"
-            android:visibility="gone" />
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:textColor="#262626" />
 
 
         <Button
             android:id="@+id/bt_input_amount"
             android:layout_width="match_parent"
             android:layout_height="38dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/receipt_yellow_bg_corner11"
             android:text="指定收款金额"
             android:textColor="@color/white"
@@ -98,8 +96,8 @@
     </LinearLayout>
 
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <xianchao.com.basiclib.widget.ResizableImageView
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

@@ -36,7 +36,11 @@ class WalletSettingActivity : BaseActivity() {
                 finish()
             }
         })
-
+        if ("ETH".equals(walletModel.walletType)) {
+            iv_wallet_icon.setImageResource(R.drawable.common_eth_icon)
+        } else {
+            iv_wallet_icon.setImageResource(R.drawable.common_cwv_icon)
+        }
         tv_wallet_name.text = walletModel.walletName
         tv_cwv_address.text = walletModel.address
 

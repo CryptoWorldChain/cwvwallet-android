@@ -60,7 +60,7 @@ class ReceiptActivity : BaseActivity() {
         bt_input_amount.setOnClickListener(this)
         tv_address.text = coinBeanModel.sourceAddr
         tv_wallet_name.text = coinBeanModel.walletName
-
+        tv_in_count.text = coinBeanModel.coin_symbol
         var moneyQRCodeModel = MoneyQRCodeModel()
         moneyQRCodeModel.address = coinBeanModel.sourceAddr;
         moneyQRCodeModel.amount = ""

@@ -49,13 +49,13 @@
             android:paddingTop="15dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#bfbfbf"
-            android:textSize="13.4sp" />
+            android:textSize="14sp" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
 
             <EditText
@@ -89,7 +89,7 @@
             android:id="@+id/et_userpassword_confirm"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="30dp"
             android:background="#00000000"
             android:hint="重新确认密码"
             android:inputType="textPassword"

@@ -65,6 +65,7 @@ class RetrieveAccountActivity : BaseActivity() {
     }
 
 
+
     override fun getLayoutId(): Int {
         return R.layout.activity_create_account_retrieve
     }
@@ -96,10 +97,7 @@ class RetrieveAccountActivity : BaseActivity() {
         }
         mnemonic = stringBuilder.toString().trim { it <= ' ' }
         if (strings.size != 12) {
-            val errorDialog = BackErrorDialog(this)
-            errorDialog.show()
-            Handler().postDelayed({ errorDialog.dismiss() }, 1500)
-
+            showTopMsg("请正确填写助记词")
             return
         }
 
