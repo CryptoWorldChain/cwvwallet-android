@@ -28,6 +28,7 @@ public class GreWalletOperator {
     }
 
     public static void insert(GreWalletModel greWallet) {
+        greWallet.setShowRmb(true);
         greWallet.save();
         EventBus.getDefault().post(new WalletChangeEvent());
     }

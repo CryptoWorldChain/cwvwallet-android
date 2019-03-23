@@ -118,9 +118,10 @@ class ImportKeyFragment : BaseFragment() {
                 ethWallet.walletName = "ETH-" + RandomUtils.getRandomString(4)
                 ethWallet.walletType = "ETH"
                 ethWallet.address = "0x" + jsValue
+                ethWallet.isImport = true
 
                 if (GreWalletOperator.queryAddress(ethWallet.address) == null) {
-                    ethWallet.isImport = true
+                    GreWalletOperator.insert(ethWallet)
                     showTopMsg("导入成功")
                     SWLog.e(ethWallet)
                     finishActivityDelay(2000)
