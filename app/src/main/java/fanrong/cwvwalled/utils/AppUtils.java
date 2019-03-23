@@ -2,6 +2,7 @@ package fanrong.cwvwalled.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentUris;
@@ -36,6 +37,12 @@ public class AppUtils {
 
     public static void hideSoftInput(Activity context) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        // 隐藏软键盘
+        imm.hideSoftInputFromWindow(context.getWindow().getDecorView().getWindowToken(), 0);
+    }
+
+    public static void hideSoftInput(Dialog context) {
+        InputMethodManager imm = (InputMethodManager) context.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         // 隐藏软键盘
         imm.hideSoftInputFromWindow(context.getWindow().getDecorView().getWindowToken(), 0);
     }

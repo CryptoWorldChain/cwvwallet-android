@@ -17,6 +17,7 @@ import fanrong.cwvwalled.ui.adapter.AddressListAdapter
 import fanrong.cwvwalled.ui.view.FragmentAddAddressDialog
 import fanrong.cwvwalled.ui.view.RecycleViewDivider
 import fanrong.cwvwalled.ui.view.SwipeMenuView
+import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.LogUtil
 import kotlinx.android.synthetic.main.activity_address_list.*
 import kotlinx.android.synthetic.main.layout_title.*
@@ -54,29 +55,27 @@ class AddressListActivity : BaseActivity() {
 
     private fun showAddAddressDialog() {
 
-        var dialog = FragmentAddAddressDialog()
-        dialog.show(supportFragmentManager, "commentDialog");
-
-//        AddAddressDialog(this).showPop(
-//                object : AddAddressDialog.OnOkListener {
-//                    override fun OnOk(name: String, address: String) {
-//                        LogUtil.d("$name,$address")
-//                        if (CheckedUtils.nonEmpty(name) && CheckedUtils.nonEmpty(address)) {
-//                            AddressModel(name, address).save()
-//                            addressList.clear()
-//                            addressList.addAll(LitePal.findAll(AddressModel::class.java))
-//                            LogUtil.d(addressList.size.toString())
-//                            adapter.notifyDataSetChanged()
-//                            rv_address_book.scrollToPosition(adapter.itemCount - 1)
-//                            if (addressList.size > 0) {
-//                                iv_center_no_record.visibility = View.GONE
-//                            } else {
-//                                iv_center_no_record.visibility = View.VISIBLE
-//                            }
-//                        }
-//                    }
-//                }
-//        )
+        var dialog = FragmentAddAddressDialog(this)
+        dialog.onOkListener = object : FragmentAddAddressDialog.OnOkListener {
+                    override fun OnOk(name: String, address: String) {
+                        dialog.dismiss()
+                        LogUtil.d("$name,$address")
+                        if (CheckedUtils.nonEmpty(name) && CheckedUtils.nonEmpty(address)) {
+                            AddressModel(name, address).save()
+                            addressList.clear()
+                            addressList.addAll(LitePal.findAll(AddressModel::class.java))
+                            LogUtil.d(addressList.size.toString())
+                            adapter.notifyDataSetChanged()
+                            rv_address_book.scrollToPosition(adapter.itemCount - 1)
+                            if (addressList.size > 0) {
+                                iv_center_no_record.visibility = View.GONE
+                            } else {
+                                iv_center_no_record.visibility = View.VISIBLE
+                            }
+                        }
+                    }
+                }
+        dialog.show()
     }
 
     override fun onClick(v: View) {

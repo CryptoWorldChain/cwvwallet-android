@@ -98,6 +98,7 @@ class WalletSettingActivity : BaseActivity() {
                 walletModel.walletName = nameDialog.walletName
                 GreWalletOperator.updateWalletName(walletModel)
                 tv_wallet_name.text = walletModel.walletName
+                setTitleText(walletModel.walletName!!)
             }
         }
         dialog.show()

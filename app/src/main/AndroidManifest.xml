@@ -67,7 +67,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.activity.AddressListActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
         <activity
             android:name=".ui.activity.ImportWalletTypeActivity"
             android:windowSoftInputMode="stateHidden" />

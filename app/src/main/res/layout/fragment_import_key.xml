@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:lineSpacingExtra="3.8sp"
-        android:text="使用Private Key文件内容至输入框。或通过扫Private Key内容生成二维码录入。请留意字符大小写。"
+        android:text="使用Private Key文件内容至输入框，或通过扫Private Key内容生成二维码录入。请留意字符大小写。"
         android:textColor="#999999"
         android:textSize="11.5sp" />
 

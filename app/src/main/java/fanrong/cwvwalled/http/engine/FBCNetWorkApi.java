@@ -18,8 +18,8 @@ import retrofit2.http.POST;
 public interface FBCNetWorkApi {
 
 
-//    String FBC_ROOT = "https://api.wallet.icwv.co/";
-    String FBC_ROOT = "https://dev.wallet.icwv.co/";
+    String FBC_ROOT = "https://api.wallet.icwv.co/";
+//    String FBC_ROOT = "https://dev.wallet.icwv.co/";
 
 
     @POST(FBC_ROOT + "fbc/pbqnl.do")

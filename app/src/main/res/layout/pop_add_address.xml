@@ -71,6 +71,7 @@
             android:layout_marginLeft="28.5dp"
             android:layout_marginRight="38.7dp"
             android:layout_marginTop="7.7dp"
+            android:singleLine="true"
             android:background="@null"
             android:textColor="@color/white"
             android:textSize="15.3sp" />
@@ -97,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="28.5dp"
             android:layout_marginRight="38.7dp"
+            android:singleLine="true"
             android:layout_marginTop="7.7dp"
             android:background="@null"
             android:textColor="@color/white"

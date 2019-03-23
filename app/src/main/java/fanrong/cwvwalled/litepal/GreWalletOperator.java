@@ -76,4 +76,13 @@ public class GreWalletOperator {
 
     }
 
+    public static GreWalletModel updateIsShowRmb(GreWalletModel walletModel, boolean isShowRmb) {
+
+        ContentValues values = new ContentValues();
+        values.put("isShowRmb", walletModel.isShowRmb());
+        LitePal.update(GreWalletModel.class, values, walletModel.getId());
+        return null;
+
+    }
+
 }

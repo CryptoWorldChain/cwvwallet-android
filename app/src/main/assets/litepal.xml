@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="fanrong_litepal" />
-    <version value="9" />
+    <version value="10" />
     <list>
         <mapping class="fanrong.cwvwalled.litepal.AddressModel"/>
         <mapping class="fanrong.cwvwalled.litepal.GreNodeModel"/>

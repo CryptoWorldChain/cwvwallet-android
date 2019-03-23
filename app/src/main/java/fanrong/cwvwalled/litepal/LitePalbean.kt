@@ -55,6 +55,12 @@ data class GreWalletModel(@Column(unique = true) var address: String) : LitePalS
     var rmb: String? = null
     var mnemonic: String? = null
     var walletType: String? = null
+
+    var isShowRmb: Boolean? = null
+        get() {
+            return if (field == null) true else field
+        }
+
     var isImport: Boolean? = null
         get() {
             if (field == null) {

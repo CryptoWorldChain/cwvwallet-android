@@ -78,6 +78,7 @@ class AllWalletActivity : BaseActivity() {
                 greWalletModel.delete()
                 walletAdapter.datas.remove(greWalletModel)
                 walletAdapter.notifyDataSetChanged()
+                EventBus.getDefault().post(WalletChangeEvent())
             }
         })
         rv_recyclerview.adapter = walletAdapter

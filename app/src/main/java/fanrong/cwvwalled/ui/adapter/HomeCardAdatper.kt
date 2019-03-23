@@ -53,7 +53,20 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
         var tv_price = view.findViewById<TextView>(R.id.tv_price)
         var tv_unit = view.findViewById<TextView>(R.id.tv_unit)
         tv_price.text = MoneyUtils.commonRMBDecimal(walletModel.rmb)
-        view.findViewById<CheckBox>(R.id.ib_hide_assert).setOnCheckedChangeListener { buttonView, isChecked ->
+
+
+        var ib_hide_assert = view.findViewById<CheckBox>(R.id.ib_hide_assert)
+        ib_hide_assert.isChecked = !(walletModel.isShowRmb!!)
+
+        if (ib_hide_assert.isChecked) {
+            tv_unit.visibility = View.INVISIBLE
+            tv_price.setTransformationMethod(WordReplacement.getInstance())
+        } else {
+            tv_unit.visibility = View.VISIBLE
+            tv_price.setTransformationMethod(HideReturnsTransformationMethod.getInstance())
+        }
+
+        ib_hide_assert.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 tv_unit.visibility = View.INVISIBLE
                 tv_price.setTransformationMethod(WordReplacement.getInstance())
@@ -61,7 +74,10 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
                 tv_unit.visibility = View.VISIBLE
                 tv_price.setTransformationMethod(HideReturnsTransformationMethod.getInstance())
             }
+            walletModel.isShowRmb = !isChecked
+            GreWalletOperator.updateIsShowRmb(walletModel, walletModel.isShowRmb!!)
         }
+
 
         view.findViewById<ImageView>(R.id.iv_copy).setOnClickListener {
             AppUtils.clipboardString(activity, walletModel.address)

@@ -33,6 +33,9 @@ class UserInfoObject {
 
 
         var nickName: String = ""
+            get() {
+                return PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME, "")
+            }
             set(value) {
                 field = value
                 saveNickName(value)
