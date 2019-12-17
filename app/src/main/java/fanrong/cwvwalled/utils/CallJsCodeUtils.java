@@ -79,7 +79,7 @@ public class CallJsCodeUtils {
 
     public static void mnemonicToHDPrivateKey(String mnemonicStr, ValueCallback<String> valueCallback) {
 
-        final String english = String.format("bip44.mnemonicToHDPrivateKey('%s','').toString();", mnemonicStr);
+        final String english = String.format("var base58 = bip44.mnemonicToHDPrivateKey('%s','');bip44.getPrivateKey(base58, 0).toString('hex');", mnemonicStr);
         webView.evaluateJavascript(english, valueCallback);
 
     }
@@ -107,7 +107,7 @@ public class CallJsCodeUtils {
     }
     public static void cwv_GenFromPrikey(String dPrivateKey, ValueCallback<String> valueCallback) {
 
-        final String english = String.format("cwv.genFromPrikey('%s');", dPrivateKey);
+        final String english = String.format("android_funcCreateWallet('%s');", dPrivateKey);
         webView.evaluateJavascript(english, valueCallback);
 
     }

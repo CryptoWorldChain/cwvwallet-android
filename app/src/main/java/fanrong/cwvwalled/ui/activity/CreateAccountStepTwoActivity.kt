@@ -77,12 +77,60 @@ class CreateAccountStepTwoActivity : BaseActivity() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_confirm -> {
-                toNextPage()
+//                toNextPage()
+                newToNextPage()
             }
             else -> {
 
             }
         }
+    }
+
+    private fun newToNextPage() {
+
+        showProgressDialog("")
+
+        Observable.create<String>(object : ObservableOnSubscribe<String> {
+            override fun subscribe(emitter: ObservableEmitter<String>) {
+                //获取主私钥
+                CallJsCodeUtils.mnemonicToHDPrivateKey(mnemonic, object : ValueCallback<String> {
+                    override fun onReceiveValue(mainKey: String?) {
+                        SWLog.e("mainKey " + mainKey)
+                        emitter.onNext(CallJsCodeUtils.readStringJsValue(mainKey))
+                    }
+                })
+            }
+        }).subscribe(object : Consumer<String> {
+            override fun accept(ethPrivateKey: String?) {
+                hideProgressDialog()
+                // 获取 cwv 钱包 地址和私钥
+                CallJsCodeUtils.cwv_GenFromPrikey(ethPrivateKey) {
+                    var realContent = CallJsCodeUtils.readStringJsValue(it)
+                    if (CheckedUtils.isJson(realContent)) {
+                        val jsonObject = JSONObject(realContent)
+                        cwvWallet.privateKey = jsonObject.getString("hexPrikey")
+                        cwvWallet.address = "0x" + jsonObject.getString("hexAddress")
+                    }
+
+                    val shareData = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME,"AA")
+                    cwvWallet.walletName = "CWV-" + shareData
+                    cwvWallet.walletType = "CWV"
+                    cwvWallet.mnemonic = mnemonic
+                    ethWallet.walletName = "ETH-" + shareData
+                    ethWallet.walletType = "ETH"
+                    ethWallet.mnemonic = mnemonic
+                    SWLog.e(cwvWallet)
+                    SWLog.e(ethWallet)
+                    GreWalletOperator.insert(cwvWallet)
+                    GreWalletOperator.insert(ethWallet)
+                    startActivity(MainActivity::class.java)
+                    AppManager.finishActivity(CreateAccountPreActivity::class.java)
+                    AppManager.finishActivity(CreateAccountPasswordActivity::class.java)
+                    AppManager.finishActivity(CreateAccountStepOneActivity::class.java)
+                    finish()
+                }
+            }
+        })
     }
 
 

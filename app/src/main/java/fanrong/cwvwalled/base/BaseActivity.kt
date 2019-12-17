@@ -18,6 +18,7 @@ import android.widget.TextView
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.ui.view.MsgPopupWindow
 import fanrong.cwvwalled.ui.view.WheelDialog
+import fanrong.cwvwalled.utils.SWLog
 
 abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -27,6 +28,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnClickListener {
     abstract fun loadData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        SWLog.e("页面：" + this.javaClass.simpleName)
         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)

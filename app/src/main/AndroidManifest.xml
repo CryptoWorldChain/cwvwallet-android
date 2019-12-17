@@ -27,8 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <!--<activity android:name=".TestActivity"></activity>-->
         <activity
-            android:name=".ui.activity.SplashActivity"
+            android:name=".TestActivity"
             android:theme="@style/AppTheme_FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -107,10 +108,9 @@
         <activity
             android:name=".ui.activity.NodeConfigActivity"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".ui.activity.UnitSettingActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

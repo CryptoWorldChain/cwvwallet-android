@@ -38,6 +38,7 @@ class CreateAccountStepOneActivity : BaseActivity() {
 
         CallJsCodeUtils.generateMnemonic {
             mnemonic = CallJsCodeUtils.readStringJsValue(it)
+            mnemonic = "consider fan bridge fury canal awful inquiry library banner ride auto vote"
             tv_mnemic.text = mnemonic.replace(" ", "      ")
         }
 
