@@ -12,7 +12,7 @@ class ImportWalletTypeActivity : BaseActivity() {
 
     override fun initView() {
         ll_cwv_type.setOnClickListener(this)
-        ll_eth_type.setOnClickListener(this)
+      //  ll_eth_type.setOnClickListener(this)
 
         setTitleText("请选择钱包类型")
         setLeftImgOnclickListener(View.OnClickListener { finish() })
@@ -26,11 +26,11 @@ class ImportWalletTypeActivity : BaseActivity() {
                 bundle.putString(PageParamter.PAREMTER_WALLET_TYPE, "CWV")
                 startActivity(ImportWalletActivity::class.java, bundle)
             }
-            R.id.ll_eth_type -> {
-                val bundle = Bundle()
-                bundle.putString(PageParamter.PAREMTER_WALLET_TYPE, "ETH")
-                startActivity(ImportWalletActivity::class.java, bundle)
-            }
+//            R.id.ll_eth_type -> {
+//                val bundle = Bundle()
+//                bundle.putString(PageParamter.PAREMTER_WALLET_TYPE, "ETH")
+//                startActivity(ImportWalletActivity::class.java, bundle)
+//            }
         }
     }
 

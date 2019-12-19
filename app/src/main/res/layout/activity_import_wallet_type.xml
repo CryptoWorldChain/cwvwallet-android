@@ -48,39 +48,39 @@
 
 
 
-    <LinearLayout
-        android:id="@+id/ll_eth_type"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="#99161616"
-        android:gravity="center_vertical"
-        android:layout_marginTop="11dp"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="26dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/ll_eth_type"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="65dp"-->
+<!--        android:background="#99161616"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:layout_marginTop="11dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingLeft="15dp"-->
+<!--        android:paddingRight="26dp">-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/common_eth_icon" />
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/common_eth_icon" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_weight="1"
-            android:text="ETH"
-            android:textColor="#ffffff"
-            android:textSize="15.4sp" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="ETH"-->
+<!--            android:textColor="#ffffff"-->
+<!--            android:textSize="15.4sp" />-->
 
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="11dp"
-            android:rotation="180"
-            android:src="@drawable/fanhui_back" />
-    </LinearLayout>
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginRight="11dp"-->
+<!--            android:rotation="180"-->
+<!--            android:src="@drawable/fanhui_back" />-->
+<!--    </LinearLayout>-->
 
 </LinearLayout>

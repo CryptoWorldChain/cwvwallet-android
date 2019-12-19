@@ -1,5 +1,8 @@
 package fanrong.cwvwalled.ui.activity
-
+/*
+* Wallet
+*
+* */
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -15,6 +18,7 @@ import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.ui.adapter.WalletAdapter
 import fanrong.cwvwalled.utils.DensityUtil
 import kotlinx.android.synthetic.main.activity_all_wallet.*
+import kotlinx.android.synthetic.main.item_all_wallet.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -39,7 +43,7 @@ class AllWalletActivity : BaseActivity() {
         EventBus.getDefault().register(this)
 
         bgll_cwv_wallet.setOnClickListener(this)
-        bgll_eth_wallet.setOnClickListener(this)
+      //  bgll_eth_wallet.setOnClickListener(this)
 
         setTitleText("Wallet")
         setLeftImgOnclickListener(object : View.OnClickListener {
@@ -52,9 +56,9 @@ class AllWalletActivity : BaseActivity() {
         tv_cwv_wallet_name.text = queryCWV?.walletName
         tv_cwv_address.text = queryCWV?.address
 
-        queryETH = GreWalletOperator.queryMainETH()
-        tv_eth_wallet_name.text = queryETH?.walletName
-        tv_eth_address.text = queryETH?.address
+//        queryETH = GreWalletOperator.queryMainETH()
+//        tv_eth_wallet_name.text = queryETH?.walletName
+//        tv_eth_address.text = queryETH?.address
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -111,11 +115,11 @@ class AllWalletActivity : BaseActivity() {
                 startActivity(WalletSettingActivity::class.java, bundle)
 
             }
-            R.id.bgll_eth_wallet -> {
-                val bundle = Bundle()
-                bundle.putSerializable(PageParamter.PAREMTER_WALLET, queryETH)
-                startActivity(WalletSettingActivity::class.java, bundle)
-            }
+//            R.id.bgll_eth_wallet -> {
+//                val bundle = Bundle()
+//                bundle.putSerializable(PageParamter.PAREMTER_WALLET, queryETH)
+//                startActivity(WalletSettingActivity::class.java, bundle)
+//            }
         }
     }
 
@@ -129,9 +133,9 @@ class AllWalletActivity : BaseActivity() {
         queryCWV = GreWalletOperator.queryMainCWV()
         tv_cwv_wallet_name.text = queryCWV?.walletName
         tv_cwv_address.text = queryCWV?.walletType
-        queryETH = GreWalletOperator.queryMainETH()
-        tv_eth_wallet_name.text = queryETH?.walletName
-        tv_eth_address.text = queryETH?.walletType
+//        queryETH = GreWalletOperator.queryMainETH()
+//        tv_eth_wallet_name.text = queryETH?.walletName
+//        tv_eth_address.text = queryETH?.walletType
 
         loadData()
     }
