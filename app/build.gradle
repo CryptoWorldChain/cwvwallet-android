@@ -5,6 +5,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "fanrong.cwvwalled"
@@ -64,6 +70,7 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:1.9.0'
     implementation 'com.android.support:multidex:1.0.3'
 
+    implementation('com.nos.sdk:hichain:1.2.31_common')
 
     implementation 'org.litepal.android:core:2.0.0'
 }

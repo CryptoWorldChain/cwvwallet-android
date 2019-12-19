@@ -27,6 +27,10 @@ allprojects {
         maven {
             url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
         }
+
+        maven { url 'http://cwvi.club:8081/nexus/content/groups/cwv/'}
+        maven { url 'http://47.103.115.139:8999/service/rest/repository/browse/otc-public/'}
+        maven { url 'http://47.103.115.139:8999/repository/otc-public/'}
     }
 }
 

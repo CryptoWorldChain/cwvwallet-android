@@ -19,6 +19,10 @@ public class CallJsCodeUtils {
 
     private static WebView webView;
 
+    public static WebView getJsHandler(){
+        return webView;
+    }
+
     public static void init() {
         webView = getWebView();
     }
@@ -29,6 +33,7 @@ public class CallJsCodeUtils {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setLoadWithOverviewMode(true);
+        settings.setAllowUniversalAccessFromFileURLs(true);
         webView.setWebViewClient(new WebViewClient());
         // Enable remote debugging via chrome://inspect
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -44,8 +49,17 @@ public class CallJsCodeUtils {
             }
         });
         webView.loadUrl("file:///android_asset/www/index.html");
+
+        // 初始化 js
+        webView.evaluateJavascript("android_initJs();", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+
+            }
+        });
         return webView;
     }
+
 
 
     public static String readStringJsValue(String jsValue) {

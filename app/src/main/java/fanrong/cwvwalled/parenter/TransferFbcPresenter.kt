@@ -1,5 +1,6 @@
 package fanrong.cwvwalled.parenter
 
+import android.webkit.ValueCallback
 import com.facebook.common.util.Hex
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
@@ -12,8 +13,6 @@ import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
 import fanrong.cwvwalled.utils.*
-import org.brewchain.core.util.ByteUtil
-import org.fc.sdk.pbgens.BcTxInfo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,68 +38,68 @@ class TransferFbcPresenter : TransferPresenter {
 
 
     private fun getSignedMessage() {
-        transferReq.to_addr = transferReq.to_addr.replaceFirst("0x", "")
-        transferReq.value = MoneyUtils.getMultiplyEighteen(transferReq.value)
-        if (CheckedUtils.isEmpty(transferReq.ex_data)) {
-            transferReq.ex_data = ""
-        }
-
-        var privateKey = ""
-        val withAddress = GreWalletOperator.queryWalletWithAddress(coinBeanModel.sourceAddr)
-        if ("CWV".equals(withAddress.walletType)) {
-            privateKey = withAddress.privateKey!!
-        } else {
-            throw RuntimeException("没有对应的钱包地址")
-        }
-
-
-        val selfAddress = transferReq.to_addr
-        val money = transferReq.value
-        val inputBuild = BcTxInfo.MultiTransactionInput.newBuilder()
-                .setAddress(ByteString.copyFrom(Hex.hexStringToByteArray(withAddress.address.replaceFirst("0x", ""))))
-                .setAmount(ByteString.copyFrom(ByteUtil.bigIntegerToBytes(BigInteger(money))))
-                .setNonce(Integer.valueOf(transferReq.nonce))
-
-        if (!"CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
-            inputBuild.setToken(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))
-        }
-
-
-        val output = BcTxInfo.MultiTransactionOutput.newBuilder()
-                .setAddress(ByteString.copyFrom(Hex.hexStringToByteArray(selfAddress)))
-                .setAmount(inputBuild.getAmount())
-                .build()
-
-
-        val build = BcTxInfo.MultiTransactionBody.newBuilder()
-                .addInputs(inputBuild.build())
-                .addOutputs(output)
-                .setTimestamp(currentTime)
-                .setExdata(ByteString.copyFrom(transferReq.ex_data.toByteArray()))
-
-        if (!"CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
-            build.setType(2)
-        }
-
-
-        SWLog.e("inputBuild->" + Gson().toJson(inputBuild))
-        SWLog.e("output->" + Gson().toJson(output))
-        SWLog.e("build->" + Gson().toJson(build))
-
-        val tag = Hex.encodeHex(build.build().toByteArray(), false)
-        // byte2HexStr(build.toByteArray());
-        SWLog.e("byte2HexStr->$tag")
-
-
-        CallJsCodeUtils.cwv_ecHexSign(privateKey, tag) { value ->
-            signedMessage = CallJsCodeUtils.readStringJsValue(value)
-            if ("CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
-                transfer()
-            } else {
-                daiTransfer()
-            }
-
-        }
+//        transferReq.to_addr = transferReq.to_addr.replaceFirst("0x", "")
+//        transferReq.value = MoneyUtils.getMultiplyEighteen(transferReq.value)
+//        if (CheckedUtils.isEmpty(transferReq.ex_data)) {
+//            transferReq.ex_data = ""
+//        }
+//
+//        var privateKey = ""
+//        val withAddress = GreWalletOperator.queryWalletWithAddress(coinBeanModel.sourceAddr)
+//        if ("CWV".equals(withAddress.walletType)) {
+//            privateKey = withAddress.privateKey!!
+//        } else {
+//            throw RuntimeException("没有对应的钱包地址")
+//        }
+//
+//
+//        val selfAddress = transferReq.to_addr
+//        val money = transferReq.value
+//        val inputBuild = BcTxInfo.MultiTransactionInput.newBuilder()
+//                .setAddress(ByteString.copyFrom(Hex.hexStringToByteArray(withAddress.address.replaceFirst("0x", ""))))
+//                .setAmount(ByteString.copyFrom(ByteUtil.bigIntegerToBytes(BigInteger(money))))
+//                .setNonce(Integer.valueOf(transferReq.nonce))
+//
+//        if (!"CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
+//            inputBuild.setToken(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))
+//        }
+//
+//
+//        val output = BcTxInfo.MultiTransactionOutput.newBuilder()
+//                .setAddress(ByteString.copyFrom(Hex.hexStringToByteArray(selfAddress)))
+//                .setAmount(inputBuild.getAmount())
+//                .build()
+//
+//
+//        val build = BcTxInfo.MultiTransactionBody.newBuilder()
+//                .addInputs(inputBuild.build())
+//                .addOutputs(output)
+//                .setTimestamp(currentTime)
+//                .setExdata(ByteString.copyFrom(transferReq.ex_data.toByteArray()))
+//
+//        if (!"CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
+//            build.setType(2)
+//        }
+//
+//
+//        SWLog.e("inputBuild->" + Gson().toJson(inputBuild))
+//        SWLog.e("output->" + Gson().toJson(output))
+//        SWLog.e("build->" + Gson().toJson(build))
+//
+//        val tag = Hex.encodeHex(build.build().toByteArray(), false)
+//        // byte2HexStr(build.toByteArray());
+//        SWLog.e("byte2HexStr->$tag")
+//
+//
+//        CallJsCodeUtils.cwv_ecHexSign(privateKey, tag) { value ->
+//            signedMessage = CallJsCodeUtils.readStringJsValue(value)
+//            if ("CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
+//                transfer()
+//            } else {
+//                daiTransfer()
+//            }
+//
+//        }
 
     }
 
@@ -189,31 +188,38 @@ class TransferFbcPresenter : TransferPresenter {
 
     override fun getBalance(callBack: ValueCallBack<String?>) {
 
-        val gnodeModel = GreNodeOperator.queryCWVnode()
+        CallJsCodeUtils.getJsHandler().evaluateJavascript("cwv.rpc.getBalance(${coinBeanModel.sourceAddr},'')", object : ValueCallback<String> {
+            override fun onReceiveValue(value: String?) {
+                SWLog.e("getBalance::" + value)
+            }
+        })
 
-        var constractAddr = coinBeanModel.contract_addr
-        if (CheckedUtils.isEmpty(constractAddr)) {
-            constractAddr = ""
-        }
 
-        val req = GetBalanceReq()
-        req.dapp_id = Constants.DAPP_ID
-        req.node_url = gnodeModel.node_url
-        req.address = coinBeanModel.sourceAddr
-        req.contract_addr = constractAddr
-
-        RetrofitClient.getFBCNetWorkApi()
-                .fbcGetBalance(ConvertToBody.ConvertToBody(req))
-                .enqueue(object : Callback<WalletBalanceModel> {
-                    override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
-                        val body = response.body()
-                        val rightNum = MoneyUtils.getRightNum(body!!.balance)
-                        callBack.valueBack(rightNum)
-                    }
-
-                    override fun onFailure(call: Call<WalletBalanceModel>, t: Throwable) {
-                        callBack.valueBack("")
-                    }
-                })
+//        val gnodeModel = GreNodeOperator.queryCWVnode()
+//
+//        var constractAddr = coinBeanModel.contract_addr
+//        if (CheckedUtils.isEmpty(constractAddr)) {
+//            constractAddr = ""
+//        }
+//
+//        val req = GetBalanceReq()
+//        req.dapp_id = Constants.DAPP_ID
+//        req.node_url = gnodeModel.node_url
+//        req.address = coinBeanModel.sourceAddr
+//        req.contract_addr = constractAddr
+//
+//        RetrofitClient.getFBCNetWorkApi()
+//                .fbcGetBalance(ConvertToBody.ConvertToBody(req))
+//                .enqueue(object : Callback<WalletBalanceModel> {
+//                    override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
+//                        val body = response.body()
+//                        val rightNum = MoneyUtils.getRightNum(body!!.balance)
+//                        callBack.valueBack(rightNum)
+//                    }
+//
+//                    override fun onFailure(call: Call<WalletBalanceModel>, t: Throwable) {
+//                        callBack.valueBack("")
+//                    }
+//                })
     }
 }

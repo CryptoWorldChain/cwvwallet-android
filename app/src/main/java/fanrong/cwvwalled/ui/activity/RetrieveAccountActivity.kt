@@ -10,6 +10,7 @@ import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
+import fanrong.cwvwalled.parenter.WalletCreatePresenter
 import fanrong.cwvwalled.utils.AppManager
 import fanrong.cwvwalled.utils.CallJsCodeUtils
 import fanrong.cwvwalled.utils.PreferenceHelper
@@ -41,7 +42,11 @@ class RetrieveAccountActivity : BaseActivity() {
         }
     }
 
+    lateinit var presenter: WalletCreatePresenter
+
     override fun initView() {
+        presenter = WalletCreatePresenter()
+
         btn_confirm.setOnClickListener(this)
         et_userpassword.setOnFocusChangeListener(object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
@@ -63,7 +68,6 @@ class RetrieveAccountActivity : BaseActivity() {
             }
         }
     }
-
 
 
     override fun getLayoutId(): Int {
@@ -134,78 +138,35 @@ class RetrieveAccountActivity : BaseActivity() {
 
     fun backWallet(mnemonic: String) {
         showProgressDialog("")
-        Observable.create<String>(object : ObservableOnSubscribe<String> {
-            override fun subscribe(emitter: ObservableEmitter<String>) {
-                //获取主私钥
-                CallJsCodeUtils.mnemonicToHDPrivateKey(mnemonic, object : ValueCallback<String> {
-                    override fun onReceiveValue(mainKey: String?) {
-                        emitter.onNext(CallJsCodeUtils.readStringJsValue(mainKey))
-                    }
-                })
-            }
-        }).flatMap(object : Function<String, Observable<String>> {
-            override fun apply(mainKey: String): Observable<String> {
 
-                var onSubscribe = object : ObservableOnSubscribe<String> {
-                    override fun subscribe(emitter: ObservableEmitter<String>) {
-                        //获取 eth 地址
-                        CallJsCodeUtils.getAddress(mainKey, object : ValueCallback<String> {
-                            override fun onReceiveValue(ethAddress: String) {
-                                var realEthAddress = CallJsCodeUtils.readStringJsValue(ethAddress)
-                                ethWallet.address = realEthAddress
-                                // mainkey 往下传继续创建钱包逻辑
-                                emitter.onNext(mainKey)
-                            }
-                        })
-                    }
-                }
+        presenter.createWallet(mnemonic) { cwvWallet, ethWallet ->
+            hideProgressDialog()
 
-                return Observable.create(onSubscribe)
+            val shareData = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME, "AA")
+
+            if (cwvWallet != null) {
+                cwvWallet.walletName = "CWV-" + shareData
+                cwvWallet.walletType = "CWV"
+                cwvWallet.mnemonic = mnemonic
+                SWLog.e(cwvWallet)
+                GreWalletOperator.insert(cwvWallet)
+            } else {
+                showTopMsg("创建钱包失败")
+                return@createWallet
             }
 
-        }).flatMap(object : Function<String, Observable<String>> {
-            override fun apply(mainKey: String): Observable<String> {
+            if (ethWallet != null) {
+                ethWallet.walletName = "ETH-" + shareData
+                ethWallet.walletType = "ETH"
+                ethWallet.mnemonic = mnemonic
+                SWLog.e(ethWallet)
+                GreWalletOperator.insert(ethWallet)
+            }
 
-                var onSubscribe = ObservableOnSubscribe<String> {
-                    // 获取 eth 私钥
-                    CallJsCodeUtils.getPrivateKey(mainKey, object : ValueCallback<String> {
-                        override fun onReceiveValue(ethPrivateKey: String?) {
-                            var realEthPrivateKey = CallJsCodeUtils.readStringJsValue(ethPrivateKey)
-                            ethWallet.privateKey = realEthPrivateKey
-                            it.onNext(realEthPrivateKey)
-                        }
-                    })
-                }
-                return Observable.create(onSubscribe)
-            }
-        }).subscribe(object : Consumer<String> {
-            override fun accept(ethPrivateKey: String?) {
-                hideProgressDialog()
-                // 获取 cwv 钱包 地址和私钥
-                CallJsCodeUtils.cwv_GenFromPrikey(ethPrivateKey) {
-                    var realContent = CallJsCodeUtils.readStringJsValue(it)
-                    if (CheckedUtils.isJson(realContent)) {
-                        val jsonObject = JSONObject(realContent)
-                        cwvWallet.privateKey = jsonObject.getString("hexPrikey")
-                        cwvWallet.address = "0x" + jsonObject.getString("hexAddress")
-                    }
-                    cwvWallet.walletName = "CWV-" + RandomUtils.getRandomString(4)
-                    cwvWallet.walletType = "CWV"
-                    cwvWallet.mnemonic = mnemonic
-                    ethWallet.walletName = "ETH-" + RandomUtils.getRandomString(4)
-                    ethWallet.walletType = "ETH"
-                    ethWallet.mnemonic = mnemonic
-                    SWLog.e(cwvWallet)
-                    SWLog.e(ethWallet)
-                    GreWalletOperator.insert(cwvWallet)
-                    GreWalletOperator.insert(ethWallet)
-                    startActivity(MainActivity::class.java)
-                    AppManager.finishActivity(CreateAccountPreActivity::class.java)
-                    finish()
-                }
-            }
-        })
+            startActivity(MainActivity::class.java)
+            finish()
+        }
+
     }
-
 
 }

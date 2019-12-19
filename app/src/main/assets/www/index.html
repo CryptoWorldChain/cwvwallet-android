@@ -14,6 +14,20 @@
 </body>
 
 <script type="text/javascript">
+        function android_initJs(callback){
+            var locker = false;
+            cwv.rpc.getBalance("0x8a2d51cacd7c1e9738630ab14f56973cd5728c1d","")
+                .then(function(result){
+                locker = true;
+                console.log(result);
+                ca
+            })
+
+
+
+            cwv.config.server_base = 'http://114.115.166.19:8000/fbs'
+        }
+
         function android_funcCreateWallet(pk){
           var info = cwv.KeyPair.genFromPrikey(pk);
           var wallet = {};

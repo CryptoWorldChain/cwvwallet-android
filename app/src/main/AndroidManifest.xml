@@ -29,7 +29,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <!--<activity android:name=".TestActivity"></activity>-->
         <activity
-            android:name=".TestActivity"
+            android:name=".ui.activity.SplashActivity"
             android:theme="@style/AppTheme_FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

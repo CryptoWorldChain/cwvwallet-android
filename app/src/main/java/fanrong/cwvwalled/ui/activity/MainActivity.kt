@@ -34,6 +34,10 @@ class MainActivity : BaseActivity() {
     var fragments = arrayOfNulls<BaseFragment>(5)
 
     override fun initView() {
+        rb_home_tab_market.visibility = View.GONE
+        rb_home_tab_financial.visibility = View.GONE
+        rb_home_tab_found.visibility = View.GONE
+
         rg_home_tab.setOnCheckedChangeListener { _, checkedId ->
             var fragmentTransaction = supportFragmentManager.beginTransaction()
             for (fragment in fragments) {

@@ -6,6 +6,7 @@ import android.view.View
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
+import fanrong.cwvwalled.parenter.WalletCreatePresenter
 import fanrong.cwvwalled.utils.CallJsCodeUtils
 import fanrong.cwvwalled.utils.PreferenceHelper
 import fanrong.cwvwalled.utils.SWLog
@@ -35,15 +36,13 @@ class CreateAccountStepOneActivity : BaseActivity() {
     }
 
     override fun initView() {
-
-        CallJsCodeUtils.generateMnemonic {
-            mnemonic = CallJsCodeUtils.readStringJsValue(it)
-            mnemonic = "consider fan bridge fury canal awful inquiry library banner ride auto vote"
+        val presenter = WalletCreatePresenter()
+        presenter.getWords {
+            mnemonic = it
             tv_mnemic.text = mnemonic.replace(" ", "      ")
         }
 
         btn_confirm.setOnClickListener(this)
-
     }
 
 

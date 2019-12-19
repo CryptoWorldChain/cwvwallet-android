@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import fanrong.cwvwalled.R
+import fanrong.cwvwalled.ValueCallBack
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.base.BaseFragment
 import fanrong.cwvwalled.base.Constants
@@ -19,6 +20,7 @@ import fanrong.cwvwalled.http.model.GetBalanceReq
 import fanrong.cwvwalled.http.model.WalletBalanceModel
 import fanrong.cwvwalled.litepal.*
 import fanrong.cwvwalled.parenter.ToRMBPresenter
+import fanrong.cwvwalled.parenter.TransferFbcPresenter
 import fanrong.cwvwalled.ui.activity.AddAssetActivity
 import fanrong.cwvwalled.ui.activity.AllWalletActivity
 import fanrong.cwvwalled.ui.activity.ImportWalletTypeActivity
@@ -28,6 +30,7 @@ import fanrong.cwvwalled.ui.adapter.HomeCardAdatper
 import fanrong.cwvwalled.ui.view.ZoomOutPageTransformer
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
+import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -206,8 +209,14 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    lateinit var presenter:TransferFbcPresenter
+
     override fun initView() {
         EventBus.getDefault().register(this)
+
+        val coinBeanModel = LiteCoinBeanModel("cwv")
+        coinBeanModel.sourceAddr = GreWalletOperator.queryMainCWV().address;
+        presenter = TransferFbcPresenter(coinBeanModel)
 
         tv_wallet.setOnClickListener(this)
         tv_addmore.setOnClickListener(this)
@@ -241,6 +250,11 @@ class HomeFragment : BaseFragment() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tv_wallet -> {
+                presenter.getBalance(object :ValueCallBack<String?>{
+                    override fun valueBack(t: String?) {
+                        SWLog.e(t)
+                    }
+                })
                 startActivity(AllWalletActivity::class.java)
             }
             R.id.tv_addmore -> {
