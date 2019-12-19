@@ -12,6 +12,7 @@ import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.listener.FRDialogBtnListener
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
+import fanrong.cwvwalled.parenter.WalletCreatePresenter
 import fanrong.cwvwalled.ui.view.PasswordHintDialog
 import fanrong.cwvwalled.utils.CallJsCodeUtils
 import fanrong.cwvwalled.utils.PreferenceHelper
@@ -34,9 +35,12 @@ class ImportKeyFragment : BaseFragment() {
     }
 
     lateinit var walletType: String
+    lateinit var presenter: WalletCreatePresenter
 
     override fun initView() {
         walletType = arguments!!.getString(PageParamter.PAREMTER_WALLET_TYPE)
+        presenter = WalletCreatePresenter()
+
         tv_import.setOnClickListener(this)
         tv_pasword_dialog.setOnClickListener(this)
     }
@@ -138,31 +142,18 @@ class ImportKeyFragment : BaseFragment() {
 
     fun importCWV(privateKey: String) {
         showProgressDialog("")
-        CallJsCodeUtils.cwv_GenFromPrikey(privateKey) {
-            hideProgressDialog()
 
-            var realContent = CallJsCodeUtils.readStringJsValue(it)
-            if (CheckedUtils.isJson(realContent)) {
-                val jsonObject = JSONObject(realContent)
-                cwvWallet.privateKey = jsonObject.getString("hexPrikey")
-                cwvWallet.address = "0x" + jsonObject.getString("hexAddress")
+        presenter.importCWVWalletFromPriKey(RandomUtils.getRandomString(4), privateKey) { wallet, msg ->
+            if (wallet == null) {
+                showTopMsg(msg ?: "")
+                return@importCWVWalletFromPriKey
             } else {
-                showTopMsg("导入失败")
-                return@cwv_GenFromPrikey
-            }
-            cwvWallet.walletName = "CWV-" + RandomUtils.getRandomString(4)
-            cwvWallet.walletType = "CWV"
-            cwvWallet.isImport = true
-
-            SWLog.e(cwvWallet)
-            if (GreWalletOperator.queryAddress(cwvWallet.address) == null) {
-                GreWalletOperator.insert(cwvWallet)
-                showTopMsg("导入成功")
+                showTopMsg(msg ?: "")
                 finishActivityDelay(2000)
-            } else {
-                showTopMsg("相应的钱包已存在")
             }
+
         }
+
     }
 
 }

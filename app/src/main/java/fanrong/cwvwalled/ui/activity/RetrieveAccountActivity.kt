@@ -133,38 +133,19 @@ class RetrieveAccountActivity : BaseActivity() {
 
     }
 
-    val cwvWallet = GreWalletModel("")
-    val ethWallet = GreWalletModel("")
-
     fun backWallet(mnemonic: String) {
         showProgressDialog("")
 
         presenter.createWallet(mnemonic) { cwvWallet, ethWallet ->
             hideProgressDialog()
 
-            val shareData = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME, "AA")
-
             if (cwvWallet != null) {
-                cwvWallet.walletName = "CWV-" + shareData
-                cwvWallet.walletType = "CWV"
-                cwvWallet.mnemonic = mnemonic
-                SWLog.e(cwvWallet)
-                GreWalletOperator.insert(cwvWallet)
+                startActivity(MainActivity::class.java)
+                finish()
             } else {
                 showTopMsg("创建钱包失败")
                 return@createWallet
             }
-
-            if (ethWallet != null) {
-                ethWallet.walletName = "ETH-" + shareData
-                ethWallet.walletType = "ETH"
-                ethWallet.mnemonic = mnemonic
-                SWLog.e(ethWallet)
-                GreWalletOperator.insert(ethWallet)
-            }
-
-            startActivity(MainActivity::class.java)
-            finish()
         }
 
     }

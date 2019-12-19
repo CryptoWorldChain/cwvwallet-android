@@ -44,6 +44,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
+import xianchao.com.basiclib.utils.checkIsEmpty
+import xianchao.com.basiclib.utils.checkNotEmpty
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.HashMap
@@ -290,9 +292,14 @@ class TransferActivity : BaseActivity() {
             }
         })
 
-        requestGasPrice()
-
-
+        transferPresenter.getGasPrice(object : ValueCallBack<String?> {
+            override fun valueBack(t: String?) {
+                if (t.checkNotEmpty()) {
+                    gas_price = t!!
+                    initSeekbar()
+                }
+            }
+        })
     }
 
     fun initSeekbar() {
@@ -334,31 +341,6 @@ class TransferActivity : BaseActivity() {
                 }
             }
         })
-
-    }
-
-    private fun requestGasPrice() {
-        val queryNodeGasReq = QueryNodeGasReq()
-        queryNodeGasReq.node_url = GreNodeOperator.queryETHnode().node_url
-        queryNodeGasReq.dapp_id = Constants.DAPP_ID
-
-        RetrofitClient.getETHNetWorkApi()
-                .queryNodeGas(ConvertToBody.ConvertToBody(queryNodeGasReq))
-                .enqueue(object : Callback<QueryNodeGasResp> {
-                    override fun onResponse(call: Call<QueryNodeGasResp>, response: Response<QueryNodeGasResp>) {
-                        val body = response.body()
-                        if (body != null && "1".equals(body.err_code)) {
-                            gas_price = body!!.gas_price
-                            initSeekbar()
-                        }
-
-                    }
-
-                    override fun onFailure(call: Call<QueryNodeGasResp>, t: Throwable) {
-
-                    }
-                })
-
 
     }
 

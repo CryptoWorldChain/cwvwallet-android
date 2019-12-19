@@ -13,6 +13,7 @@ import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.litepal.GreWalletModel
+import fanrong.cwvwalled.litepal.LiteCoinBeanModel
 import fanrong.cwvwalled.parenter.WalletCreatePresenter
 import fanrong.cwvwalled.utils.*
 import io.reactivex.Observable
@@ -110,34 +111,15 @@ class CreateAccountStepTwoActivity : BaseActivity() {
 
         presenter.createWallet(mnemonic) { cwvWallet, ethWallet ->
             hideProgressDialog()
-            val shareData = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME, "AA")
 
             if (cwvWallet != null) {
-                cwvWallet.walletName = "CWV-" + shareData
-                cwvWallet.walletType = "CWV"
-                cwvWallet.mnemonic = mnemonic
-                SWLog.e(cwvWallet)
-                GreWalletOperator.insert(cwvWallet)
-            } else {
-                showTopMsg("创建钱包失败")
-                return@createWallet
+                startActivity(MainActivity::class.java)
+                AppManager.finishActivity(CreateAccountPreActivity::class.java)
+                AppManager.finishActivity(CreateAccountPasswordActivity::class.java)
+                AppManager.finishActivity(CreateAccountStepOneActivity::class.java)
+                finish()
             }
-
-            if (ethWallet!= null){
-                ethWallet.walletName = "ETH-" + shareData
-                ethWallet.walletType = "ETH"
-                ethWallet.mnemonic = mnemonic
-                SWLog.e(ethWallet)
-                GreWalletOperator.insert(ethWallet)
-            }
-
-            startActivity(MainActivity::class.java)
-            AppManager.finishActivity(CreateAccountPreActivity::class.java)
-            AppManager.finishActivity(CreateAccountPasswordActivity::class.java)
-            AppManager.finishActivity(CreateAccountStepOneActivity::class.java)
-            finish()
         }
-
     }
 
 }

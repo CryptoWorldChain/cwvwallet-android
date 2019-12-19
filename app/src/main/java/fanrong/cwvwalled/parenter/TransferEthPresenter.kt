@@ -7,6 +7,7 @@ import fanrong.cwvwalled.base.Constants
 import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.*
+import fanrong.cwvwalled.http.model.response.QueryNodeGasResp
 import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
@@ -22,6 +23,29 @@ import java.lang.RuntimeException
 import java.math.BigDecimal
 
 class TransferEthPresenter : TransferPresenter {
+
+    override fun getGasPrice(callBack: ValueCallBack<String?>) {
+
+        val queryNodeGasReq = QueryNodeGasReq()
+        queryNodeGasReq.node_url = GreNodeOperator.queryETHnode().node_url
+        queryNodeGasReq.dapp_id = Constants.DAPP_ID
+
+        RetrofitClient.getETHNetWorkApi()
+                .queryNodeGas(ConvertToBody.ConvertToBody(queryNodeGasReq))
+                .enqueue(object : Callback<QueryNodeGasResp> {
+                    override fun onResponse(call: Call<QueryNodeGasResp>, response: Response<QueryNodeGasResp>) {
+                        val body = response.body()
+                        if (body != null && "1".equals(body.err_code)) {
+                            callBack.valueBack(body!!.gas_price)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<QueryNodeGasResp>, t: Throwable) {
+
+                    }
+                })
+    }
+
     constructor(coinBeanModel: LiteCoinBeanModel) : super(coinBeanModel)
 
 

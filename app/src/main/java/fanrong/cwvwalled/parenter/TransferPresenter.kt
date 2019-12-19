@@ -16,6 +16,7 @@ abstract class TransferPresenter {
     abstract fun transferMoney(req: TransferReq, callBack: TransferResultCallBack)
     abstract fun getNonce(callBack: ValueCallBack<String?>)
     abstract fun getBalance(callBack: ValueCallBack<String?>)
+    abstract fun getGasPrice(callBack: ValueCallBack<String?>)
 
     interface TransferResultCallBack {
         fun success()

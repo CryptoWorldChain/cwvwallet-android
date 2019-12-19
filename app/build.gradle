@@ -70,7 +70,7 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:1.9.0'
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation('com.nos.sdk:hichain:1.2.31_common')
+    implementation('org.cwv.client.sdk:cwv4j:1.0.0_common')
 
     implementation 'org.litepal.android:core:2.0.0'
 }

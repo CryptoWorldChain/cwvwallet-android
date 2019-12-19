@@ -21,6 +21,12 @@ import java.lang.RuntimeException
 import java.math.BigInteger
 
 class TransferFbcPresenter : TransferPresenter {
+
+    override fun getGasPrice(callBack: ValueCallBack<String?>) {
+        // DO NOTHING
+    }
+
+
     constructor(coinBeanModel: LiteCoinBeanModel) : super(coinBeanModel)
 
 

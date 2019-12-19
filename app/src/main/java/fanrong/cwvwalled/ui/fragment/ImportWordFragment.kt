@@ -12,7 +12,10 @@ import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.listener.FRDialogBtnListener
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
+import fanrong.cwvwalled.parenter.WalletCreatePresenter
+import fanrong.cwvwalled.ui.activity.CreateAccountPasswordActivity
 import fanrong.cwvwalled.ui.activity.CreateAccountPreActivity
+import fanrong.cwvwalled.ui.activity.CreateAccountStepOneActivity
 import fanrong.cwvwalled.ui.activity.MainActivity
 import fanrong.cwvwalled.ui.view.PasswordHintDialog
 import fanrong.cwvwalled.utils.AppManager
@@ -34,12 +37,15 @@ import java.util.*
 class ImportWordFragment : BaseFragment() {
 
     lateinit var walletType: String
+    lateinit var presenter: WalletCreatePresenter
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_import_word
     }
 
     override fun initView() {
+        presenter = WalletCreatePresenter()
+
         walletType = arguments!!.getString(PageParamter.PAREMTER_WALLET_TYPE)
         tv_import.setOnClickListener(this)
         tv_pasword_dialog.setOnClickListener(this)
@@ -59,6 +65,7 @@ class ImportWordFragment : BaseFragment() {
                     override fun onCancel(dialog: Dialog) {
                         dialog.dismiss()
                     }
+
                     override fun onConfirm(dialog: Dialog) {
                         dialog.dismiss()
                     }
@@ -125,105 +132,17 @@ class ImportWordFragment : BaseFragment() {
 
     }
 
-    val cwvWallet = GreWalletModel("")
-    val ethWallet = GreWalletModel("")
 
     fun backWallet(mnemonic: String) {
         (activity as BaseActivity).showProgressDialog("")
-        Observable.create<String>(object : ObservableOnSubscribe<String> {
-            override fun subscribe(emitter: ObservableEmitter<String>) {
-                //获取主私钥
-                CallJsCodeUtils.mnemonicToHDPrivateKey(mnemonic, object : ValueCallback<String> {
-                    override fun onReceiveValue(mainKey: String?) {
-                        emitter.onNext(CallJsCodeUtils.readStringJsValue(mainKey))
-                    }
-                })
-            }
-        }).flatMap(object : Function<String, Observable<String>> {
-            override fun apply(mainKey: String): Observable<String> {
 
-                var onSubscribe = object : ObservableOnSubscribe<String> {
-                    override fun subscribe(emitter: ObservableEmitter<String>) {
-                        //获取 eth 地址
-                        CallJsCodeUtils.getAddress(mainKey, object : ValueCallback<String> {
-                            override fun onReceiveValue(ethAddress: String) {
-                                var realEthAddress = CallJsCodeUtils.readStringJsValue(ethAddress)
-                                ethWallet.address = realEthAddress
-                                // mainkey 往下传继续创建钱包逻辑
-                                emitter.onNext(mainKey)
-                            }
-                        })
-                    }
-                }
-
-                return Observable.create(onSubscribe)
-            }
-
-        }).flatMap(object : Function<String, Observable<String>> {
-            override fun apply(mainKey: String): Observable<String> {
-
-                var onSubscribe = ObservableOnSubscribe<String> {
-                    // 获取 eth 私钥
-                    CallJsCodeUtils.getPrivateKey(mainKey, object : ValueCallback<String> {
-                        override fun onReceiveValue(ethPrivateKey: String?) {
-                            var realEthPrivateKey = CallJsCodeUtils.readStringJsValue(ethPrivateKey)
-                            ethWallet.privateKey = realEthPrivateKey
-                            it.onNext(realEthPrivateKey)
-                        }
-                    })
-                }
-                return Observable.create(onSubscribe)
-            }
-        }).subscribe(object : Consumer<String> {
-            override fun accept(ethPrivateKey: String?) {
-                createWallet(ethPrivateKey, mnemonic)
-            }
-        }, Consumer<Throwable> {
-            showTopMsg("导入失败")
-        })
-    }
-
-    private fun createWallet(ethPrivateKey: String?, mnemonic: String) {
-        (activity as BaseActivity).hideProgressDialog()
-        // 获取 cwv 钱包 地址和私钥
-        CallJsCodeUtils.cwv_GenFromPrikey(ethPrivateKey) {
-            var realContent = CallJsCodeUtils.readStringJsValue(it)
-            if (CheckedUtils.isJson(realContent)) {
-                val jsonObject = JSONObject(realContent)
-                cwvWallet.privateKey = jsonObject.getString("hexPrikey")
-                cwvWallet.address = "0x" + jsonObject.getString("hexAddress")
-            }
-            cwvWallet.walletName = "CWV-" + RandomUtils.getRandomString(4)
-            cwvWallet.walletType = "CWV"
-            cwvWallet.mnemonic = mnemonic
-            cwvWallet.isImport = true
-
-            ethWallet.walletName = "ETH-" + RandomUtils.getRandomString(4)
-            ethWallet.walletType = "ETH"
-            ethWallet.mnemonic = mnemonic
-            ethWallet.isImport = true
-
-            if ("CWV".equals(walletType)) {
-                SWLog.e(cwvWallet)
-                if (GreWalletOperator.queryAddress(cwvWallet.address) == null) {
-                    GreWalletOperator.insert(cwvWallet)
-                    showTopMsg("导入成功")
-                    finishActivityDelay(2000)
-                } else {
-                    showTopMsg("相应的钱包已存在")
-                }
-            } else {
-                SWLog.e(ethWallet)
-                if (GreWalletOperator.queryAddress(ethWallet.address) == null) {
-                    GreWalletOperator.insert(ethWallet)
-                    showTopMsg("导入成功")
-                    finishActivityDelay(2000)
-                } else {
-                    showTopMsg("相应的钱包已存在")
-                }
+        presenter.importCWVWallet(RandomUtils.getRandomString(4), mnemonic) { cwvWallet, msg ->
+            hideProgressDialog()
+            showTopMsg(msg ?: "")
+            if (cwvWallet != null) {
+                finishActivityDelay(2000)
             }
         }
     }
-
 
 }

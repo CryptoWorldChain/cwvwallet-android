@@ -154,6 +154,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
         override fun valueBack(resp: TransactionRecordResp?) {
             if (resp == null) {
                 showTopMsg("查询失败")
+                return
             }
             var tx_array = resp!!.tx_array
             val detailAdapter = rl_recycler.adapter as EthDetailAdapter

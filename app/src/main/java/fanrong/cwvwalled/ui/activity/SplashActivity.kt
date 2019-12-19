@@ -10,6 +10,7 @@ import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.NodeListReq
 import fanrong.cwvwalled.http.model.NodeListResp
+import fanrong.cwvwalled.litepal.GreNodeModel
 import fanrong.cwvwalled.utils.BgUtils
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -99,6 +100,13 @@ class SplashActivity : BaseActivity() {
             SWLog.e("已加载，不需要在获取  cwv node")
             return
         }
+
+        val nodeModel = GreNodeModel("http://www.baidu.com")
+
+        nodeModel.node_name = "CWV"
+        nodeModel.isUsing = true
+        nodeModel.isFromService = true
+        GreNodeOperator.insert(nodeModel)
 
         val req = NodeListReq("main")
         RetrofitClient.getFBCNetWorkApi()
