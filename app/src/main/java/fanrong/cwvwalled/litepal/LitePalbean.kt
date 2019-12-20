@@ -22,9 +22,7 @@ data class GreNodeModel(var node_url: String) : LitePalSupport() {
             return field
         }
 
-    var node_des: String? = null
     var node_name: String? = null
-    var node_net: String? = null
     var is_def: Boolean? = null
         get() {
             if (field == null) {
@@ -40,7 +38,7 @@ data class GreNodeModel(var node_url: String) : LitePalSupport() {
 
 
     override fun toString(): String {
-        return "GreNodeModel(node_url='$node_url', isUsing=$isUsing, node_des='$node_des', node_name='$node_name', node_net='$node_net', is_def=$is_def, id=$id)"
+        return "GreNodeModel(node_url='$node_url', isUsing=$isUsing, is_def=$is_def, id=$id)"
     }
 }
 

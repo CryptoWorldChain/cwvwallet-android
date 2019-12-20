@@ -48,6 +48,7 @@
                 android:id="@+id/tv_countCNY"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="--"
                 android:textColor="#bfbfbf"
                 android:textSize="13sp" />

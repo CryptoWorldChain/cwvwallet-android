@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="100000.00 CWV"
+        android:text="0.00"
         android:textColor="#ffffff"
         android:textSize="23sp" />
 
@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 

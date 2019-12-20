@@ -18,11 +18,11 @@ import retrofit2.http.POST;
 public interface FBCNetWorkApi {
 
 
-    String FBC_ROOT = "https://api.wallet.icwv.co/";
+    String FBC_ROOT = "http://114.115.166.19:38081/";
 //    String FBC_ROOT = "https://dev.wallet.icwv.co/";
 
 
-    @POST(FBC_ROOT + "fbc/pbqnl.do")
+    @POST(FBC_ROOT + "bro/app/pbsni.do")
     Call<NodeListResp> requestNodeList(@Body RequestBody map);
 
     @POST(FBC_ROOT + "fbc/pbqbe.do")
@@ -73,7 +73,7 @@ public interface FBCNetWorkApi {
     /**
      * 查询交易记录
      */
-    @POST(FBC_ROOT + "fbc/pbqta.do")
+    @POST(FBC_ROOT + "bro/app/pbsti.do")
     Call<TransactionRecordResp> queryTransactionRecord(@Body RequestBody map);
     /**
      * 查询交易记录

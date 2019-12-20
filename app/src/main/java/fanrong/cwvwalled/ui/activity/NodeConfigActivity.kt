@@ -23,9 +23,9 @@ class NodeConfigActivity : BaseActivity() {
         tv_cwv_config.setOnClickListener(this)
 
         val using = GreNodeOperator.queryETHnode()
-        tv_eth_config.text = using.node_url
+        tv_eth_config.text = using?.node_url
         val cwvNodeUsing = GreNodeOperator.queryCWVnode()
-        tv_cwv_config.text = cwvNodeUsing.node_url
+        tv_cwv_config.text = cwvNodeUsing?.node_url
 
 
 
@@ -50,8 +50,8 @@ class NodeConfigActivity : BaseActivity() {
     override fun onRestart() {
         super.onRestart()
         val using = GreNodeOperator.queryETHnode()
-        tv_eth_config.text = using.node_url
+        tv_eth_config.text = using?.node_url
         val cwvNodeUsing = GreNodeOperator.queryCWVnode()
-        tv_cwv_config.text = cwvNodeUsing.node_url
+        tv_cwv_config.text = cwvNodeUsing?.node_url
     }
 }

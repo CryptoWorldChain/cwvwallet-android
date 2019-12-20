@@ -13,10 +13,7 @@ import fanrong.cwvwalled.ValueCallBack
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
-import fanrong.cwvwalled.parenter.ToRMBPresenter
-import fanrong.cwvwalled.parenter.WalletDetailETHPresenter
-import fanrong.cwvwalled.parenter.WalletDetailFBCPresenter
-import fanrong.cwvwalled.parenter.WalletDetailPresenter
+import fanrong.cwvwalled.parenter.*
 import fanrong.cwvwalled.ui.adapter.EthDetailAdapter
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
@@ -43,6 +40,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
     //    lateinit var balancePresenter: QueryBalancePresenter
     lateinit var coinBeanModel: LiteCoinBeanModel
     lateinit var presenter: WalletDetailPresenter
+    lateinit var balancePresenter: BalancePresenter
 
     override fun getLayoutId(): Int {
         return R.layout.activity_eth_detail
@@ -105,6 +103,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
             presenter = WalletDetailFBCPresenter()
         }
         presenter.liteCoinBeanModel = coinBeanModel
+        balancePresenter = BalancePresenter()
     }
 
     override fun onClick(v: View) {
@@ -133,21 +132,22 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
     override fun loadData() {
         presenter.pageNum = 1
         presenter.queryRecord(recordValueBack)
-        presenter.queryBalance(balanceValueCallBack)
+        getBalance()
     }
 
-    var balanceValueCallBack = object : ValueCallBack<String?> {
-        override fun valueBack(t: String?) {
-            val handleDecimal = MoneyUtils.commonHandleDecimal(t)
-            tv_count.text = "${handleDecimal} ${coinBeanModel.coin_symbol}"
-            var coin_symbol = coinBeanModel.coin_symbol!!.replace("(c)", "")
-            coin_symbol = coin_symbol.replace("(e)", "")
-            ToRMBPresenter.toRMB(t!!, coin_symbol) {
-                val rmbDecimal = MoneyUtils.commonRMBDecimal(it)
-                tv_count_cny.text = "≈ ￥ ${rmbDecimal}"
+    private fun getBalance() {
+        balancePresenter.getAddressBalance(coinBeanModel.sourceAddr
+                ?: "") { resCode, balanceValue ->
+
+            if ("1".equals(resCode)) {
+                val symbol = AppUtils.getRealSymbol(coinBeanModel.coin_symbol)
+                val balanceToken = balanceValue?.tokensMap?.get(symbol)
+
+                val handleDecimal = MoneyUtils.commonHandleDecimal(balanceToken?.balance)
+                tv_count.text = "${handleDecimal} ${coinBeanModel.coin_symbol}"
+                tv_count_cny.text = "≈ ￥ ${handleDecimal}"
             }
         }
-
     }
 
     var recordValueBack = object : ValueCallBack<TransactionRecordResp?> {

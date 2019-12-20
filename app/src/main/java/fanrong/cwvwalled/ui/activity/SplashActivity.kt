@@ -11,6 +11,7 @@ import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.NodeListReq
 import fanrong.cwvwalled.http.model.NodeListResp
 import fanrong.cwvwalled.litepal.GreNodeModel
+import fanrong.cwvwalled.parenter.NodePresenter
 import fanrong.cwvwalled.utils.BgUtils
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -21,10 +22,11 @@ import xianchao.com.basiclib.utils.CheckedUtils
 
 class SplashActivity : BaseActivity() {
 
-    override fun loadData() {
+    lateinit var presenter: NodePresenter
 
-        requestETHNodeList()
-        requestFBCNodeList()
+    override fun loadData() {
+        // 初始化node节点
+        presenter.initCWVnode()
     }
 
     override fun onClick(v: View) {
@@ -37,7 +39,9 @@ class SplashActivity : BaseActivity() {
 
     }
 
+
     override fun initView() {
+        presenter = NodePresenter()
         contentView.setBackgroundResource(BgUtils.getBg(BgUtils.YINDAO))
         iv_tonext.setOnClickListener(this)
         UserInfoObject.init()
@@ -55,85 +59,6 @@ class SplashActivity : BaseActivity() {
             return true
         }
         return false
-    }
-
-    fun requestETHNodeList() {
-
-        if (CheckedUtils.nonEmpty(GreNodeOperator.queryAllETHnode())) {
-            SWLog.e("已加载，不需要在获取  eth node")
-            return
-        }
-
-        val req = NodeListReq("main")
-        RetrofitClient.getETHNetWorkApi()
-                .requestNodeList(ConvertToBody.ConvertToBody(req))
-                .enqueue(object : Callback<NodeListResp> {
-
-                    override fun onFailure(call: Call<NodeListResp>, t: Throwable) {
-                    }
-
-                    override fun onResponse(call: Call<NodeListResp>, response: Response<NodeListResp>) {
-                        val body = response.body()!!
-                        if ("1".equals(body.err_code)) {
-                            if (CheckedUtils.nonEmpty(body.main_net)) {
-                                val main_net = body.main_net
-
-                                main_net!!.forEach {
-                                    val nodeModel = GreNodeOperator.copyFromNodeModel(it)
-                                    nodeModel.node_name = "ETH"
-                                    nodeModel.isUsing = nodeModel.is_def
-                                    nodeModel.isFromService = true
-                                    GreNodeOperator.insert(nodeModel)
-                                }
-                            }
-                        }
-                    }
-
-                })
-
-
-    }
-
-    fun requestFBCNodeList() {
-
-        if (CheckedUtils.nonEmpty(GreNodeOperator.queryAllCWVnode())) {
-            SWLog.e("已加载，不需要在获取  cwv node")
-            return
-        }
-
-        val nodeModel = GreNodeModel("http://www.baidu.com")
-
-        nodeModel.node_name = "CWV"
-        nodeModel.isUsing = true
-        nodeModel.isFromService = true
-        GreNodeOperator.insert(nodeModel)
-
-        val req = NodeListReq("main")
-        RetrofitClient.getFBCNetWorkApi()
-                .requestNodeList(ConvertToBody.ConvertToBody(req))
-                .enqueue(object : Callback<NodeListResp> {
-
-                    override fun onFailure(call: Call<NodeListResp>, t: Throwable) {
-                    }
-
-                    override fun onResponse(call: Call<NodeListResp>, response: Response<NodeListResp>) {
-                        val body = response.body()!!
-                        if ("1".equals(body.err_code)) {
-                            if (CheckedUtils.nonEmpty(body.main_net)) {
-                                val main_net = body.main_net
-
-                                main_net!!.forEach {
-                                    val nodeModel = GreNodeOperator.copyFromNodeModel(it)
-                                    nodeModel.node_name = "CWV"
-                                    nodeModel.isUsing = nodeModel.is_def
-                                    nodeModel.isFromService = true
-                                    GreNodeOperator.insert(nodeModel)
-                                }
-                            }
-                        }
-                    }
-
-                })
     }
 
 }

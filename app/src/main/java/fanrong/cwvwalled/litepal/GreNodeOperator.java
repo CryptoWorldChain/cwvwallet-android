@@ -11,14 +11,13 @@ import fanrong.cwvwalled.litepal.GreNodeModel;
 import xianchao.com.basiclib.utils.CheckedUtils;
 
 public class GreNodeOperator {
-    public static GreNodeModel copyFromNodeModel(NodeModel nodeModel) {
-        GreNodeModel greNodeModel = new GreNodeModel("");
-        greNodeModel.set_def(nodeModel.is_def());
-        greNodeModel.setUsing(nodeModel.isUsing());
-        greNodeModel.setNode_name(nodeModel.getNode_name());
-        greNodeModel.setNode_des(nodeModel.getNode_des());
-        greNodeModel.setNode_net(nodeModel.getNode_net());
-        greNodeModel.setNode_url(nodeModel.getNode_url());
+    public static GreNodeModel copyFromNodeModel(String nodeModel) {
+
+        String realNodeModel = nodeModel;
+        if (!nodeModel.startsWith("http")) {
+            realNodeModel = "http://" + nodeModel;
+        }
+        GreNodeModel greNodeModel = new GreNodeModel(realNodeModel);
         return greNodeModel;
 
     }

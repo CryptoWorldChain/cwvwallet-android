@@ -11,4 +11,9 @@ abstract class WalletDetailPresenter {
     var pageSize: Int = 10
     abstract fun queryRecord(valueCallBack: ValueCallBack<TransactionRecordResp?>)
     abstract fun queryBalance(valueCallBack: ValueCallBack<String?>)
+
+    open fun queryRecord(){
+
+    }
+
 }

@@ -13,9 +13,11 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import fanrong.cwvwalled.BuildConfig
 import fanrong.cwvwalled.R
+import fanrong.cwvwalled.parenter.ProjectEventHandler
 import fanrong.cwvwalled.utils.AppManager
 import fanrong.cwvwalled.utils.CallJsCodeUtils
 import org.litepal.LitePal
+import xianchao.com.basiclib.BasicLibComponant
 
 class AppApplication : MultiDexApplication() {
 
@@ -33,7 +35,7 @@ class AppApplication : MultiDexApplication() {
         }
     }
 
-    fun exit(){
+    fun exit() {
 
         AppManager.popAllActivity()
     }
@@ -55,8 +57,10 @@ class AppApplication : MultiDexApplication() {
         }
 
         LitePal.initialize(this)
+        BasicLibComponant.init(this)
+        ProjectEventHandler.init()
 
-        registerActivityLifecycleCallbacks(object :ActivityLifecycleCallbacks{
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityPaused(activity: Activity?) {
             }
 

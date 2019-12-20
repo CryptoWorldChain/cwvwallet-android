@@ -20,6 +20,34 @@ import java.math.BigDecimal
 
 class WalletDetailFBCPresenter() : WalletDetailPresenter() {
 
+    override fun queryRecord(){
+        val recordReq = TransactionRecordReq(Constants.DAPP_ID)
+        recordReq.account_addr = liteCoinBeanModel.sourceAddr
+        recordReq.node_url = GreNodeOperator.queryCWVnode().node_url
+        recordReq.limit = "" + pageSize
+        recordReq.page_num = "" + pageNum
+        var coin_symbol = AppUtils.getRealSymbol(liteCoinBeanModel.coin_symbol)
+        if ("CWV".equals(coin_symbol)) {
+            recordReq.contract_addr = "null"
+        } else {
+            recordReq.contract_addr = liteCoinBeanModel.contract_addr
+        }
+
+        RetrofitClient.getFBCNetWorkApi()
+                .queryTransactionRecord(ConvertToBody.ConvertToBody(recordReq))
+                .enqueue(object : Callback<TransactionRecordResp> {
+                    override fun onFailure(call: Call<TransactionRecordResp>, t: Throwable) {
+//                        valueCallBack.valueBack(null)
+                    }
+
+                    override fun onResponse(call: Call<TransactionRecordResp>, response: Response<TransactionRecordResp>) {
+//                        valueCallBack.valueBack(response.body()!!)
+                    }
+
+                })
+
+    }
+
     override fun queryRecord(valueCallBack: ValueCallBack<TransactionRecordResp?>) {
 
         val recordReq = TransactionRecordReq(Constants.DAPP_ID)
@@ -38,11 +66,11 @@ class WalletDetailFBCPresenter() : WalletDetailPresenter() {
                 .queryTransactionRecord(ConvertToBody.ConvertToBody(recordReq))
                 .enqueue(object : Callback<TransactionRecordResp> {
                     override fun onFailure(call: Call<TransactionRecordResp>, t: Throwable) {
-                        valueCallBack.valueBack(null)
+//                        valueCallBack.valueBack(null)
                     }
 
                     override fun onResponse(call: Call<TransactionRecordResp>, response: Response<TransactionRecordResp>) {
-                        valueCallBack.valueBack(response.body()!!)
+//                        valueCallBack.valueBack(response.body()!!)
                     }
 
                 })
