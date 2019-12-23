@@ -39,7 +39,7 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
                                 var allCWV = LiteCoinBeanOperator.findAllCWVs()
 
                                 for (token in tokenInfo) {
-
+                                    token.tokenType = "CWV"
                                     for (lifedatabean in allCWV) {
                                         if (token.tokenAddress.equals(lifedatabean.contract_addr)) {
                                             token.isOpen = true;

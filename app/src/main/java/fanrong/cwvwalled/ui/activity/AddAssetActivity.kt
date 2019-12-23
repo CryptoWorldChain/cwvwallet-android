@@ -50,7 +50,7 @@ class AddAssetActivity : BaseActivity() {
             presenter = AddAssetCWVPresenter()
   //      }
         presenter.hasCoins.clear()
-        presenter.hasCoins.addAll(LiteCoinBeanOperator.findAllFromParent(wallet.address))
+//        presenter.hasCoins.addAll(LiteCoinBeanOperator.findAllFromParent(wallet.address))
         et_search.addTextChangedListener(object : TextWatcherAfter() {
             override fun afterTextChanged(s: Editable?) {
                 inputStr = s.toString()

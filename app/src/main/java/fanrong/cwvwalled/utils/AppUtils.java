@@ -81,8 +81,8 @@ public class AppUtils {
         if (CheckedUtils.INSTANCE.isEmpty(symbol)) {
             return symbol;
         }
-        symbol = symbol.replace("(c)","");
-        symbol = symbol.replace("(e)","");
+        symbol = symbol.replace("(C)","");
+        symbol = symbol.replace("(E)","");
         return symbol;
     }
 

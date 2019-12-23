@@ -31,6 +31,9 @@ object LiteCoinBeanOperator {
         val beanModel = LiteCoinBeanModel(tokenInfo.tokenName)
         beanModel.sourceAddr=tokenInfo.sourceAddr
         beanModel.contract_addr = tokenInfo.tokenAddress
+        if ("CWV".equals(tokenInfo.tokenType)) {
+            beanModel.coin_symbol = tokenInfo.tokenName + "(C)"
+        }
         return beanModel
     }
 

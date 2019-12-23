@@ -4,6 +4,7 @@ import android.view.View
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.UserInfoObject
+import fanrong.cwvwalled.eventbus.CWVNoteChangeEvent
 import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.http.engine.ConvertToBody
@@ -14,10 +15,12 @@ import fanrong.cwvwalled.litepal.GreNodeModel
 import fanrong.cwvwalled.utils.BgUtils
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.activity_splash.*
+import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import xianchao.com.basiclib.utils.CheckedUtils
+import java.util.prefs.NodeChangeEvent
 
 class SplashActivity : BaseActivity() {
 
@@ -98,6 +101,9 @@ class SplashActivity : BaseActivity() {
 
         if (CheckedUtils.nonEmpty(GreNodeOperator.queryAllCWVnode())) {
             SWLog.e("已加载，不需要在获取  cwv node")
+            val event = CWVNoteChangeEvent()
+            event.gnodeModel = GreNodeOperator.queryCWVnode()
+            EventBus.getDefault().post(event)
             return
         }
 

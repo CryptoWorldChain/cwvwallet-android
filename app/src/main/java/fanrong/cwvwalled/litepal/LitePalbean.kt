@@ -101,6 +101,7 @@ data class LiteCoinBeanModel(var coin_name: String) : LitePalSupport(), Serializ
 class TokenInfo ( var tokenName: String):  LitePalSupport(), Serializable  {
     //币地址
     var tokenAddress: String? = null
+
     //非接口返回
     var tokenType : String ="CWV"
     //主币地址

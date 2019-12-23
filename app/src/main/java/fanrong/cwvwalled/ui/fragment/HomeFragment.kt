@@ -16,9 +16,11 @@ import fanrong.cwvwalled.eventbus.ETHNoteChangeEvent
 import fanrong.cwvwalled.eventbus.WalletChangeEvent
 import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
+import fanrong.cwvwalled.http.model.BalanceAccount
 import fanrong.cwvwalled.http.model.GetBalanceReq
 import fanrong.cwvwalled.http.model.WalletBalanceModel
 import fanrong.cwvwalled.litepal.*
+import fanrong.cwvwalled.parenter.BalancePresenter
 import fanrong.cwvwalled.parenter.ToRMBPresenter
 import fanrong.cwvwalled.parenter.TransferFbcPresenter
 import fanrong.cwvwalled.ui.activity.AddAssetActivity
@@ -32,7 +34,6 @@ import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.fragment_home.*
-import net.sourceforge.http.model.CWVCoinType
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -74,13 +75,13 @@ class HomeFragment : BaseFragment() {
         var assets = LiteCoinBeanOperator.findAllFromParent(wallet.address)
         assertsAdapter?.setNewData(assets)
 
-//        if ("ETH".equals(wallet.walletType)) {
-//            tv_asset.text = "ETH Asset"
-//            queryEthAssetBalance(assets, wallet)
-//        } else {
+        if ("ETH".equals(wallet.walletType)) {
+            tv_asset.text = "ETH Asset"
+            queryEthAssetBalance(assets, wallet)
+        } else {
             tv_asset.text = "CWV Asset"
             queryFbcAssetBalance(assets, wallet)
- //       }
+        }
     }
 
     private fun queryEthAssetBalance(assets: MutableList<LiteCoinBeanModel>, wallet: GreWalletModel) {
@@ -156,8 +157,11 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun queryFbcAssetBalance(assets: MutableList<TokenInfo>, wallet: GreWalletModel) {
 
+    /**
+     * 获取余额
+     */
+    private fun queryFbcAssetBalance(assets: MutableList<LiteCoinBeanModel>, wallet: GreWalletModel) {
 
         // 获取到所有 coinbean 下边的余额计算总和
         fun updataCardBalance() {
@@ -169,51 +173,38 @@ class HomeFragment : BaseFragment() {
                 return@updataCardBalance
             }
             var allBalance = BigDecimal.ZERO
-//            for (datum in assets) {
-//                if (CheckedUtils.nonEmpty(datum.countCNY)) {
-//                    allBalance = allBalance.add(BigDecimal(datum.countCNY))
-//                }
-//            }
+            for (datum in assets) {
+                if ("CWV".equals(datum.coin_symbol)) {
+                    allBalance = BigDecimal(MoneyUtils.commonHandleDecimal(datum?.count))
+                }
+            }
             wallet.rmb = allBalance.toString()
             assertsAdapter!!.notifyDataSetChanged()
             homeCardAdatper.notifyDataSetChanged()
         }
 
 
-//        for (asset in assets) {
-//            val req = GetBalanceReq()
-//            req.dapp_id = Constants.DAPP_ID
-//            req.node_url = GreNodeOperator.queryCWVnode().node_url
-//            req.address = asset.sourceAddr
-//            req.contract_addr = asset.contract_addr
-//            RetrofitClient.getFBCNetWorkApi()
-//                    .fbcGetBalance(ConvertToBody.ConvertToBody(req))
-//                    .enqueue(object : Callback<WalletBalanceModel> {
-//                        override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
-//                            val body = response.body()
-//                            val rightNum = MoneyUtils.getRightNum(body!!.balance)
-//                            asset.count = MoneyUtils.commonHandleDecimal(rightNum)
-//
-//                            var coin_symbol = AppUtils.getRealSymbol(asset.coin_symbol)
-//                            ToRMBPresenter.toRMB(asset.count!!, coin_symbol) {
-//                                asset.countCNY = MoneyUtils.commonRMBDecimal(it)
-//                                assertsAdapter!!.notifyDataSetChanged()
-//
-//                                // 更新card
-//                                updataCardBalance()
-//                            }
-//                        }
-//
-//                        override fun onFailure(call: Call<WalletBalanceModel>, t: Throwable) {
-//
-//                        }
-//                    })
-//        }
-  }
+        balancePresenter.getAddressBalance(wallet.address) { resCode, balanceValue ->
+            if ("1".equals(resCode)) {
 
-    lateinit var presenter:TransferFbcPresenter
+                assets.forEach {
+                    val realSymbol = AppUtils.getRealSymbol(it.coin_symbol)
+                    val balanceToken = balanceValue?.tokensMap?.get(realSymbol)
+                    it!!.count = MoneyUtils.commonHandleDecimal(balanceToken?.balance)
+                    it?.countCNY = "0.00"
+                    // 更新card
+                    updataCardBalance()
+                }
+            }
+        }
+    }
+
+    lateinit var presenter: TransferFbcPresenter
+    lateinit var balancePresenter: BalancePresenter
 
     override fun initView() {
+        balancePresenter = BalancePresenter()
+
         EventBus.getDefault().register(this)
 
         val coinBeanModel = LiteCoinBeanModel("cwv")
@@ -239,8 +230,6 @@ class HomeFragment : BaseFragment() {
         rl_recycler.adapter = assertsAdapter
         assertsAdapter!!.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-               // TODO()将TokenInfor 转换为LiteCoinBeanModel
-        //        var tokenInfo = adapter!!.data[position] as TokenInfo
                 var bundle = BundleUtils.createWith(PageParamter.PAREMTER_LITE_COINBEAN
                         , adapter!!.data[position] as LiteCoinBeanModel)
                 startActivity(WalletDetailActivity::class.java, bundle)
@@ -254,7 +243,10 @@ class HomeFragment : BaseFragment() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tv_wallet -> {
-                presenter.getBalance(object :ValueCallBack<String?>{
+                ToRMBPresenter.toRMB("100", "CWV") {
+
+                }
+                presenter.getBalance(object : ValueCallBack<String?> {
                     override fun valueBack(t: String?) {
                         SWLog.e(t)
                     }
