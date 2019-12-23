@@ -243,9 +243,6 @@ class HomeFragment : BaseFragment() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tv_wallet -> {
-                ToRMBPresenter.toRMB("100", "CWV") {
-
-                }
                 presenter.getBalance(object : ValueCallBack<String?> {
                     override fun valueBack(t: String?) {
                         SWLog.e(t)
