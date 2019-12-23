@@ -12,6 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object ToRMBPresenter {
+
     fun toRMB(money: String, coin: String, callBcak: (rmb: String) -> Unit) {
         val toRMBReq = ToRMBReq()
         toRMBReq.dapp_id = Constants.DAPP_ID
@@ -31,7 +32,7 @@ object ToRMBPresenter {
                     }
 
                     override fun onFailure(call: Call<ToRMBResp>, t: Throwable) {
-
+                        t.printStackTrace()
                     }
                 })
     }

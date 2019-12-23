@@ -11,9 +11,8 @@ data class NodeListReq(var node_net: String) : Serializable {
 data class NodeListResp(var err_code: String) : Serializable {
 
     var msg: String? = null
-    var dev_net: List<NodeModel>? = null
-    var test_net: List<NodeModel>? = null
-    var main_net: List<NodeModel>? = null
+//    var main_net: List<NodeModel>? = null
+    var nodeInfo: List<String>? = null
 }
 
 data class NodeModel(
@@ -30,11 +29,11 @@ data class NodeModel(
     var node_name: String? = null
     var node_net: String? = null
     var is_def: Boolean? = null
-     get() {
-         if (field == null) {
-             return false
-         }
-         return field
-     }
+        get() {
+            if (field == null) {
+                return false
+            }
+            return field
+        }
 
 }

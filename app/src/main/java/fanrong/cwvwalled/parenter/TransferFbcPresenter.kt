@@ -99,11 +99,11 @@ class TransferFbcPresenter : TransferPresenter {
 //
 //        CallJsCodeUtils.cwv_ecHexSign(privateKey, tag) { value ->
 //            signedMessage = CallJsCodeUtils.readStringJsValue(value)
-//            if ("CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
-//                transfer()
-//            } else {
-//                daiTransfer()
-//            }
+            if ("CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
+                transfer()
+            } else {
+                daiTransfer()
+            }
 //
 //        }
 

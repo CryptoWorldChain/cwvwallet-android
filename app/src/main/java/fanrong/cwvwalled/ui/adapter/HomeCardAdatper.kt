@@ -58,13 +58,13 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
         var ib_hide_assert = view.findViewById<CheckBox>(R.id.ib_hide_assert)
         ib_hide_assert.isChecked = !(walletModel.isShowRmb!!)
 
-        if (ib_hide_assert.isChecked) {
-            tv_unit.visibility = View.INVISIBLE
-            tv_price.setTransformationMethod(WordReplacement.getInstance())
-        } else {
-            tv_unit.visibility = View.VISIBLE
-            tv_price.setTransformationMethod(HideReturnsTransformationMethod.getInstance())
-        }
+//        if (ib_hide_assert.isChecked) {
+//            tv_unit.visibility = View.INVISIBLE
+//            tv_price.setTransformationMethod(WordReplacement.getInstance())
+//        } else {
+//            tv_unit.visibility = View.VISIBLE
+//            tv_price.setTransformationMethod(HideReturnsTransformationMethod.getInstance())
+//        }
 
         ib_hide_assert.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
