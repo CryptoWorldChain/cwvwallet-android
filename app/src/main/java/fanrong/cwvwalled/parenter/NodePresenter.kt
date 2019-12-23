@@ -22,7 +22,6 @@ class NodePresenter {
 
 //        test 节点 http://114.115.166.19:8000/fbs
 
-        LitePal.deleteAll(GreNodeModel::class.java)
         if (CheckedUtils.nonEmpty(GreNodeOperator.queryAllCWVnode())) {
             SWLog.e("已加载，不需要在获取  cwv node")
 

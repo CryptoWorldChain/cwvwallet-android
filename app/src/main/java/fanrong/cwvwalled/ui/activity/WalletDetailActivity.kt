@@ -2,6 +2,7 @@ package fanrong.cwvwalled.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.support.v4.view.accessibility.AccessibilityEventCompat.getRecord
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
@@ -24,6 +25,7 @@ import net.sourceforge.http.model.spdt.TransactionRecordResp
 import xianchao.com.basiclib.extension.extStartActivity
 import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
+import xianchao.com.basiclib.utils.checkIsEmpty
 
 class WalletDetailActivity : BaseActivity(), View.OnClickListener {
 
@@ -87,7 +89,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
         refreshLayout.setOnRefreshLoadmoreListener(object : OnRefreshLoadmoreListener {
             override fun onLoadmore(refreshlayout: RefreshLayout?) {
                 presenter.pageNum++
-                presenter.queryRecord(recordValueBack)
+                presenter.queryRecord(this@WalletDetailActivity::getRecord)
             }
 
             override fun onRefresh(refreshlayout: RefreshLayout) {
@@ -102,6 +104,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
         } else {
             presenter = WalletDetailFBCPresenter()
         }
+        presenter.bindLifecycleOwner(this)
         presenter.liteCoinBeanModel = coinBeanModel
         balancePresenter = BalancePresenter()
     }
@@ -130,9 +133,41 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun loadData() {
-        presenter.pageNum = 1
-        presenter.queryRecord(recordValueBack)
         getBalance()
+        getTransRecord()
+    }
+
+    private fun getTransRecord() {
+        presenter.pageNum = 1
+        presenter.queryRecord(this::getRecord)
+    }
+
+
+    fun getRecord(errorCode: String, walletTrans: MutableList<TransRecordItem>?) {
+
+
+        if (!"1".equals(errorCode)) {
+            showTopMsg("查询失败")
+            return
+        }
+        var tx_array = walletTrans!!
+        val detailAdapter = rl_recycler.adapter as EthDetailAdapter
+        refreshLayout.finishRefresh()
+        if (CheckedUtils.isEmpty(tx_array)) {
+            refreshLayout.finishLoadmore()
+            return
+        }
+        if (presenter.pageNum == 1) {
+            detailAdapter.setNewData(tx_array)
+        } else {
+            detailAdapter.addData(tx_array!!)
+        }
+
+        if (walletTrans.isNotEmpty()) {
+            refreshLayout.finishLoadmore(500, true, false)
+        } else {
+            refreshLayout.finishLoadmore(500, true, true)
+        }
     }
 
     private fun getBalance() {
@@ -146,32 +181,6 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
                 val handleDecimal = MoneyUtils.commonHandleDecimal(balanceToken?.balance)
                 tv_count.text = "${handleDecimal} ${coinBeanModel.coin_symbol}"
                 tv_count_cny.text = "≈ ￥ ${handleDecimal}"
-            }
-        }
-    }
-
-    var recordValueBack = object : ValueCallBack<TransactionRecordResp?> {
-        override fun valueBack(resp: TransactionRecordResp?) {
-            if (resp == null) {
-                showTopMsg("查询失败")
-                return
-            }
-            var tx_array = resp!!.tx_array
-            val detailAdapter = rl_recycler.adapter as EthDetailAdapter
-            refreshLayout.finishRefresh()
-            if (CheckedUtils.isEmpty(tx_array)) {
-                refreshLayout.finishLoadmore()
-                return
-            }
-            if (presenter.pageNum == 1) {
-                detailAdapter.setNewData(tx_array)
-            } else {
-                detailAdapter.addData(tx_array!!)
-            }
-            if (presenter.pageNum * 10 < resp.total_rows!!.toInt()) {
-                refreshLayout.finishLoadmore(500, true, false)
-            } else {
-                refreshLayout.finishLoadmore(500, true, true)
             }
         }
     }

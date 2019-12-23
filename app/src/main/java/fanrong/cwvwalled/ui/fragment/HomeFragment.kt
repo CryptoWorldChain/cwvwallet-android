@@ -175,6 +175,7 @@ class HomeFragment : BaseFragment() {
 //                }
 //            }
             wallet.rmb = allBalance.toString()
+            assertsAdapter!!.notifyDataSetChanged()
             homeCardAdatper.notifyDataSetChanged()
         }
 

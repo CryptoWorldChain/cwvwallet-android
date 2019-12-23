@@ -63,15 +63,15 @@
             android:layout_height="136dp"
             android:layout_marginTop="9dp"
             android:background="@drawable/backup_mnemic_bg"
-            android:paddingBottom="16dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="16dp"
+            android:paddingTop="10dp"
             app:labelTextColor="#FFFFFF"
             app:labelTextPaddingBottom="5dp"
             app:labelTextPaddingTop="5dp"
             app:labelTextSize="14sp"
-            app:lineMargin="16dp"
+            app:lineMargin="8dp"
             app:selectType="MULTI"
             app:wordMargin="14dp" />
 

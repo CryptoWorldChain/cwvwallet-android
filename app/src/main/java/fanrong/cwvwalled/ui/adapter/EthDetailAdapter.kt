@@ -13,7 +13,7 @@ import net.sourceforge.http.model.spdt.TransRecordItem
 class EthDetailAdapter(var coinBeanModel: LiteCoinBeanModel, layoutId: Int) : BaseQuickAdapter<TransRecordItem, BaseViewHolder>(layoutId) {
     override fun convert(helper: BaseViewHolder, item: TransRecordItem) {
 
-        val before = (System.currentTimeMillis() - item.created_time!!.toLong()) / 1000
+        val before = (System.currentTimeMillis() - (item.transTime?.toLong() ?: 0)) / 1000
         if (before <= 0) {
             helper.setText(R.id.tv_time, "刚刚")
         } else if (before < 60) {
@@ -29,19 +29,19 @@ class EthDetailAdapter(var coinBeanModel: LiteCoinBeanModel, layoutId: Int) : Ba
 
         }
 
-        if (coinBeanModel.sourceAddr.equals(item.from_addr, true)) {
-            helper.setText(R.id.tv_address, item.to_addr)
+        if (item.isTransOut(coinBeanModel.sourceAddr)) {
+            helper.setText(R.id.tv_address, item.getTransInAddr())
             helper.setText(R.id.tv_count, "-" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.value)))
             helper.setTextColor(R.id.tv_count, Color.parseColor("#b077fa"))
         } else {
-            helper.setText(R.id.tv_address, item.from_addr)
+            helper.setText(R.id.tv_address, item.getTransInAddr())
             helper.setText(R.id.tv_count, "+" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.value)))
             helper.setTextColor(R.id.tv_count, Color.parseColor("#7cb1f9"))
         }
 
 
 
-        if ("成功".equals(item.des)) {
+        if ("D".equals(item.status)) {
             // 成功
             // 初始地址 和自己钱包地址一样 是转出
             if (coinBeanModel.sourceAddr == item.from_addr) {
@@ -51,7 +51,7 @@ class EthDetailAdapter(var coinBeanModel: LiteCoinBeanModel, layoutId: Int) : Ba
                 helper.setImageResource(R.id.iv_image, R.drawable.detail_item_in)
                 helper.getView<TextView>(R.id.tv_status).visibility = View.INVISIBLE
             }
-        } else if ("失败".equals(item.des)) {
+        } else if ("E".equals(item.status)) {
             // 失败
             helper.setImageResource(R.id.iv_image, R.drawable.detail_item_error)
             helper.setText(R.id.tv_count, "交易失败")

@@ -13,6 +13,7 @@ import net.sourceforge.http.model.spdt.TransRecordItem
 import org.json.JSONObject
 import xianchao.com.basiclib.utils.CheckedUtils
 import xianchao.com.basiclib.utils.XcJsonUtils
+import xianchao.com.basiclib.utils.XcTimeUtils
 import xianchao.com.basiclib.utils.checkIsEmpty
 import java.text.SimpleDateFormat
 import kotlin.Exception
@@ -37,8 +38,8 @@ class TransRecordActivity : BaseActivity() {
 
         var fuhao = if (getSelfAddr().equals(transRecord.from_addr)) "-" else "+"
         tv_count.text = fuhao + MoneyUtils.commonRMBDecimal(MoneyUtils.getRightNum(transRecord.value)) + " ${coinBeanModel.coin_symbol}"
-        tv_to_address.text = transRecord.to_addr
-        tv_from_address.text = transRecord.from_addr
+        tv_to_address.text = transRecord.getTransInAddr()
+        tv_from_address.text = transRecord.getTransOutAddr()
         if (transRecord.gas_used.checkIsEmpty()) {
             tv_tip.text = "无"
         } else {
@@ -64,9 +65,9 @@ class TransRecordActivity : BaseActivity() {
             }
         }
 
-        tv_trans_id.text = transRecord.tx_id
-        tv_block_id.text = transRecord.block_number
-        tv_trans_time.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(transRecord.created_time)
+        tv_trans_id.text = transRecord.transHash
+        tv_block_id.text = transRecord.blockHeight
+        tv_trans_time.text = XcTimeUtils.get_yMd_hms(transRecord.transTime)
 
 
 

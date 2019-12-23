@@ -14,7 +14,7 @@ class BalanceAccount {
         var tokens: List<BalanceToken>? = null
 
         // 自定义字段，方便页面token 查询
-        var tokensMap: Map<String, BalanceToken>? = null
+        var tokensMap: HashMap<String, BalanceToken>? = null
     }
 
     class BalanceToken {

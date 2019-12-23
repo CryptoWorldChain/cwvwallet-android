@@ -59,6 +59,7 @@ public class RetrofitClient {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
                             Request spdt = chain.request().newBuilder()
+//                                    .addHeader("Cache-Control","no-cache")
                                     .addHeader("dapp_id", "CWV")
                                     .addHeader("body-sign", "CWV!@#4")
                                     .addHeader("Content-Type","application/x-www-form-urlencoded")

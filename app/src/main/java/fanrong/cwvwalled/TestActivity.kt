@@ -2,6 +2,7 @@ package fanrong.cwvwalled
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.webkit.ValueCallback
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
@@ -30,6 +31,10 @@ class TestActivity : AppCompatActivity() {
             newToNextPage()
         }
 
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return super.onTouchEvent(event)
     }
 
     val cwvWallet = GreWalletModel("")

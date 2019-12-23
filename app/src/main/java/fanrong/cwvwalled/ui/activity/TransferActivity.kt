@@ -27,6 +27,7 @@ import fanrong.cwvwalled.listener.FRDialogBtnListener
 import fanrong.cwvwalled.litepal.AddressModel
 import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
+import fanrong.cwvwalled.parenter.BalancePresenter
 import fanrong.cwvwalled.parenter.TransferEthPresenter
 import fanrong.cwvwalled.parenter.TransferFbcPresenter
 import fanrong.cwvwalled.parenter.TransferPresenter
@@ -61,6 +62,7 @@ class TransferActivity : BaseActivity() {
 
     lateinit var coinBeanModel: LiteCoinBeanModel
     lateinit var transferPresenter: TransferPresenter
+    lateinit var balancePresenter: BalancePresenter
     var balanceBigdecimal: String? = null
 
     var gas_price = "0"
@@ -103,6 +105,7 @@ class TransferActivity : BaseActivity() {
             sb_seekbar.visibility = View.GONE
             ll_tip.visibility = View.GONE
         }
+        balancePresenter = BalancePresenter()
 
         et_address.addTextChangedListener(object : TextWatcherAfter() {
             override fun afterTextChanged(s: Editable?) {
@@ -214,17 +217,17 @@ class TransferActivity : BaseActivity() {
         val address = et_address.getText().toString().trim()
         val money = tv_money.text.toString().trim()
 
-        if (CheckedUtils.nonEmpty(gas_price)) {
-            gas_price = BigDecimal(gas_price)
-                    .multiply(BigDecimal(Math.pow(10.0, 18.0)))
-                    .divide(BigDecimal(400000))
-                    .toPlainString()
-        }
+//        if (CheckedUtils.nonEmpty(gas_price)) {
+//            gas_price = BigDecimal(gas_price)
+//                    .multiply(BigDecimal(Math.pow(10.0, 18.0)))
+//                    .divide(BigDecimal(400000))
+//                    .toPlainString()
+//        }
 
-        // 是整数 转换成整数
-        if (MoneyUtils.isInteger(gas_price)) {
-            gas_price = BigDecimal(gas_price).toBigInteger().toString()
-        }
+//        // 是整数 转换成整数
+//        if (MoneyUtils.isInteger(gas_price)) {
+//            gas_price = BigDecimal(gas_price).toBigInteger().toString()
+//        }
 
 
         val req = TransferReq()
@@ -256,11 +259,6 @@ class TransferActivity : BaseActivity() {
                     successDialog.dismiss()
                     finish()
                 }, 1500)
-                //                            val successDialog = TransferSuccessDialog(getActivity())
-                //                            successDialog.show()
-                //                            Handler().postDelayed({
-                //                                successDialog.dismiss()
-                //                            }, 1500)
             }
 
             override fun failed(msg: String) {
@@ -278,17 +276,15 @@ class TransferActivity : BaseActivity() {
 
     override fun loadData() {
 
+        balancePresenter.getAddressCoinBalance(coinBeanModel.sourceAddr ?: ""
+                , AppUtils.getRealSymbol(coinBeanModel.coin_symbol)) {
+            balanceBigdecimal = MoneyUtils.commonHandleDecimal(it)
+            tv_useable_money.text = "余额：${balanceBigdecimal} ${coinBeanModel.coin_symbol}"
+        }
+
         transferPresenter.getNonce(object : ValueCallBack<String?> {
             override fun valueBack(t: String?) {
                 CheckedUtils.nonEmpty(t) { nonce = t!! }
-
-            }
-        })
-
-        transferPresenter.getBalance(object : ValueCallBack<String?> {
-            override fun valueBack(t: String?) {
-                balanceBigdecimal = MoneyUtils.commonHandleDecimal(t)
-                tv_useable_money.text = "余额：${balanceBigdecimal} ${coinBeanModel.coin_symbol}"
             }
         })
 
