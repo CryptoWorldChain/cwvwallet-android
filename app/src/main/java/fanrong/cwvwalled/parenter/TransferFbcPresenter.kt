@@ -107,7 +107,7 @@ class TransferFbcPresenter : TransferPresenter {
         var ti = TransferInfo()
         ti.setToAddr(transferReq.to_addr)
         ti.setTokenAmount(transferReq.value)
-        ti.setSymbol(AppUtils.getRealSymbol(transferReq.symbol))
+        ti.token = AppUtils.getRealSymbol(transferReq.symbol)
 
         var outs = arrayListOf<TransferInfo>()
         outs.add(ti)
