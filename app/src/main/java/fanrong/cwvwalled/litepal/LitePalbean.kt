@@ -26,6 +26,7 @@ data class GreNodeModel(var node_url: String) : LitePalSupport() {
     var node_name: String? = null
     var node_net: String? = null
     var is_def: Boolean? = null
+
         get() {
             if (field == null) {
                 return false
@@ -94,6 +95,26 @@ data class LiteCoinBeanModel(var coin_name: String) : LitePalSupport(), Serializ
     override fun toString(): String {
         return "LiteCoinBeanModel(coin_name='$coin_name', id=$id, contract_addr=$contract_addr, channel_name=$channel_name, coin_symbol=$coin_symbol, coin_decimals=$coin_decimals, coin_total_supply=$coin_total_supply, coin_icon=$coin_icon, single_max_amt=$single_max_amt, single_min_amt=$single_min_amt, count=$count, countCNY=$countCNY)"
     }
+
+
+
 }
+
+class TokenInfo :  LitePalSupport(), Serializable  {
+    var tokenName: String? = null
+    var tokenAddress: String? = null
+    //非接口返回
+    var tokenType : String ="CWV"
+    var sourceAddr: String? = null
+    var isOpen: Boolean? = null
+
+        get() {
+            if (field == null) {
+                field = false
+            }
+            return field
+        }
+}
+
 
 

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="fanrong_litepal" />
-    <version value="10" />
+    <version value="13" />
     <list>
         <mapping class="fanrong.cwvwalled.litepal.AddressModel"/>
         <mapping class="fanrong.cwvwalled.litepal.GreNodeModel"/>
         <mapping class="fanrong.cwvwalled.litepal.GreWalletModel"/>
         <mapping class="fanrong.cwvwalled.litepal.LiteCoinBeanModel"/>
+        <!-- 做代币是否开启的本地存储-->
+        <mapping class="fanrong.cwvwalled.litepal.TokenInfo"/>
     </list>
 </litepal>

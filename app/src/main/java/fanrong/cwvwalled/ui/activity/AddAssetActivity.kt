@@ -12,12 +12,12 @@ import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
 import fanrong.cwvwalled.litepal.LiteCoinBeanOperator
+import fanrong.cwvwalled.litepal.TokenInfo
 import fanrong.cwvwalled.parenter.AddAssetCWVPresenter
-import fanrong.cwvwalled.parenter.AddAssetETHPresenter
 import fanrong.cwvwalled.parenter.AddAssetPresenter
 import fanrong.cwvwalled.ui.adapter.AddAssetAdapter
 import kotlinx.android.synthetic.main.activity_add_asset.*
-import net.sourceforge.http.model.CoinBean
+import net.sourceforge.http.model.CWVCoinType
 import net.sourceforge.listener.TextWatcherAfter
 
 class AddAssetActivity : BaseActivity() {
@@ -44,11 +44,11 @@ class AddAssetActivity : BaseActivity() {
         wallet = intent.getSerializableExtra(PageParamter.PAREMTER_WALLET) as GreWalletModel
         iv_back.setOnClickListener(this)
         tv_cancel.setOnClickListener(this)
-        if ("ETH".equals(wallet.walletType)) {
-            presenter = AddAssetETHPresenter()
-        } else {
+//        if ("ETH".equals(wallet.walletType)) {
+//          //  presenter = AddAssetETHPresenter()
+//        } else {
             presenter = AddAssetCWVPresenter()
-        }
+  //      }
         presenter.hasCoins.clear()
         presenter.hasCoins.addAll(LiteCoinBeanOperator.findAllFromParent(wallet.address))
         et_search.addTextChangedListener(object : TextWatcherAfter() {
@@ -63,9 +63,10 @@ class AddAssetActivity : BaseActivity() {
         adapter = AddAssetAdapter()
         rv_recyclerview.adapter = adapter
         adapter!!.checkedChangeListener = object : AddAssetAdapter.OnItemCheckedChangeListener {
-            override fun onItemChange(coinBean: CoinBean, isChecked: Boolean) {
-                coinBean.sourceAddr = wallet.address
-                coinBean.walletName = wallet.walletName
+            override fun onItemChange(coinBean: TokenInfo, isChecked: Boolean) {
+             //   coinBean.tokenAddress
+                coinBean.sourceAddr =wallet.address
+             //   coinBean.tokenName = wallet.walletName
                 presenter.changeAssetStatus(coinBean, isChecked)
             }
         }
@@ -94,8 +95,8 @@ class AddAssetActivity : BaseActivity() {
 
     fun requestAsset() {
 
-        presenter.requestAsset(inputStr, object : ValueCallBack<List<CoinBean>> {
-            override fun valueBack(coinbeans: List<CoinBean>) {
+        presenter.requestAsset(inputStr, object : ValueCallBack<List<TokenInfo>> {
+            override fun valueBack(coinbeans: List<TokenInfo>) {
                 adapter?.coinBeans = coinbeans
             }
         })

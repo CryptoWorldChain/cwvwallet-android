@@ -13,6 +13,9 @@ import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.AppApplication
 import fanrong.cwvwalled.litepal.GreNodeModel
 import fanrong.cwvwalled.litepal.GreNodeOperator
+import fanrong.cwvwalled.litepal.LiteCoinBeanModel
+import fanrong.cwvwalled.litepal.TokenInfo
+import net.sourceforge.http.model.CWVCoinType
 import net.sourceforge.http.model.CoinBean
 import xianchao.com.basiclib.utils.CheckedUtils
 import xianchao.com.basiclib.utils.checkIsEmpty
@@ -20,7 +23,7 @@ import xianchao.com.basiclib.utils.checkIsEmpty
 class AddAssetAdapter() : RecyclerView.Adapter<AddAssetAdapter.MViewHolder>() {
 
     var checkedChangeListener: OnItemCheckedChangeListener? = null
-    var coinBeans: List<CoinBean>? = null
+    var coinBeans: List<TokenInfo>? = null
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -41,10 +44,10 @@ class AddAssetAdapter() : RecyclerView.Adapter<AddAssetAdapter.MViewHolder>() {
 
     override fun onBindViewHolder(holder: AddAssetAdapter.MViewHolder, position: Int) {
         val coinBean = coinBeans!![position]
-        holder.tv_coin_symbol.text = coinBean.coin_symbol
-        holder.tv_coin_name.text = coinBean.coin_name
-        holder.tv_contract_addr.text = coinBean.contract_addr
-        if (coinBean.contract_addr.checkIsEmpty()) {
+        holder.tv_coin_symbol.text = coinBean.tokenName
+        holder.tv_coin_name.text = coinBean.tokenName
+        holder.tv_contract_addr.text = coinBean.tokenAddress
+        if (coinBean.tokenAddress.checkIsEmpty()) {
             holder.tv_contract_addr.visibility = View.GONE
         } else {
             holder.tv_contract_addr.visibility = View.VISIBLE
@@ -74,7 +77,7 @@ class AddAssetAdapter() : RecyclerView.Adapter<AddAssetAdapter.MViewHolder>() {
 
 
     public interface OnItemCheckedChangeListener {
-        fun onItemChange(coinBean: CoinBean, ischecked: Boolean)
+        fun onItemChange(tokenInfo: TokenInfo, ischecked: Boolean)
     }
 
 }

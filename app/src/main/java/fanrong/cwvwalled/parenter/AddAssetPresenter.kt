@@ -2,10 +2,11 @@ package fanrong.cwvwalled.parenter
 
 import fanrong.cwvwalled.ValueCallBack
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
-import net.sourceforge.http.model.CoinBean
+import fanrong.cwvwalled.litepal.TokenInfo
+import net.sourceforge.http.model.CWVCoinType
 
 abstract class AddAssetPresenter {
-    var hasCoins = mutableListOf<LiteCoinBeanModel>()
-    abstract fun requestAsset(inputStr: String, valueCallBack: ValueCallBack<List<CoinBean>>)
-    abstract fun changeAssetStatus(coinBean: CoinBean, boolean: Boolean)
+    var hasCoins = mutableListOf<TokenInfo>()
+    abstract fun requestAsset(inputStr: String, valueCallBack: ValueCallBack<List<TokenInfo>>)
+    abstract fun changeAssetStatus(coinBean: TokenInfo, boolean: Boolean)
 }

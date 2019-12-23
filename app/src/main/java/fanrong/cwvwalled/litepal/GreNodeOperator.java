@@ -55,9 +55,7 @@ public class GreNodeOperator {
     public static List<GreNodeModel> queryAllCWVnode() {
         List<GreNodeModel> list = LitePal.where("node_name like ?", "CWV")
                 .find(GreNodeModel.class);
-
         return list;
-
     }
 
     public static GreNodeModel queryETHnode() {

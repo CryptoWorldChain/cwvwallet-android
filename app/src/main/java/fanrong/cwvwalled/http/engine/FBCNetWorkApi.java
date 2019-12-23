@@ -1,5 +1,6 @@
 package fanrong.cwvwalled.http.engine;
 
+import net.sourceforge.http.model.CWVCoinType;
 import net.sourceforge.http.model.QueryCoinTypeResp;
 import net.sourceforge.http.model.spdt.HomeAdvertResp;
 import net.sourceforge.http.model.spdt.QueryOtherServiceResp;
@@ -20,6 +21,8 @@ public interface FBCNetWorkApi {
 
     String FBC_ROOT = "https://api.wallet.icwv.co/";
 //    String FBC_ROOT = "https://dev.wallet.icwv.co/";
+    //CWV代币查询
+    String CWV_ROOT = "http://114.115.166.19:38081";
 
 
     @POST(FBC_ROOT + "fbc/pbqnl.do")
@@ -80,4 +83,7 @@ public interface FBCNetWorkApi {
      */
     @POST(FBC_ROOT + "fbc/pbqti.do")
     Call<QueryCoinTypeResp> queryCoinType(@Body RequestBody map);
+
+    @POST(CWV_ROOT+"/bro/app/pbtok.do")
+    Call<CWVCoinType> CWVCoinType(@Body RequestBody map);
 }

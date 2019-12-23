@@ -6,67 +6,88 @@ import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
 import fanrong.cwvwalled.litepal.LiteCoinBeanOperator
-import net.sourceforge.http.model.CoinBean
-import net.sourceforge.http.model.QueryCoinTypeReq
-import net.sourceforge.http.model.QueryCoinTypeResp
+import fanrong.cwvwalled.litepal.TokenInfo
+import net.sourceforge.http.model.CWVCoinType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import xianchao.com.basiclib.utils.CheckedUtils
 
 class AddAssetCWVPresenter : AddAssetPresenter() {
 
 
-    override fun requestAsset(inputStr: String, valueCallBack: ValueCallBack<List<CoinBean>>) {
+    override fun requestAsset(inputStr: String, valueCallBack: ValueCallBack<List<TokenInfo>>) {
 
         val using = GreNodeOperator.queryCWVnode()
-        val req = QueryCoinTypeReq(using.node_url)
-        req.coin_name = inputStr
+        // val req = QueryCoinTypeReq(using.node_url)
+        val req = CWVCoinType.CVWType("0");
+        req.limit = "100"
+        //   req.coin_name = inputStr
 
         RetrofitClient.getFBCNetWorkApi()
-                .queryCoinType(ConvertToBody.ConvertToBody(req))
-                .enqueue(object : Callback<QueryCoinTypeResp> {
-                    override fun onFailure(call: Call<QueryCoinTypeResp>, t: Throwable) {
+                .CWVCoinType(ConvertToBody.ConvertToBody(req))
+                .enqueue(object : Callback<CWVCoinType> {
+                    override fun onFailure(call: Call<CWVCoinType>, t: Throwable) {
                     }
 
-                    override fun onResponse(call: Call<QueryCoinTypeResp>, response: Response<QueryCoinTypeResp>) {
-                        if ("1".equals(response.body()?.err_code) && CheckedUtils.nonEmpty(response.body()!!.token)) {
+                    override fun onResponse(call: Call<CWVCoinType>, response: Response<CWVCoinType>) {
+                        if ("1".equals(response.body()?.err_code)) {
+                            var tokenInfo = response.body()?.tokenInfo
 
-                            var tokens = response.body()!!.token!!
+//                            if (tokenInfo != null) {
+//                                valueCallBack.valueBack(tokenInfo)
+//                            }
 
-                            for (token in tokens) {
-                                token.coin_symbol = token.coin_symbol!!.trim()
-                                if (!"CWV".equals(token.coin_symbol)) {
-                                    token.coin_symbol = token.coin_symbol + "(c)"
-                                }
+                            if (tokenInfo != null) {
+                                var allCWV = LiteCoinBeanOperator.findAllCWVs()
 
-                                for (allETH in hasCoins) {
-                                    if (allETH.coin_name.equals(token.coin_name)) {
-                                        token.isOpen = true
+                                for (token in tokenInfo) {
+
+                                    for (lifedatabean in allCWV) {
+                                        if (token.tokenAddress == lifedatabean.tokenAddress) {
+                                            token.isOpen = true;
+                                         //   token.save()
+                                        }
                                     }
                                 }
+
+
+                                valueCallBack.valueBack(tokenInfo)
                             }
-                            valueCallBack.valueBack(tokens)
+
                         }
                     }
                 })
 
     }
 
-    override fun changeAssetStatus(coinBean: CoinBean, isOpen: Boolean) {
+    override fun changeAssetStatus(coinBean:TokenInfo, isOpen: Boolean) {
 
         if (hasCoins == null) {
             hasCoins = mutableListOf()
         }
 
         if (isOpen) {
-            LiteCoinBeanOperator.copyCoinBean(coinBean).save()
+            //TODO()存储当前的对象 coinBean
+            coinBean.save()
         } else {
-            for (allETH in hasCoins) {
-                if (allETH.coin_name.equals(coinBean.coin_name)) {
-                    allETH.delete()
+            //TODO 遍历当前存储的数据 删除当前对象
+            var allCWV = LiteCoinBeanOperator.findAllCWVs()
+            for (allCWV in hasCoins) {
+                if (allCWV.tokenName.equals(coinBean.tokenName)) {
+                    allCWV.delete()
                 }
             }
         }
+
+
+//        if (isOpen) {
+//        LiteCoinBeanOperator.copyCoinBean(coinBean).save()
+//        } else {
+//            for (allETH in hasCoins) {
+//                if (allETH.coin_name.equals(coinBean.coin_name)) {
+//                    allETH.delete()
+//                }
+//            }
+//        }
     }
 }

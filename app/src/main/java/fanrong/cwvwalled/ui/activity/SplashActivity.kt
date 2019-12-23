@@ -23,7 +23,7 @@ class SplashActivity : BaseActivity() {
 
     override fun loadData() {
 
-        requestETHNodeList()
+      //  requestETHNodeList()
         requestFBCNodeList()
     }
 

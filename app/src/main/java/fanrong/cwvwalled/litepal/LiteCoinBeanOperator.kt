@@ -1,6 +1,7 @@
 package fanrong.cwvwalled.litepal
 
 import android.content.ContentValues
+import net.sourceforge.http.model.CWVCoinType
 import net.sourceforge.http.model.CoinBean
 import org.litepal.LitePal
 
@@ -19,19 +20,20 @@ object LiteCoinBeanOperator {
         return beanModel
     }
 
+
     fun findAllETHs(): MutableList<LiteCoinBeanModel> {
         return LitePal.where("channel_name like ?", "ETH")
                 .find(LiteCoinBeanModel::class.java)
     }
 
-    fun findAllCWVs(): MutableList<LiteCoinBeanModel> {
-        return LitePal.where("channel_name like ?", "CWV")
-                .find(LiteCoinBeanModel::class.java)
+    fun findAllCWVs(): MutableList<TokenInfo> {
+        return LitePal.where("tokenType like ?", "CWV")
+                .find(TokenInfo::class.java)
     }
 
 
-    fun findAllFromParent(addr: String): MutableList<LiteCoinBeanModel> {
-        return LitePal.where("sourceAddr like ?", addr).find(LiteCoinBeanModel::class.java)
+    fun findAllFromParent(addr: String): MutableList<TokenInfo> {
+        return LitePal.where("sourceAddr like ?", addr).find(TokenInfo::class.java)
     }
 
     fun updateAllWalletName(walletModel: GreWalletModel) {

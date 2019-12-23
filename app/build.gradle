@@ -69,8 +69,8 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.facebook.fresco:fresco:1.9.0'
     implementation 'com.android.support:multidex:1.0.3'
-
+    //成成钱包的sdk
     implementation('org.cwv.client.sdk:cwv4j:1.0.0_common')
-
+    //数据库
     implementation 'org.litepal.android:core:2.0.0'
 }

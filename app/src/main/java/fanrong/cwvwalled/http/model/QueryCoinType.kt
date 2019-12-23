@@ -1,7 +1,11 @@
 package net.sourceforge.http.model
 
 import fanrong.cwvwalled.base.Constants
+import fanrong.cwvwalled.litepal.LiteCoinBeanModel
+import fanrong.cwvwalled.litepal.TokenInfo
+import org.litepal.crud.LitePalSupport
 import java.io.Serializable
+
 
 /**
  * 请求币种信息接口，请求参数，接口返回
@@ -18,7 +22,7 @@ data class QueryCoinTypeResp(var msg: String) : Serializable {
 }
 
 data class CoinBean(var coin_name: String) : Serializable {
-    var contract_addr: String? = null
+    var contract_addr: String? = null   //
     var channel_name: String? = null
     var coin_symbol: String? = null
     var coin_decimals: String? = null
@@ -27,6 +31,13 @@ data class CoinBean(var coin_name: String) : Serializable {
     var single_max_amt: String? = null
     var single_min_amt: String? = null
 
+//
+//    var msg: String? = null
+//    var limit: Int? = null
+//    var skip: Int? = null
+//    var total_rows: Int? = null
+//    var totalPages: Int? = null
+//    var tokenInfo: List<TokenInfo>? = null
 
     // 非接口返回
     var sourceAddr: String? = null
@@ -39,4 +50,35 @@ data class CoinBean(var coin_name: String) : Serializable {
             }
             return field
         }
+
+
+
+}
+
+data class CWVCoinType( var err_code: String) :Serializable {
+    var msg: String? = null
+    var limit: Int? = null
+    var skip: Int? = null
+    var total_rows: Int? = null
+    var totalPages: Int? = null
+    var tokenInfo: List<TokenInfo>? = null
+
+//    class TokenInfo :  LitePalSupport(), Serializable  {
+//        var tokenName: String? = null
+//        var tokenAddress: String? = null
+//        //费接口返回
+//        var tokenType : String ="CWV"
+//        var isOpen: Boolean? = null
+//            get() {
+//                if (field == null) {
+//                    field = false
+//                }
+//                return field
+//            }
+//    }
+//}
+
+    data class CVWType(var skip: String) : Serializable {
+        var limit: String? = null
+    }
 }
