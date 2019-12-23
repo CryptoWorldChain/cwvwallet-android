@@ -45,8 +45,8 @@ object LiteCoinBeanOperator {
     }
 
 
-    fun findAllFromParent(addr: String): MutableList<TokenInfo> {
-        return LitePal.where("sourceAddr like ?", addr).find(TokenInfo::class.java)
+    fun findAllFromParent(addr: String): MutableList<LiteCoinBeanModel> {
+        return LitePal.where("sourceAddr like ?", addr).find(LiteCoinBeanModel::class.java)
     }
 
     fun updateAllWalletName(walletModel: GreWalletModel) {
