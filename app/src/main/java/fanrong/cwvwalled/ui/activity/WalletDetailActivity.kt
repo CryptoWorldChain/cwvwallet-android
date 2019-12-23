@@ -2,7 +2,6 @@ package fanrong.cwvwalled.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.view.accessibility.AccessibilityEventCompat.getRecord
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
@@ -10,7 +9,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener
 import fanrong.cwvwalled.R
-import fanrong.cwvwalled.ValueCallBack
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
@@ -19,13 +17,10 @@ import fanrong.cwvwalled.ui.adapter.EthDetailAdapter
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import kotlinx.android.synthetic.main.activity_eth_detail.*
-import kotlinx.android.synthetic.main.activity_eth_detail.view.*
 import net.sourceforge.http.model.spdt.TransRecordItem
-import net.sourceforge.http.model.spdt.TransactionRecordResp
 import xianchao.com.basiclib.extension.extStartActivity
 import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
-import xianchao.com.basiclib.utils.checkIsEmpty
 
 class WalletDetailActivity : BaseActivity(), View.OnClickListener {
 
@@ -150,20 +145,20 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
             showTopMsg("查询失败")
             return
         }
-        var tx_array = walletTrans!!
+        var transItems = walletTrans?: mutableListOf()
         val detailAdapter = rl_recycler.adapter as EthDetailAdapter
         refreshLayout.finishRefresh()
-        if (CheckedUtils.isEmpty(tx_array)) {
+        if (CheckedUtils.isEmpty(transItems)) {
             refreshLayout.finishLoadmore()
             return
         }
         if (presenter.pageNum == 1) {
-            detailAdapter.setNewData(tx_array)
+            detailAdapter.setNewData(transItems)
         } else {
-            detailAdapter.addData(tx_array!!)
+            detailAdapter.addData(transItems!!)
         }
 
-        if (walletTrans.isNotEmpty()) {
+        if (transItems.isNotEmpty()) {
             refreshLayout.finishLoadmore(500, true, false)
         } else {
             refreshLayout.finishLoadmore(500, true, true)

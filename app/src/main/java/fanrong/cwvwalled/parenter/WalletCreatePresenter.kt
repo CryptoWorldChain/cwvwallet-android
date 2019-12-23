@@ -6,6 +6,7 @@ import fanrong.cwvwalled.litepal.LiteCoinBeanModel
 import fanrong.cwvwalled.utils.PreferenceHelper
 import fanrong.cwvwalled.utils.SWLog
 import org.cwv.client.sdk.util.WalletUtil
+import xianchao.com.basiclib.utils.checkIsEmpty
 
 class WalletCreatePresenter {
 
@@ -78,7 +79,10 @@ class WalletCreatePresenter {
         cwvWalletModel.privateKey = kp.prikey
         cwvWalletModel.pubKey = kp.pubkey
 
-        val shareData = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME, "AA")
+        var shareData = PreferenceHelper.getInstance().getStringShareData(PreferenceHelper.PreferenceKey.NICK_NAME, "AA")
+        if (shareData.checkIsEmpty()) {
+            shareData = "钱包"
+        }
         if (cwvWalletModel != null) {
             cwvWalletModel.walletName = "CWV-" + shareData
             cwvWalletModel.walletType = "CWV"
