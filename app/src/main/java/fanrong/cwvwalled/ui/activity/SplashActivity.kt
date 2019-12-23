@@ -23,7 +23,7 @@ class SplashActivity : BaseActivity() {
 
     override fun loadData() {
 
-      //  requestETHNodeList()
+//        requestETHNodeList()
         requestFBCNodeList()
     }
 
@@ -75,8 +75,8 @@ class SplashActivity : BaseActivity() {
                     override fun onResponse(call: Call<NodeListResp>, response: Response<NodeListResp>) {
                         val body = response.body()!!
                         if ("1".equals(body.err_code)) {
-                            if (CheckedUtils.nonEmpty(body.main_net)) {
-                                val main_net = body.main_net
+                            if (CheckedUtils.nonEmpty(body.nodeInfo)) {
+                                val main_net = body.nodeInfo
 
                                 main_net!!.forEach {
                                     val nodeModel = GreNodeOperator.copyFromNodeModel(it)
@@ -101,12 +101,6 @@ class SplashActivity : BaseActivity() {
             return
         }
 
-        val nodeModel = GreNodeModel("http://www.baidu.com")
-
-        nodeModel.node_name = "CWV"
-        nodeModel.isUsing = true
-        nodeModel.isFromService = true
-        GreNodeOperator.insert(nodeModel)
 
         val req = NodeListReq("main")
         RetrofitClient.getFBCNetWorkApi()
@@ -119,13 +113,14 @@ class SplashActivity : BaseActivity() {
                     override fun onResponse(call: Call<NodeListResp>, response: Response<NodeListResp>) {
                         val body = response.body()!!
                         if ("1".equals(body.err_code)) {
-                            if (CheckedUtils.nonEmpty(body.main_net)) {
-                                val main_net = body.main_net
+                            if (CheckedUtils.nonEmpty(body.nodeInfo)) {
+                                val main_net = body.nodeInfo
 
                                 main_net!!.forEach {
                                     val nodeModel = GreNodeOperator.copyFromNodeModel(it)
                                     nodeModel.node_name = "CWV"
-                                    nodeModel.isUsing = nodeModel.is_def
+                                    nodeModel.isUsing = main_net.indexOf(it) == 0
+                                    nodeModel.is_def = main_net.indexOf(it) == 0
                                     nodeModel.isFromService = true
                                     GreNodeOperator.insert(nodeModel)
                                 }
