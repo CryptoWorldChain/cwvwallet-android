@@ -247,7 +247,7 @@ class TransferActivity : BaseActivity() {
         } else {
             req.ex_data = JSONObject(exData).toString()
         }
-
+        showProgressDialog("交易中...")
 
         transferPresenter.transferMoney(req, object : TransferPresenter.TransferResultCallBack {
 
