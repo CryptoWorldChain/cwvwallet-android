@@ -3,10 +3,7 @@ package fanrong.cwvwalled.parenter
 import fanrong.cwvwalled.ValueCallBack
 import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
-import fanrong.cwvwalled.litepal.GreNodeOperator
-import fanrong.cwvwalled.litepal.LiteCoinBeanModel
-import fanrong.cwvwalled.litepal.LiteCoinBeanOperator
-import fanrong.cwvwalled.litepal.TokenInfo
+import fanrong.cwvwalled.litepal.*
 import net.sourceforge.http.model.CWVCoinType
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +12,7 @@ import retrofit2.Response
 class AddAssetCWVPresenter : AddAssetPresenter() {
 
 
-    override fun requestAsset(inputStr: String, valueCallBack: ValueCallBack<List<TokenInfo>>) {
+    override fun requestAsset(inputStr: String, valueCallBack: ValueCallBack<List<TokenInfo>> ,wallet: GreWalletModel) {
 
         val using = GreNodeOperator.queryCWVnode()
         // val req = QueryCoinTypeReq(using.node_url)
@@ -36,7 +33,7 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
 
 
                             if (tokenInfo != null) {
-                                var allCWV = LiteCoinBeanOperator.findAllCWVs()
+                                var allCWV = LiteCoinBeanOperator.findAllFromParent(wallet.address)
 
                                 for (token in tokenInfo) {
                                     token.tokenType = "CWV"
@@ -60,9 +57,6 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
 
     override fun changeAssetStatus(coinBean:TokenInfo, isOpen: Boolean) {
 
-        if (hasCoins == null) {
-            hasCoins = mutableListOf()
-        }
 
         if (isOpen) {
             //TODO()存储当前的对象 coinBean
@@ -70,9 +64,9 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
           //  coinBean.save()
         } else {
             //TODO 遍历当前存储的数据 删除当前对象
-            var allCWV = LiteCoinBeanOperator.findAllCWVs()
-            for (allCWV in hasCoins) {
-                if (allCWV.tokenAddress.equals(coinBean.tokenAddress)) {
+            var allCWVs = LiteCoinBeanOperator.findAllFromParent(coinBean.sourceAddr?:"")
+            for (allCWV in allCWVs) {
+                if (allCWV.contract_addr.equals(coinBean.tokenAddress)) {
                     allCWV.delete()
                 }
             }

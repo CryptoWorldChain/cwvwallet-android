@@ -98,7 +98,7 @@ class AddAssetActivity : BaseActivity() {
             override fun valueBack(coinbeans: List<TokenInfo>) {
                 adapter?.coinBeans = coinbeans
             }
-        })
+        },wallet)
 
     }
 

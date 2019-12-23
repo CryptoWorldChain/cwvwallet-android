@@ -43,7 +43,7 @@ object LiteCoinBeanOperator {
     }
 
     fun findAllCWVs(): MutableList<LiteCoinBeanModel> {
-        return LitePal.where("sourceAddr like ?", "CWV")
+        return LitePal.where("tokenType like ?", "CWV")
                 .find(LiteCoinBeanModel::class.java)
     }
 
