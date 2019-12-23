@@ -36,7 +36,7 @@ class TransRecordActivity : BaseActivity() {
         tv_trans_id.setOnClickListener(this)
 
         var fuhao = if (getSelfAddr().equals(transRecord.from_addr)) "-" else "+"
-        tv_count.text = fuhao + MoneyUtils.commonRMBDecimal(MoneyUtils.getRightNum(transRecord.value)) + " ${coinBeanModel.coin_symbol}"
+        tv_count.text = fuhao + MoneyUtils.commonRMBDecimal(MoneyUtils.getRightNum(transRecord.amount)) + " ${coinBeanModel.coin_symbol}"
         tv_to_address.text = transRecord.getTransInAddr()
         tv_from_address.text = transRecord.getTransOutAddr()
         if (transRecord.gas_used.checkIsEmpty()) {

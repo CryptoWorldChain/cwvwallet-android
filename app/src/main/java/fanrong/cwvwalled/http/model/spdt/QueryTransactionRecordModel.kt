@@ -1,5 +1,6 @@
 package net.sourceforge.http.model.spdt
 
+import fanrong.cwvwalled.utils.MoneyUtils
 import org.cwv.client.sdk.HiChain
 import xianchao.com.basiclib.utils.checkIsEmpty
 import java.io.Serializable
@@ -37,7 +38,7 @@ data class TransRecordItem(
     val transHash: String? = null
     val blockHeight: String? = null
     val transTime: String? = null
-    val amount: Long? = null
+    var amount: String? = null
     val status: String? = null
     var exData: String? = null
         get() {
