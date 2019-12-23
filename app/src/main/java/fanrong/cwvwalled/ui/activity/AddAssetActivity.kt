@@ -66,7 +66,6 @@ class AddAssetActivity : BaseActivity() {
             override fun onItemChange(coinBean: TokenInfo, isChecked: Boolean) {
              //   coinBean.tokenAddress
                 coinBean.sourceAddr =wallet.address
-             //   coinBean.tokenName = wallet.walletName
                 presenter.changeAssetStatus(coinBean, isChecked)
             }
         }

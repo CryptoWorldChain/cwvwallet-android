@@ -77,18 +77,18 @@ data class GreWalletModel(@Column(unique = true) var address: String) : LitePalS
 data class LiteCoinBeanModel(var coin_name: String) : LitePalSupport(), Serializable {
 
     var id: Long = 0
-    var contract_addr: String? = null
-    var channel_name: String? = null
-    var coin_symbol: String? = null
-    var coin_decimals: String? = null
-    var coin_total_supply: String? = null
-    var coin_icon: String? = null
-    var single_max_amt: String? = null
-    var single_min_amt: String? = null
-    var count: String? = null
-    var countCNY: String? = null
-    var sourceAddr: String? = null
-    var walletName: String? = null
+    var contract_addr: String? = null//暂不使用
+    var channel_name: String? = null //暂不使用
+    var coin_symbol: String? = null//钱包名称 咱不使用
+    var coin_decimals: String? = null //不使用
+    var coin_total_supply: String? = null //不使用
+    var coin_icon: String? = null //图标
+    var single_max_amt: String? = null //暂不使用
+    var single_min_amt: String? = null//暂不使用
+    var count: String? = null //余额
+    var countCNY: String? = null //余额转成RMB
+    var sourceAddr: String? = null //当前主币地址
+    var walletName: String? = null // 主币名称
 
     override fun toString(): String {
         return "LiteCoinBeanModel(coin_name='$coin_name', id=$id, contract_addr=$contract_addr, channel_name=$channel_name, coin_symbol=$coin_symbol, coin_decimals=$coin_decimals, coin_total_supply=$coin_total_supply, coin_icon=$coin_icon, single_max_amt=$single_max_amt, single_min_amt=$single_min_amt, count=$count, countCNY=$countCNY)"
@@ -98,11 +98,12 @@ data class LiteCoinBeanModel(var coin_name: String) : LitePalSupport(), Serializ
 
 }
 
-class TokenInfo :  LitePalSupport(), Serializable  {
-    var tokenName: String? = null
+class TokenInfo ( var tokenName: String):  LitePalSupport(), Serializable  {
+    //币地址
     var tokenAddress: String? = null
     //非接口返回
     var tokenType : String ="CWV"
+    //主币地址
     var sourceAddr: String? = null
     var isOpen: Boolean? = null
 
@@ -112,6 +113,7 @@ class TokenInfo :  LitePalSupport(), Serializable  {
             }
             return field
         }
+
 }
 
 

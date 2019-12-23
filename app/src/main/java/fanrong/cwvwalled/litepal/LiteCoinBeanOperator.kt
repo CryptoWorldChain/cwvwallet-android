@@ -21,14 +21,27 @@ object LiteCoinBeanOperator {
     }
 
 
+    fun  copyTokenInfor(tokenInfo: TokenInfo ) :LiteCoinBeanModel{
+//        var id: Long = 0
+//        var coin_icon: String? = null //图标
+//        var count: String? = null //余额
+//        var countCNY: String? = null //余额转成RMB
+//        var sourceAddr: String? = null //当前主币地址
+//        var walletName: String? = null // 主币名称
+        val beanModel = LiteCoinBeanModel(tokenInfo.tokenName)
+        beanModel.sourceAddr=tokenInfo.sourceAddr
+        beanModel.contract_addr = tokenInfo.tokenAddress
+        return beanModel
+    }
+
     fun findAllETHs(): MutableList<LiteCoinBeanModel> {
         return LitePal.where("channel_name like ?", "ETH")
                 .find(LiteCoinBeanModel::class.java)
     }
 
-    fun findAllCWVs(): MutableList<TokenInfo> {
-        return LitePal.where("tokenType like ?", "CWV")
-                .find(TokenInfo::class.java)
+    fun findAllCWVs(): MutableList<LiteCoinBeanModel> {
+        return LitePal.where("sourceAddr like ?", "CWV")
+                .find(LiteCoinBeanModel::class.java)
     }
 
 

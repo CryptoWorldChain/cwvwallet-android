@@ -33,9 +33,7 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
                         if ("1".equals(response.body()?.err_code)) {
                             var tokenInfo = response.body()?.tokenInfo
 
-//                            if (tokenInfo != null) {
-//                                valueCallBack.valueBack(tokenInfo)
-//                            }
+
 
                             if (tokenInfo != null) {
                                 var allCWV = LiteCoinBeanOperator.findAllCWVs()
@@ -43,7 +41,7 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
                                 for (token in tokenInfo) {
 
                                     for (lifedatabean in allCWV) {
-                                        if (token.tokenAddress == lifedatabean.tokenAddress) {
+                                        if (token.tokenAddress.equals(lifedatabean.contract_addr)) {
                                             token.isOpen = true;
                                          //   token.save()
                                         }
@@ -68,18 +66,17 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
 
         if (isOpen) {
             //TODO()存储当前的对象 coinBean
-            coinBean.save()
+            LiteCoinBeanOperator.copyTokenInfor(coinBean).save()
+          //  coinBean.save()
         } else {
             //TODO 遍历当前存储的数据 删除当前对象
             var allCWV = LiteCoinBeanOperator.findAllCWVs()
             for (allCWV in hasCoins) {
-                if (allCWV.tokenName.equals(coinBean.tokenName)) {
+                if (allCWV.tokenAddress.equals(coinBean.tokenAddress)) {
                     allCWV.delete()
                 }
             }
         }
-
-
 //        if (isOpen) {
 //        LiteCoinBeanOperator.copyCoinBean(coinBean).save()
 //        } else {
