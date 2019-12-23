@@ -1,5 +1,6 @@
 package net.sourceforge.http.model.spdt
 
+import org.cwv.client.sdk.HiChain
 import xianchao.com.basiclib.utils.checkIsEmpty
 import java.io.Serializable
 
@@ -38,6 +39,10 @@ data class TransRecordItem(
     val transTime: String? = null
     val amount: Long? = null
     val status: String? = null
+    var exData: String? = null
+        get() {
+            return HiChain.hexStringToUTF8(field)
+        }
 
     val contract_addr: String? = null
     val des: String? = null
@@ -50,7 +55,6 @@ data class TransRecordItem(
     val tx_status: String? = null
     var gas_used: String? = null
     var cumulative_gas_used: String? = null
-    var ex_data: String? = null
 
     fun isTransOut(address: String?): Boolean {
         if (address.checkIsEmpty()) {

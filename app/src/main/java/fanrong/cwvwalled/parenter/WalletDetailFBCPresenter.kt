@@ -9,6 +9,7 @@ import fanrong.cwvwalled.utils.AppUtils
 import net.sourceforge.http.model.spdt.TransRecordItem
 import net.sourceforge.http.model.spdt.TransactionRecordReq
 import net.sourceforge.http.model.spdt.TransactionRecordResp
+import org.cwv.client.sdk.HiChain
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

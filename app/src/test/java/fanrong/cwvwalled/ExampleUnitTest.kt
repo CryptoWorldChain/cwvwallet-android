@@ -1,5 +1,6 @@
 package fanrong.cwvwalled
 
+import com.facebook.common.util.Hex
 import com.google.gson.Gson
 import fanrong.cwvwalled.common.ThreadExecutor
 import fanrong.cwvwalled.http.model.UpdateResp
@@ -39,6 +40,12 @@ class ExampleUnitTest {
 //    KeyPairs{pubkey='0a5cd430fafc986fc3d5b7c355bc9df3543d3de75e4bb65955db40bfa15753bbb611b0b6ec8861a1828a615246729b13d21ac4b4f23fd31dc734c38bee38fa38', prikey='198a6986b97de1d43523a498b74916c03d6b7ffbfc815aa3bf62b5dfdf082e9a',
 //    address='9bba8c8eb30742f9aeef87746f8127f3217f09db', bcuid='LsNyhhau5MqH2NqLtMnsZLr5U2l2'}
 
+
+    @Test
+    fun aaaaaaaaaa(){
+        println(HiChain.hexStringToUTF8("7b226e6f7465223a22e5b0b4e5b0ace7998c227d"))
+        println(Hex.decodeHex("7b226e6f7465223a22e5b0b4e5b0ace7998c227d"))
+    }
 
     @Test
     fun addition_isCorrect() {
