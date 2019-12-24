@@ -25,7 +25,7 @@ import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseFragment
 import fanrong.cwvwalled.common.UserInfoObject
 import fanrong.cwvwalled.listener.FRDialogBtnListener
-import fanrong.cwvwalled.litepal.GreWalletOperator
+import fanrong.cwvwalled.litepal.*
 import fanrong.cwvwalled.ui.activity.*
 import fanrong.cwvwalled.ui.view.ButtomDialogView
 import fanrong.cwvwalled.ui.view.ChangeWalletNameDialog
@@ -35,6 +35,7 @@ import fanrong.cwvwalled.utils.RealPathFromUriUtils
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.activity_wallet_setting.*
 import kotlinx.android.synthetic.main.fragment_mine.*
+import org.litepal.LitePal
 import xianchao.com.basiclib.utils.CheckedUtils
 import xianchao.com.basiclib.utils.checkNotEmpty
 import java.io.File
@@ -178,6 +179,7 @@ class MineFragment : BaseFragment() {
             override fun onConfirm(dialog: Dialog) {
                 dialog.dismiss()
                 UserInfoObject.userLogout()
+                delect()
                 startActivity(CreateAccountPreActivity::class.java)
                 activity!!.finish()
             }
@@ -191,7 +193,6 @@ class MineFragment : BaseFragment() {
 
     override fun onClick(v: View?) {
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -218,5 +219,11 @@ class MineFragment : BaseFragment() {
         }
     }
 
-
+    //删除相关数据
+    fun delect() {
+        LitePal.deleteAll(LiteCoinBeanModel::class.java)
+        LitePal.deleteAll(TokenInfo::class.java)
+        LitePal.deleteAll(GreWalletModel::class.java)
+        LitePal.deleteAll(AddressModel::class.java)
+    }
 }
