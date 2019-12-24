@@ -11,6 +11,7 @@ import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.util.TypedValue
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.OvershootInterpolator
 import android.widget.LinearLayout
 import fanrong.cwvwalled.R
@@ -44,6 +45,10 @@ class ExportPrivateKeyActivity : BaseActivity() {
 
     lateinit var mDataList: ArrayList<String>
     override fun initView() {
+
+        //设定这个Activity不允许截屏
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+
         wallet = intent.getSerializableExtra(PageParamter.PAREMTER_WALLET) as GreWalletModel
 
 
