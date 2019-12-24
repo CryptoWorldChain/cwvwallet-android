@@ -7,6 +7,8 @@ import fanrong.cwvwalled.http.model.NodeListReq
 import fanrong.cwvwalled.http.model.NodeListResp
 import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.utils.SWLog
+import org.cwv.client.sdk.Config
+import org.cwv.client.sdk.HiChain
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,10 +20,14 @@ class NodePresenter {
     fun isInitNodeSuccess(): Boolean {
         if (CheckedUtils.nonEmpty(GreNodeOperator.queryAllCWVnode())) {
             val cwVnode = GreNodeOperator.queryCWVnode()
-            val event = CWVNoteChangeEvent()
-            event.gnodeModel = cwVnode
-            EventBus.getDefault().post(event)
-            return true
+            if (Config.host.equals(cwVnode.node_url)) {
+                return true
+            } else {
+                val event = CWVNoteChangeEvent()
+                event.gnodeModel = cwVnode
+                EventBus.getDefault().post(event)
+                return true
+            }
         }
         return false
     }
@@ -68,11 +74,13 @@ class NodePresenter {
                                     nodeModel.isFromService = true
                                     GreNodeOperator.insert(nodeModel)
 
-                                    // 发送事件修改 node 配置
-                                    val event = CWVNoteChangeEvent()
-                                    event.gnodeModel = nodeModel
-                                    EventBus.getDefault().post(event)
-                                    callback?.invoke("1")
+                                    if (main_net.indexOf(it) == 0) {
+                                        // 发送事件修改 node 配置
+                                        val event = CWVNoteChangeEvent()
+                                        event.gnodeModel = nodeModel
+                                        EventBus.getDefault().post(event)
+                                        callback?.invoke("1")
+                                    }
                                 }
                             }
                         } else {

@@ -9,6 +9,7 @@ import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.base.BaseFragment
 import fanrong.cwvwalled.common.PageParamter
+import fanrong.cwvwalled.eventbus.HomeCardNumChangeEvent
 import fanrong.cwvwalled.listener.FRDialogBtnListener
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
@@ -29,6 +30,7 @@ import io.reactivex.functions.Consumer
 import io.reactivex.functions.Function
 import kotlinx.android.synthetic.main.fragment_import_word.*
 import net.sourceforge.UI.view.BackErrorDialog
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import xianchao.com.basiclib.utils.CheckedUtils
 import xianchao.com.basiclib.utils.RandomUtils
@@ -140,6 +142,7 @@ class ImportWordFragment : BaseFragment() {
             hideProgressDialog()
             showTopMsg(msg ?: "")
             if (cwvWallet != null) {
+                EventBus.getDefault().post(HomeCardNumChangeEvent())
                 finishActivityDelay(2000)
             }
         }

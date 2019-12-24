@@ -37,7 +37,7 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
     }
 
     private fun initView(position: Int, view: View) {
-        val walletModel = allWallet[position % allWallet.size]
+        val walletModel = allWallet[position]
         if (walletModel.isImport!!) {
             view.setBackgroundResource(R.drawable.home_card_import)
         } else {
@@ -107,10 +107,11 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
      * 重写更新页面 ，更新显示的 view
      */
     override fun notifyDataSetChanged() {
-
-        for (allPage in allPages) {
-            initView(allPage.key, allPage.value)
-        }
+        super.notifyDataSetChanged()
+//
+//        for (allPage in allPages) {
+//            initView(allPage.key, allPage.value)
+//        }
     }
 
     fun notifyItemDataChanged(position: Int) {

@@ -12,6 +12,7 @@ import com.yanzhenjie.recyclerview.swipe.*
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
+import fanrong.cwvwalled.eventbus.HomeCardNumChangeEvent
 import fanrong.cwvwalled.eventbus.WalletChangeEvent
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator

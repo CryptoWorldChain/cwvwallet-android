@@ -13,6 +13,7 @@ import fanrong.cwvwalled.base.Constants
 import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.eventbus.CWVNoteChangeEvent
 import fanrong.cwvwalled.eventbus.ETHNoteChangeEvent
+import fanrong.cwvwalled.eventbus.HomeCardNumChangeEvent
 import fanrong.cwvwalled.eventbus.WalletChangeEvent
 import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
@@ -296,9 +297,13 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun loadData() {
-        val walletModel = homeCardAdatper.allWallet[vp_container.currentItem]
-//        var wallet = homeCardAdatper.allWallet[vp_container.currentItem % homeCardAdatper.allWallet.size]
-        changeWallet(walletModel)
+        if (homeCardAdatper.allWallet.size - 1 < vp_container.currentItem){
+            val walletModel = homeCardAdatper.allWallet[vp_container.currentItem]
+            changeWallet(walletModel)
+        } else {
+            val walletModel = homeCardAdatper.allWallet[homeCardAdatper.allWallet.size - 1]
+            changeWallet(walletModel)
+        }
 
     }
 
@@ -322,8 +327,15 @@ class HomeFragment : BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun walletChange(walletChangeEvent: WalletChangeEvent) {
+
         homeCardAdatper.allWallet = GreWalletOperator.queryAll()
-        homeCardAdatper.notifyDataSetChanged()
+        var currentItem = vp_container.currentItem
+        if (homeCardAdatper.allWallet.size - 1 < vp_container.currentItem){
+            currentItem = homeCardAdatper.allWallet.size - 1
+        }
+        vp_container.adapter = homeCardAdatper
+        vp_container.setCurrentItem(currentItem)
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
