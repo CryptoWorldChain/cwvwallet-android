@@ -18,6 +18,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +49,6 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
     private ViewfinderView viewfinderView;
     private AppCompatImageView flashLightIv;
     private TextView flashLightTv;
-    private AppCompatImageView backIv;
     private LinearLayoutCompat flashLightLayout;
     private LinearLayoutCompat albumLayout;
     private LinearLayoutCompat bottomLayout;
@@ -136,8 +136,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
         viewfinderView.setZxingConfig(config);
 
 
-        backIv = findViewById(R.id.backIv);
-        backIv.setOnClickListener(this);
+        findViewById(R.id.backIv).setOnClickListener(this);
 
 
     }
@@ -305,7 +304,9 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
 
     @Override
     public void onClick(View view) {
-
+        if (view.getId() == R.id.backIv) {
+            finish();
+        }
 
     }
 

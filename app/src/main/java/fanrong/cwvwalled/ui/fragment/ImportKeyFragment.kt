@@ -146,6 +146,7 @@ class ImportKeyFragment : BaseFragment() {
         showProgressDialog("")
 
         presenter.importCWVWalletFromPriKey(RandomUtils.getRandomString(4), privateKey) { wallet, msg ->
+            hideProgressDialog()
             if (wallet == null) {
                 showTopMsg(msg ?: "")
                 return@importCWVWalletFromPriKey
