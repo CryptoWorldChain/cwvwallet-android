@@ -108,10 +108,6 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
      */
     override fun notifyDataSetChanged() {
         super.notifyDataSetChanged()
-//
-//        for (allPage in allPages) {
-//            initView(allPage.key, allPage.value)
-//        }
     }
 
     fun notifyItemDataChanged(position: Int) {

@@ -77,88 +77,9 @@ class HomeFragment : BaseFragment() {
         var assets = LiteCoinBeanOperator.findAllFromParent(wallet.address)
         assertsAdapter?.setNewData(assets)
 
-        if ("ETH".equals(wallet.walletType)) {
-            tv_asset.text = "ETH Asset"
-            queryEthAssetBalance(assets, wallet)
-        } else {
-            tv_asset.text = "CWV Asset"
-            queryFbcAssetBalance(assets, wallet)
-        }
+        tv_asset.text = "CWV Asset"
+        queryFbcAssetBalance(assets, wallet)
     }
-
-    private fun queryEthAssetBalance(assets: MutableList<LiteCoinBeanModel>, wallet: GreWalletModel) {
-
-        // 获取到所有 coinbean 下边的余额计算总和
-        fun updataCardBalance() {
-//            wallet.balance
-            val data = assertsAdapter!!.data
-            if (CheckedUtils.isEmpty(data)) {
-                wallet.rmb = ""
-                homeCardAdatper.notifyDataSetChanged()
-                return@updataCardBalance
-            }
-            var allBalance = BigDecimal.ZERO
-            for (datum in assets) {
-                if (CheckedUtils.nonEmpty(datum.countCNY)) {
-                    allBalance = allBalance.add(BigDecimal(datum.countCNY))
-                }
-            }
-            wallet.rmb = allBalance.toString()
-            assertsAdapter!!.notifyDataSetChanged()
-            homeCardAdatper.notifyItemDataChanged(vp_container.currentItem)
-        }
-
-        var allItem = mutableListOf<String>()
-
-        for (asset in assets) {
-            allItem.add(asset.coin_symbol!!)
-            val req = GetBalanceReq()
-            req.dapp_id = Constants.DAPP_ID
-            req.node_url = GreNodeOperator.queryETHnode().node_url
-            req.address = asset.sourceAddr
-            req.contract_addr = asset.contract_addr
-            RetrofitClient.getETHNetWorkApi()
-                    .ethGetBalance(ConvertToBody.ConvertToBody(req))
-                    .enqueue(object : Callback<WalletBalanceModel> {
-                        override fun onResponse(call: Call<WalletBalanceModel>, response: Response<WalletBalanceModel>) {
-                            val body = response.body()
-                            val rightNum = MoneyUtils.getRightNum(body!!.balance)
-                            asset.count = MoneyUtils.commonHandleDecimal(rightNum)
-
-                            var coin_symbol = asset.coin_symbol!!.replace("(e)", "")
-                            coin_symbol = coin_symbol.replace("(c)", "")
-
-
-                            if (BigDecimal(asset.count).compareTo(BigDecimal.ZERO) == 0) {
-                                allItem.remove(asset.coin_symbol!!)
-                                if (allItem.checkIsEmpty()) {
-                                    // 更新card
-                                    updataCardBalance()
-                                }
-                            } else {
-
-                                ToRMBPresenter.toRMB(asset.count!!, coin_symbol) {
-
-                                    asset.countCNY = MoneyUtils.commonRMBDecimal(it)
-
-                                    allItem.remove(asset.coin_symbol!!)
-                                    if (allItem.checkIsEmpty()) {
-                                        // 更新card
-                                        updataCardBalance()
-                                    }
-                                }
-                            }
-
-
-                        }
-
-                        override fun onFailure(call: Call<WalletBalanceModel>, t: Throwable) {
-
-                        }
-                    })
-        }
-    }
-
 
     /**
      * 获取余额
@@ -182,7 +103,8 @@ class HomeFragment : BaseFragment() {
             }
             wallet.rmb = allBalance.toString()
             assertsAdapter!!.notifyDataSetChanged()
-            homeCardAdatper.notifyDataSetChanged()
+//            homeCardAdatper.notifyDataSetChanged()
+            homeCardAdatper.notifyItemDataChanged(homeCardAdatper.allWallet.indexOf(wallet))
         }
 
 
@@ -295,7 +217,7 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun loadData() {
-        if (homeCardAdatper.allWallet.size - 1 < vp_container.currentItem){
+        if (homeCardAdatper.allWallet.size - 1 > vp_container.currentItem){
             val walletModel = homeCardAdatper.allWallet[vp_container.currentItem]
             changeWallet(walletModel)
         } else {
@@ -327,12 +249,13 @@ class HomeFragment : BaseFragment() {
     fun walletChange(walletChangeEvent: WalletChangeEvent) {
 
         homeCardAdatper.allWallet = GreWalletOperator.queryAll()
-        var currentItem = vp_container.currentItem
-        if (homeCardAdatper.allWallet.size - 1 < vp_container.currentItem){
-            currentItem = homeCardAdatper.allWallet.size - 1
+        if (homeCardAdatper.allWallet.size - 1 > vp_container.currentItem){
+            vp_container.adapter = homeCardAdatper
+            vp_container.setCurrentItem(vp_container.currentItem)
+        } else {
+            vp_container.adapter = homeCardAdatper
+            vp_container.setCurrentItem(homeCardAdatper.allWallet.size - 1)
         }
-        vp_container.adapter = homeCardAdatper
-        vp_container.setCurrentItem(currentItem)
 
     }
 
