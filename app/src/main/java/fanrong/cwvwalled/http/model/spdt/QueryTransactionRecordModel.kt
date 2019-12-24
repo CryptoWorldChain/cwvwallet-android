@@ -39,6 +39,7 @@ data class TransRecordItem(
     val blockHeight: String? = null
     val transTime: String? = null
     var amount: String? = null
+    var tokenAmount: String? = null
     val status: String? = null
     var exData: String? = null
         get() {
