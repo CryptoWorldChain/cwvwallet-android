@@ -77,7 +77,7 @@ class ImportKeyFragment : BaseFragment() {
         var privateKey = et_private_key.getText().toString()
         privateKey = privateKey.trim()
         if (TextUtils.isEmpty(privateKey)) {
-            showTopMsg("请输入助记词")
+            showTopMsg("请输入私钥")
             return
         }
 
