@@ -50,18 +50,20 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
 
+        println(HiChain.getUserAccountInfo("bcd9977bf56ac29c6317b4ac592ac608868b16d5"))
+
 //        val mnemonic = WalletUtil.getMnemonic()
 //        println(mnemonic)
 //        println(WalletUtil.getKeyPair(mnemonic).toString())
 
-        Config.changeHost("http://114.115.166.19:8000")
-        val userAccountInfo = HiChain.getUserAccountInfo("f084bdda314a69e08af5a3a7ccee3c4ee339e602")
-        println(userAccountInfo)
+//        Config.changeHost("http://114.115.166.19:8000")
+//        val userAccountInfo = HiChain.getUserAccountInfo("f084bdda314a69e08af5a3a7ccee3c4ee339e602")
+//        println(userAccountInfo)
 
-        val aaaa = Aaaa()
-        aaaa.change(aaaa.good, aaaa.ch)
-
-        println(aaaa.good + "and" + aaaa.ch.toString())
+//        val aaaa = Aaaa()
+//        aaaa.change(aaaa.good, aaaa.ch)
+//
+//        println(aaaa.good + "and" + aaaa.ch.toString())
 
     }
 
@@ -69,7 +71,7 @@ class ExampleUnitTest {
     fun testBalance() {
 
         Config.changeHost("http://114.115.204.97:38000")
-        val userAccountInfo = HiChain.getUserAccountInfo("f084bdda314a69e08af5a3a7ccee3c4ee339e602")
+        val userAccountInfo = HiChain.getUserAccountInfo("bcd9977bf56ac29c6317b4ac592ac608868b16d5")
         println(userAccountInfo)
     }
 

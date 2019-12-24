@@ -21,6 +21,7 @@ import fanrong.cwvwalled.http.model.GetBalanceReq
 import fanrong.cwvwalled.http.model.WalletBalanceModel
 import fanrong.cwvwalled.litepal.*
 import fanrong.cwvwalled.parenter.BalancePresenter
+import fanrong.cwvwalled.parenter.NodePresenter
 import fanrong.cwvwalled.parenter.ToRMBPresenter
 import fanrong.cwvwalled.parenter.TransferFbcPresenter
 import fanrong.cwvwalled.ui.activity.AddAssetActivity
@@ -201,9 +202,11 @@ class HomeFragment : BaseFragment() {
 
     lateinit var presenter: TransferFbcPresenter
     lateinit var balancePresenter: BalancePresenter
+    lateinit var nodePresenter: NodePresenter
 
     override fun initView() {
         balancePresenter = BalancePresenter()
+        nodePresenter = NodePresenter()
 
         EventBus.getDefault().register(this)
 
@@ -221,15 +224,19 @@ class HomeFragment : BaseFragment() {
 
         homeCardAdatper = HomeCardAdatper(activity as BaseActivity)
         vp_container.adapter = homeCardAdatper
-        var defaultIndex = homeCardAdatper.allWallet.size * 100
+        var defaultIndex = homeCardAdatper.allWallet.size
         vp_container.setCurrentItem(defaultIndex)
         vp_container.setOnPageChangeListener(pageChangeListener)
 //
         assertsAdapter = HomeAssertsAdapter(R.layout.item_home_assert)
         rl_recycler.layoutManager = LinearLayoutManager(activity)
         rl_recycler.adapter = assertsAdapter
+
         assertsAdapter!!.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+                if (!isInitNodeSuccess()) {
+                    return
+                }
                 var bundle = BundleUtils.createWith(PageParamter.PAREMTER_LITE_COINBEAN
                         , adapter!!.data[position] as LiteCoinBeanModel)
                 startActivity(WalletDetailActivity::class.java, bundle)
@@ -240,7 +247,32 @@ class HomeFragment : BaseFragment() {
         loadData()
     }
 
+    fun isInitNodeSuccess(): Boolean {
+        if (!nodePresenter.isInitNodeSuccess()) {
+            if (!AppUtils.isNetworkConnected()) {
+                showTopMsg("请检查网络")
+                return false
+            }
+            showProgressDialog("正在重新加载主链节点...")
+            nodePresenter.initCWVnode {
+                hideProgressDialog()
+                if ("1".equals(it)) {
+                    showTopMsg("节点初始化成功")
+                } else {
+                    showTopMsg("节点初始化失败，请检查网络")
+                }
+            }
+            return false
+        }
+        return true
+    }
+
     override fun onClick(v: View) {
+        if (!isInitNodeSuccess()) {
+            return
+        }
+
+
         when (v.id) {
             R.id.tv_wallet -> {
                 presenter.getBalance(object : ValueCallBack<String?> {
@@ -264,8 +296,9 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun loadData() {
-        var wallet = homeCardAdatper.allWallet[vp_container.currentItem % homeCardAdatper.allWallet.size]
-        changeWallet(wallet)
+        val walletModel = homeCardAdatper.allWallet[vp_container.currentItem]
+//        var wallet = homeCardAdatper.allWallet[vp_container.currentItem % homeCardAdatper.allWallet.size]
+        changeWallet(walletModel)
 
     }
 

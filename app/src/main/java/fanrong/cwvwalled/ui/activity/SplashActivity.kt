@@ -12,6 +12,7 @@ import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.NodeListReq
 import fanrong.cwvwalled.http.model.NodeListResp
 import fanrong.cwvwalled.litepal.GreNodeModel
+import fanrong.cwvwalled.parenter.NodePresenter
 import fanrong.cwvwalled.utils.BgUtils
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -24,10 +25,10 @@ import java.util.prefs.NodeChangeEvent
 
 class SplashActivity : BaseActivity() {
 
-    override fun loadData() {
+    lateinit var presenter: NodePresenter
 
-//        requestETHNodeList()
-        requestFBCNodeList()
+    override fun loadData() {
+        presenter.initCWVnode()
     }
 
     override fun onClick(v: View) {
@@ -41,6 +42,7 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun initView() {
+        presenter = NodePresenter()
         contentView.setBackgroundResource(BgUtils.getBg(BgUtils.YINDAO))
         iv_tonext.setOnClickListener(this)
         UserInfoObject.init()

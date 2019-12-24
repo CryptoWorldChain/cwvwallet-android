@@ -100,7 +100,7 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
     }
 
     override fun getCount(): Int {
-        return Integer.MAX_VALUE
+        return allWallet.size
     }
 
     /**

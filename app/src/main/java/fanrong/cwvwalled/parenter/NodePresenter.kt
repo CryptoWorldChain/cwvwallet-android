@@ -5,20 +5,32 @@ import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.NodeListReq
 import fanrong.cwvwalled.http.model.NodeListResp
-import fanrong.cwvwalled.litepal.GreNodeModel
 import fanrong.cwvwalled.litepal.GreNodeOperator
 import fanrong.cwvwalled.utils.SWLog
 import org.greenrobot.eventbus.EventBus
-import org.litepal.LitePal
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import xianchao.com.basiclib.utils.CheckedUtils
-import java.util.prefs.NodeChangeEvent
 
 class NodePresenter {
 
+    fun isInitNodeSuccess(): Boolean {
+        if (CheckedUtils.nonEmpty(GreNodeOperator.queryAllCWVnode())) {
+            val cwVnode = GreNodeOperator.queryCWVnode()
+            val event = CWVNoteChangeEvent()
+            event.gnodeModel = cwVnode
+            EventBus.getDefault().post(event)
+            return true
+        }
+        return false
+    }
+
     fun initCWVnode() {
+        initCWVnode(null)
+    }
+
+    fun initCWVnode(callback: ((resultCode: String) -> Unit)?) {
 
 //        test 节点 http://114.115.166.19:8000/fbs
 
@@ -29,6 +41,7 @@ class NodePresenter {
             val event = CWVNoteChangeEvent()
             event.gnodeModel = cwVnode
             EventBus.getDefault().post(event)
+            callback?.invoke("1")
             return
         }
 
@@ -38,6 +51,7 @@ class NodePresenter {
                 .enqueue(object : Callback<NodeListResp> {
 
                     override fun onFailure(call: Call<NodeListResp>, t: Throwable) {
+                        callback?.invoke("-1")
                     }
 
                     override fun onResponse(call: Call<NodeListResp>, response: Response<NodeListResp>) {
@@ -58,8 +72,11 @@ class NodePresenter {
                                     val event = CWVNoteChangeEvent()
                                     event.gnodeModel = nodeModel
                                     EventBus.getDefault().post(event)
+                                    callback?.invoke("1")
                                 }
                             }
+                        } else {
+                            callback?.invoke("-1")
                         }
                     }
 

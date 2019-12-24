@@ -42,6 +42,9 @@ data class TransRecordItem(
     val status: String? = null
     var exData: String? = null
         get() {
+            if (field.checkIsEmpty()) {
+                return field
+            }
             return HiChain.hexStringToUTF8(field)
         }
 

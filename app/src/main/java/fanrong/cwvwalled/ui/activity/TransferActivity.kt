@@ -90,7 +90,7 @@ class TransferActivity : BaseActivity() {
                             intent.putExtra(Constant.INTENT_ZXING_CONFIG, zxingConfig)
                             startActivityForResult(intent, START_SCAN)
                         } else {
-                            showTopMsg("请打卡相机权限")
+                            showTopMsg("请打开相机权限")
                         }
                     }
         }

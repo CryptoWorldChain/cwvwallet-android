@@ -1,5 +1,6 @@
 package fanrong.cwvwalled.utils;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,17 +8,21 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentUris;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.lang.reflect.Field;
 
+import xianchao.com.basiclib.BasicLibComponant;
 import xianchao.com.basiclib.utils.CheckedUtils;
 
 /**
@@ -85,6 +90,26 @@ public class AppUtils {
         symbol = symbol.replace("(E)","");
         return symbol;
     }
+
+
+    public static Boolean isNetworkConnected(){
+        Context context = BasicLibComponant.INSTANCE.getContext();
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_NETWORK_STATE) != 0) {
+            SWLog.e("not permission");
+            return true;
+        }
+
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
 
 }
 

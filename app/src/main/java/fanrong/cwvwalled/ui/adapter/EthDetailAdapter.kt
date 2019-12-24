@@ -30,10 +30,12 @@ class EthDetailAdapter(var coinBeanModel: LiteCoinBeanModel, layoutId: Int) : Ba
         }
 
         if (item.isTransOut(coinBeanModel.sourceAddr)) {
+            helper.setImageResource(R.id.iv_image, R.drawable.detail_item_out)
             helper.setText(R.id.tv_address, item.getTransInAddr())
             helper.setText(R.id.tv_count, "-" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.amount)))
             helper.setTextColor(R.id.tv_count, Color.parseColor("#b077fa"))
         } else {
+            helper.setImageResource(R.id.iv_image, R.drawable.detail_item_in)
             helper.setText(R.id.tv_address, item.getTransInAddr())
             helper.setText(R.id.tv_count, "+" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.amount)))
             helper.setTextColor(R.id.tv_count, Color.parseColor("#7cb1f9"))
@@ -44,13 +46,7 @@ class EthDetailAdapter(var coinBeanModel: LiteCoinBeanModel, layoutId: Int) : Ba
         if ("D".equals(item.status)) {
             // 成功
             // 初始地址 和自己钱包地址一样 是转出
-            if (coinBeanModel.sourceAddr == item.from_addr) {
-                helper.setImageResource(R.id.iv_image, R.drawable.detail_item_out)
-                helper.getView<TextView>(R.id.tv_status).visibility = View.INVISIBLE
-            } else {
-                helper.setImageResource(R.id.iv_image, R.drawable.detail_item_in)
-                helper.getView<TextView>(R.id.tv_status).visibility = View.INVISIBLE
-            }
+            helper.getView<TextView>(R.id.tv_status).visibility = View.INVISIBLE
         } else if ("E".equals(item.status)) {
             // 失败
             helper.setImageResource(R.id.iv_image, R.drawable.detail_item_error)
