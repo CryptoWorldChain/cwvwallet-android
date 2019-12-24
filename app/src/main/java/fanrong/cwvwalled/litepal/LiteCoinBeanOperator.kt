@@ -21,7 +21,7 @@ object LiteCoinBeanOperator {
     }
 
 
-    fun  copyTokenInfor(tokenInfo: TokenInfo ) :LiteCoinBeanModel{
+    fun copyTokenInfor(tokenInfo: TokenInfo): LiteCoinBeanModel {
 //        var id: Long = 0
 //        var coin_icon: String? = null //图标
 //        var count: String? = null //余额
@@ -29,11 +29,11 @@ object LiteCoinBeanOperator {
 //        var sourceAddr: String? = null //当前主币地址
 //        var walletName: String? = null // 主币名称
         val beanModel = LiteCoinBeanModel(tokenInfo.tokenName)
-        beanModel.sourceAddr=tokenInfo.sourceAddr
+        beanModel.sourceAddr = tokenInfo.sourceAddr
         beanModel.contract_addr = tokenInfo.tokenAddress
-        if ("CWV".equals(tokenInfo.tokenType)) {
-            beanModel.coin_symbol = tokenInfo.tokenName + "(C)"
-        }
+
+        beanModel.coin_symbol = tokenInfo.tokenName + "(C)"
+
         return beanModel
     }
 
@@ -58,7 +58,6 @@ object LiteCoinBeanOperator {
         LitePal.updateAll(LiteCoinBeanModel::class.java, contentValues, "sourceAddr like ?", walletModel.address)
 
     }
-
 
 
 }

@@ -55,7 +55,7 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
         setLeftImgOnclickListener {
             finish()
         }
-        setTitleText(coinBeanModel.coin_symbol!!)
+        setTitleText(coinBeanModel.coin_name!!)
 
         btn_transfer.setOnClickListener(this)
         btn_accept.setOnClickListener(this)

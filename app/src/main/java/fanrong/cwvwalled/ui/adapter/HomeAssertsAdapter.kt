@@ -18,7 +18,7 @@ class HomeAssertsAdapter(layoutResId: Int) : BaseQuickAdapter<LiteCoinBeanModel,
 
     override fun convert(helper: BaseViewHolder, item: LiteCoinBeanModel) {
 
-        if ("ETH".equals(item.channel_name)) {
+        if ("ETH".equals(item.coin_name)) {
             helper.setImageResource(R.id.iv_image, R.drawable.common_eth_icon)
         } else {
             helper.setImageResource(R.id.iv_image, R.drawable.common_cwv_icon)
