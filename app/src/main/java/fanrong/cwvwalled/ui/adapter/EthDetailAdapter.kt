@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.litepal.LiteCoinBeanModel
+import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import net.sourceforge.http.model.spdt.TransRecordItem
 
@@ -32,12 +33,20 @@ class EthDetailAdapter(var coinBeanModel: LiteCoinBeanModel, layoutId: Int) : Ba
         if (item.isTransOut(coinBeanModel.sourceAddr)) {
             helper.setImageResource(R.id.iv_image, R.drawable.detail_item_out)
             helper.setText(R.id.tv_address, item.getTransInAddr())
-            helper.setText(R.id.tv_count, "-" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.amount)))
+            if ("CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
+                helper.setText(R.id.tv_count, "-" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.amount)))
+            } else {
+                helper.setText(R.id.tv_count, "-" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.tokenAmount)))
+            }
             helper.setTextColor(R.id.tv_count, Color.parseColor("#b077fa"))
         } else {
             helper.setImageResource(R.id.iv_image, R.drawable.detail_item_in)
             helper.setText(R.id.tv_address, item.getTransInAddr())
-            helper.setText(R.id.tv_count, "+" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.amount)))
+            if ("CWV".equals(AppUtils.getRealSymbol(coinBeanModel.coin_symbol))) {
+                helper.setText(R.id.tv_count, "+" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.amount)))
+            } else {
+                helper.setText(R.id.tv_count, "+" + MoneyUtils.commonHandleDecimal(MoneyUtils.getRightNum(item.tokenAmount)))
+            }
             helper.setTextColor(R.id.tv_count, Color.parseColor("#7cb1f9"))
         }
 

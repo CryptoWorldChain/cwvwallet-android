@@ -9,11 +9,13 @@ import fanrong.cwvwalled.utils.SWLog
 import org.cwv.client.sdk.Config
 import org.cwv.client.sdk.HiChain
 import org.cwv.client.sdk.model.TransferInfo
+import org.cwv.client.sdk.model.TxResult
 import org.cwv.client.sdk.util.WalletUtil
 import org.junit.Test
 
 import org.junit.Assert.*
 import xianchao.com.basiclib.BasicLibComponant
+import xianchao.com.basiclib.XcSingletons
 import java.lang.RuntimeException
 import java.util.*
 import java.util.zip.DataFormatException
@@ -65,6 +67,17 @@ class ExampleUnitTest {
 //
 //        println(aaaa.good + "and" + aaaa.ch.toString())
 
+    }
+
+    @Test
+    fun TestTxHash(){
+
+        Config.changeHost("http://114.115.204.97:38000")
+        val txResult = TxResult()
+        txResult.hash = "66ac1f125aa67f8f2813f6b5cacb527632b109985e97c4472adf7eb6165c0f99b7";
+        txResult.retCode = 1;
+        val userAccountInfo = HiChain.getTxContent(XcSingletons.obtainGson().toJson(txResult))
+        println(userAccountInfo)
     }
 
     @Test
