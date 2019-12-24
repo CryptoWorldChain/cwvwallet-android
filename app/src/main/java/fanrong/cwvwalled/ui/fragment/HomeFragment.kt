@@ -225,8 +225,6 @@ class HomeFragment : BaseFragment() {
 
         homeCardAdatper = HomeCardAdatper(activity as BaseActivity)
         vp_container.adapter = homeCardAdatper
-        var defaultIndex = homeCardAdatper.allWallet.size
-        vp_container.setCurrentItem(defaultIndex)
         vp_container.setOnPageChangeListener(pageChangeListener)
 //
         assertsAdapter = HomeAssertsAdapter(R.layout.item_home_assert)

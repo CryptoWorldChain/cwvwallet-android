@@ -32,7 +32,10 @@ class BalancePresenter {
                 if ("1".equals(resultObj.retCode)) {
 
                     if ("CWV".equals(coin)) {
-                        callBack(MoneyUtils.getRightNum(resultObj?.account?.value?.balance))
+
+                        BasicLibComponant.postMainThread {
+                            callBack(MoneyUtils.getRightNum(resultObj?.account?.value?.balance))
+                        }
                         return@run
                     } else {
                         resultObj?.account?.value?.tokens?.forEach {
