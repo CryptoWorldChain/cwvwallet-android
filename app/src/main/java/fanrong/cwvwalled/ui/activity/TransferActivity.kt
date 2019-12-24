@@ -151,11 +151,18 @@ class TransferActivity : BaseActivity() {
                     showTopMsg("请输入地址")
                     return
                 }
+
+                if (address.equals(coinBeanModel.sourceAddr)){
+                    showTopMsg("请不要自己转给自己")
+                    return
+                }
+
                 val balance = BigDecimal(balanceBigdecimal)
                 if (BigDecimal(money).compareTo(balance) == 1) {
                     showTopMsg("当前余额不足")
                     return
                 }
+
 
                 val confirmDialog = TransferConfirmDialog(this)
                 confirmDialog.fromAddress = coinBeanModel.sourceAddr
