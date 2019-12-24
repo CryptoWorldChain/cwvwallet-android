@@ -46,11 +46,11 @@ class WalletCreatePresenter {
                 GreWalletOperator.insert(cwvWalletModel)
 
                 val beanModel = LiteCoinBeanModel("CWV")
-                beanModel.channel_name = "adsfa"
-                beanModel.coin_decimals = "asdfa"
-                beanModel.coin_icon = "dsfaf"
+                beanModel.channel_name = ""
+                beanModel.coin_decimals = ""
+                beanModel.coin_icon = ""
                 beanModel.coin_symbol = "CWV"
-                beanModel.contract_addr = "fdalskfjals"
+                beanModel.contract_addr = ""
                 beanModel.sourceAddr = cwvWalletModel.address
                 beanModel.walletName = cwvWalletModel.walletName
                 beanModel.save()

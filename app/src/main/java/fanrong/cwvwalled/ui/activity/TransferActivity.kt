@@ -377,5 +377,9 @@ class TransferActivity : BaseActivity() {
 
     }
 
+    override fun onStop() {
+        super.onStop()
+        AppUtils.hideSoftInput(this)
+    }
 
 }
