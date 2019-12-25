@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/basiclib" />
+            <option value="$PROJECT_DIR$/refresh-layout" />
             <option value="$PROJECT_DIR$/zxinglibrary" />
           </set>
         </option>

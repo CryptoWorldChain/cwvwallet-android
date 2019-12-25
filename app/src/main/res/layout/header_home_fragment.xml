@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:clipChildren="false"
+        android:gravity="center">
+
+        <xianchao.com.basiclib.widget.BgViewPager
+            android:id="@+id/vp_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="37dp"
+            android:layout_marginRight="37dp"
+            android:background="@drawable/hom_placeholder_bg"></xianchao.com.basiclib.widget.BgViewPager>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingTop="40dp"
+        android:paddingRight="15dp"
+
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_asset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="CWV Asset"
+            android:textColor="#bc9873"
+            android:textSize="17.3sp" />
+
+        <ImageView
+            android:id="@+id/iv_add_assets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/iconmianxingshujutianjia" />
+
+    </LinearLayout>
+
+</LinearLayout>

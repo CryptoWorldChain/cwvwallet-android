@@ -1,1 +1,1 @@
-include ':app', ':basiclib',':zxinglibrary'
+include ':app', ':basiclib',':zxinglibrary',':refresh-layout'

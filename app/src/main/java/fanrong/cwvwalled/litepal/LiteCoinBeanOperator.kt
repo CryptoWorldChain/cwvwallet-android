@@ -52,6 +52,10 @@ object LiteCoinBeanOperator {
         return LitePal.where("sourceAddr like ?", addr).find(LiteCoinBeanModel::class.java)
     }
 
+    fun delectAllFromParent(addr: String){
+        LitePal.deleteAll(LiteCoinBeanModel::class.java,"sourceAddr like ?", addr)
+    }
+
     fun updateAllWalletName(walletModel: GreWalletModel) {
         val contentValues = ContentValues()
         contentValues.put("walletName", walletModel.walletName)
