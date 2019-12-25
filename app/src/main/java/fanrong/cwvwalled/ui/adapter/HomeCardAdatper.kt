@@ -12,12 +12,14 @@ import fanrong.cwvwalled.R
 import fanrong.cwvwalled.base.AppApplication
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.common.PageParamter
+import fanrong.cwvwalled.eventbus.HomeShowWalletEvent
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
 import fanrong.cwvwalled.ui.activity.WalletSettingActivity
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import fanrong.cwvwalled.utils.WordReplacement
+import org.greenrobot.eventbus.EventBus
 import xianchao.com.basiclib.utils.BundleUtils
 
 class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
@@ -72,6 +74,7 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
             }
             walletModel.isShowRmb = !isChecked
             GreWalletOperator.updateIsShowRmb(walletModel, walletModel.isShowRmb!!)
+            EventBus.getDefault().post(HomeShowWalletEvent(walletModel))
         }
 
 

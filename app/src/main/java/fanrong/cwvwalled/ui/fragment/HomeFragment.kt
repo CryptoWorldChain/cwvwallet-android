@@ -11,10 +11,7 @@ import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.base.BaseFragment
 import fanrong.cwvwalled.base.Constants
 import fanrong.cwvwalled.common.PageParamter
-import fanrong.cwvwalled.eventbus.CWVNoteChangeEvent
-import fanrong.cwvwalled.eventbus.ETHNoteChangeEvent
-import fanrong.cwvwalled.eventbus.HomeCardNumChangeEvent
-import fanrong.cwvwalled.eventbus.WalletChangeEvent
+import fanrong.cwvwalled.eventbus.*
 import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.http.model.BalanceAccount
@@ -102,6 +99,7 @@ class HomeFragment : BaseFragment() {
                 }
             }
             wallet.rmb = allBalance.toString()
+            assertsAdapter!!.greWalletModel = wallet
             assertsAdapter!!.notifyDataSetChanged()
 //            homeCardAdatper.notifyDataSetChanged()
             homeCardAdatper.notifyItemDataChanged(homeCardAdatper.allWallet.indexOf(wallet))
@@ -269,6 +267,13 @@ class HomeFragment : BaseFragment() {
         loadData()
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onReceiptEvent(cwvEvent: HomeShowWalletEvent) {
+        if (cwvEvent.walletModel.address.equals(assertsAdapter?.greWalletModel?.address)) {
+            assertsAdapter!!.greWalletModel = cwvEvent.walletModel
+            assertsAdapter!!.notifyDataSetChanged()
+        }
+    }
 
 }
 
