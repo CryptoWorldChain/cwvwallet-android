@@ -21,6 +21,7 @@ import fanrong.cwvwalled.utils.MoneyUtils
 import fanrong.cwvwalled.utils.WordReplacement
 import org.greenrobot.eventbus.EventBus
 import xianchao.com.basiclib.utils.BundleUtils
+import xianchao.com.basiclib.utils.LibViewUtils
 
 class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
 
@@ -83,6 +84,10 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
             activity.showTopMsg("已复制")
         }
         view.findViewById<ImageView>(R.id.iv_detail).setOnClickListener {
+
+            if (LibViewUtils.isSharkClick(it)) {
+                return@setOnClickListener
+            }
             var walletData = BundleUtils.createWith(PageParamter.PAREMTER_WALLET, walletModel)
             activity.startActivity(WalletSettingActivity::class.java, walletData)
         }

@@ -41,6 +41,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
+import xianchao.com.basiclib.utils.LibViewUtils
 import xianchao.com.basiclib.utils.checkIsEmpty
 import java.math.BigDecimal
 
@@ -153,6 +154,10 @@ class HomeFragment : BaseFragment() {
 
         assertsAdapter!!.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+
+                if (LibViewUtils.isSharkClick(view!!)) {
+                    return
+                }
                 if (!isInitNodeSuccess()) {
                     return
                 }
@@ -187,6 +192,11 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun onClick(v: View) {
+        if (LibViewUtils.isSharkClick(v)) {
+            SWLog.e("重复点击。。。。。")
+            return
+        }
+
         if (!isInitNodeSuccess()) {
             return
         }
