@@ -63,23 +63,30 @@
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
+            app:srlEnableNestedScrolling="true"
             android:layout_height="match_parent">
-            <LinearLayout
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:orientation="vertical"
                 android:layout_height="wrap_content">
 
-
-                <include layout="@layout/header_home_fragment" />
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rl_recycler"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:overScrollMode="never" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+
+                    <include layout="@layout/header_home_fragment" />
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rl_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:overScrollMode="never" />
+                </LinearLayout>
+
+            </ScrollView>
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

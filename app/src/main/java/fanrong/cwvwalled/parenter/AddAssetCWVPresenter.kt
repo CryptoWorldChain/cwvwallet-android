@@ -4,6 +4,7 @@ import fanrong.cwvwalled.ValueCallBack
 import fanrong.cwvwalled.http.engine.ConvertToBody
 import fanrong.cwvwalled.http.engine.RetrofitClient
 import fanrong.cwvwalled.litepal.*
+import fanrong.cwvwalled.utils.AppUtils
 import net.sourceforge.http.model.CWVCoinType
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +38,7 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
 
                                 for (token in tokenInfo) {
                                     for (lifedatabean in allCWV) {
-                                        if (token.tokenAddress.equals(lifedatabean.contract_addr)) {
+                                        if (token.tokenName.equals(AppUtils.getRealSymbol(lifedatabean.coin_symbol))) {
                                             token.isOpen = true;
                                          //   token.save()
                                         }
@@ -65,7 +66,7 @@ class AddAssetCWVPresenter : AddAssetPresenter() {
             //TODO 遍历当前存储的数据 删除当前对象
             var allCWVs = LiteCoinBeanOperator.findAllFromParent(coinBean.sourceAddr?:"")
             for (allCWV in allCWVs) {
-                if (allCWV.contract_addr.equals(coinBean.tokenAddress)) {
+                if (AppUtils.getRealSymbol(allCWV.coin_symbol).equals(coinBean.tokenName)) {
                     allCWV.delete()
                 }
             }
