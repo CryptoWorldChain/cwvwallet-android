@@ -65,10 +65,11 @@
             android:layout_width="match_parent"
             app:srlEnableNestedScrolling="true"
             android:focusable="false"
+            app:srlEnableOverScrollBounce="false"
             android:focusableInTouchMode="true"
             android:layout_height="match_parent">
 
-            <ScrollView
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:focusable="false"
                 android:focusableInTouchMode="true"
@@ -95,7 +96,7 @@
 
                 </LinearLayout>
 
-            </ScrollView>
+            </android.support.v4.widget.NestedScrollView>
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
