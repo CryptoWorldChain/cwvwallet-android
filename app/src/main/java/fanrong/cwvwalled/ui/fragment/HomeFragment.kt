@@ -67,12 +67,6 @@ class HomeFragment : BaseFragment() {
 
         override fun onPageSelected(index: Int) {
             loadData()
-//            BasicLibComponant.postMainDelay(object : Runnable {
-//                override fun run() {
-//                    loadData()
-//                }
-//            }, 500)
-//            EventBus.getDefault().post(ETHNoteChangeEvent())
         }
 
     }
@@ -80,8 +74,19 @@ class HomeFragment : BaseFragment() {
 
     fun changeWallet(wallet: GreWalletModel) {
         var assets = LiteCoinBeanOperator.findAllFromParent(wallet.address)
-        assertsAdapter?.setNewData(assets)
+        refreshListView(assets)
         queryFbcAssetBalance(assets, wallet)
+    }
+
+    private fun refreshListView(assets: MutableList<LiteCoinBeanModel>?) {
+        /**
+         * 动态更新listView的高度
+         */
+        var itemHeight = context?.resources?.getDimensionPixelSize(R.dimen.home_fragment_asset_item_height)
+                ?: 0
+        rl_recycler.layoutParams.height = itemHeight * (assets?.size ?: 0)
+        rl_recycler.layoutParams = rl_recycler.layoutParams
+        assertsAdapter?.setNewData(assets)
     }
 
     // 获取到所有 coinbean 下边的余额计算总和

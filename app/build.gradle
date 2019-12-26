@@ -57,7 +57,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation project(':basiclib')
-    implementation project(':refresh-layout')
+//    implementation project(':refresh-layout')
     implementation project(':zxinglibrary')
     implementation 'com.github.donkingliang:LabelsView:1.4.7'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
@@ -82,7 +82,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.35'
     implementation 'com.yanzhenjie:recyclerview-swipe:1.2.2'
     //pull to refresh
-//    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-7'
     //eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'
