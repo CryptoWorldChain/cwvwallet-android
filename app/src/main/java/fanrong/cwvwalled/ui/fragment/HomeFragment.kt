@@ -1,18 +1,13 @@
 package fanrong.cwvwalled.ui.fragment
 
 import android.os.Bundle
-import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import fanrong.cwvwalled.R
-import fanrong.cwvwalled.ValueCallBack
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.base.BaseFragment
 import fanrong.cwvwalled.common.PageParamter
@@ -27,7 +22,6 @@ import fanrong.cwvwalled.ui.activity.ImportWalletTypeActivity
 import fanrong.cwvwalled.ui.activity.WalletDetailActivity
 import fanrong.cwvwalled.ui.adapter.HomeAssertsAdapter
 import fanrong.cwvwalled.ui.adapter.HomeCardAdatper
-import fanrong.cwvwalled.ui.view.MyViewPager
 import fanrong.cwvwalled.ui.view.ZoomOutPageTransformer
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
@@ -37,14 +31,12 @@ import kotlinx.android.synthetic.main.fragment_home.rl_recycler
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import xianchao.com.basiclib.BasicLibComponant
 import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
 import xianchao.com.basiclib.utils.LibViewUtils
 import xianchao.com.basiclib.utils.checkNotEmpty
 import xianchao.com.basiclib.widget.BgViewPager
 import java.math.BigDecimal
-import kotlin.concurrent.thread
 
 class HomeFragment : BaseFragment() {
 
@@ -74,11 +66,11 @@ class HomeFragment : BaseFragment() {
 
     fun changeWallet(wallet: GreWalletModel) {
         var assets = LiteCoinBeanOperator.findAllFromParent(wallet.address)
-        refreshListView(assets)
+        refreshListView(assets,wallet)
         queryFbcAssetBalance(assets, wallet)
     }
 
-    private fun refreshListView(assets: MutableList<LiteCoinBeanModel>?) {
+    private fun refreshListView(assets: MutableList<LiteCoinBeanModel>?, wallet: GreWalletModel) {
         /**
          * 动态更新listView的高度
          */
@@ -87,6 +79,7 @@ class HomeFragment : BaseFragment() {
         rl_recycler.layoutParams.height = itemHeight * (assets?.size ?: 0)
         rl_recycler.layoutParams = rl_recycler.layoutParams
         assertsAdapter?.setNewData(assets)
+        assertsAdapter?.greWalletModel = wallet
     }
 
     // 获取到所有 coinbean 下边的余额计算总和

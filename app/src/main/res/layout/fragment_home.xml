@@ -64,10 +64,14 @@
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             app:srlEnableNestedScrolling="true"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
             android:layout_height="match_parent">
 
             <ScrollView
                 android:layout_width="match_parent"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -78,12 +82,17 @@
 
                     <include layout="@layout/header_home_fragment" />
 
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rl_recycler"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:overScrollMode="never" />
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rl_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:overScrollMode="never" />
+                    </RelativeLayout>
+
                 </LinearLayout>
 
             </ScrollView>
