@@ -55,6 +55,7 @@ class HomeCardAdatper(var activity: BaseActivity) : PagerAdapter() {
         view.findViewById<TextView>(R.id.tv_address).text = walletModel.address
         var tv_price = view.findViewById<TextView>(R.id.tv_price)
         var tv_unit = view.findViewById<TextView>(R.id.tv_unit)
+        tv_price.transformationMethod = null
         tv_price.text = MoneyUtils.commonRMBDecimal(walletModel.rmb)
 
 
