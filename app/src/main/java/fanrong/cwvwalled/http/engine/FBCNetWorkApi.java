@@ -19,10 +19,10 @@ import retrofit2.http.POST;
 public interface FBCNetWorkApi {
 
 
-    String FBC_ROOT = "http://114.115.166.19:38081/";
+    String FBC_ROOT = "http://wallet.cwv.one/";
 //    String FBC_ROOT = "https://dev.wallet.icwv.co/";
     //CWV代币查询
-    String CWV_ROOT = "http://114.115.166.19:38081";
+    String CWV_ROOT = "http://wallet.cwv.one/";
 
 
     @POST(FBC_ROOT + "bro/app/pbsni.do")
@@ -84,6 +84,6 @@ public interface FBCNetWorkApi {
     @POST(FBC_ROOT + "fbc/pbqti.do")
     Call<QueryCoinTypeResp> queryCoinType(@Body RequestBody map);
 
-    @POST(CWV_ROOT+"/bro/app/pbtok.do")
+    @POST(CWV_ROOT+"bro/app/pbtok.do")
     Call<CWVCoinType> CWVCoinType(@Body RequestBody map);
 }

@@ -17,6 +17,8 @@ import fanrong.cwvwalled.ui.adapter.EthDetailAdapter
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import kotlinx.android.synthetic.main.activity_eth_detail.*
+import kotlinx.android.synthetic.main.activity_eth_detail.rl_recycler
+import kotlinx.android.synthetic.main.fragment_market.*
 import net.sourceforge.http.model.spdt.TransRecordItem
 import xianchao.com.basiclib.extension.extStartActivity
 import xianchao.com.basiclib.utils.BundleUtils
@@ -138,31 +140,30 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-    fun getRecord(errorCode: String, walletTrans: MutableList<TransRecordItem>?) {
+    fun getRecord(errorCode: String, walletTrans: MutableList<TransRecordItem>?, noMoreData: Boolean) {
 
 
         if (!"1".equals(errorCode)) {
             showTopMsg("查询失败")
+            refreshLayout.finishLoadmore()
+            refreshlayout.finishRefresh()
             return
         }
-        var transItems = walletTrans?: mutableListOf()
+        var transItems = walletTrans ?: mutableListOf()
         val detailAdapter = rl_recycler.adapter as EthDetailAdapter
         refreshLayout.finishRefresh()
+        // 没请求到数据结束上拉加载
         if (CheckedUtils.isEmpty(transItems)) {
-            refreshLayout.finishLoadmore()
+            refreshLayout.finishLoadmore(0, true, noMoreData)
             return
         }
+        refreshLayout.finishLoadmore(0, true, noMoreData)
+
         if (presenter.pageNum == 1) {
             detailAdapter.setNewData(transItems)
         } else {
             detailAdapter.addData(transItems!!)
         }
-
-//        if (transItems.isNotEmpty()) {
-//            refreshLayout.finishLoadmore(500, true, false)
-//        } else {
-//            refreshLayout.finishLoadmore(500, true, true)
-//        }
     }
 
     private fun getBalance() {

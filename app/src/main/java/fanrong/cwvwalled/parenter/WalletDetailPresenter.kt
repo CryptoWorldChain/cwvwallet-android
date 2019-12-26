@@ -13,7 +13,7 @@ abstract class WalletDetailPresenter : BasePresenter() {
     abstract fun queryRecord(valueCallBack: ValueCallBack<TransactionRecordResp?>)
     abstract fun queryBalance(valueCallBack: ValueCallBack<String?>)
 
-    open fun queryRecord(callBack: (errorCode: String, walletTrans: MutableList<TransRecordItem>?) -> Unit) {
+    open fun queryRecord(callBack: (errorCode: String, walletTrans: MutableList<TransRecordItem>?, noMoreData: Boolean) -> Unit) {
 
     }
 

@@ -16,7 +16,8 @@ import retrofit2.Response
 
 class WalletDetailFBCPresenter() : WalletDetailPresenter() {
 
-    override fun queryRecord(callBack: (errorCode: String, walletTrans: MutableList<TransRecordItem>?) -> Unit) {
+    override fun queryRecord(callBack: (errorCode: String,
+                                        walletTrans: MutableList<TransRecordItem>?, noMoreData: Boolean) -> Unit) {
         val recordReq = TransactionRecordReq(Constants.DAPP_ID)
 
         recordReq.account_addr = liteCoinBeanModel.sourceAddr
@@ -35,14 +36,15 @@ class WalletDetailFBCPresenter() : WalletDetailPresenter() {
                 .bindLifecycleOwner(lifecycleOwner)
                 .enqueue(object : Callback<TransactionRecordResp> {
                     override fun onFailure(call: Call<TransactionRecordResp>, t: Throwable) {
-                        callBack("-1", null)
+                        callBack("-1", null, false)
                     }
 
                     override fun onResponse(call: Call<TransactionRecordResp>, response: Response<TransactionRecordResp>) {
                         if ("1".equals(response?.body()?.err_code)) {
-                            callBack("1", response?.body()?.walletTrans)
+                            var noMoreData = (response?.body()?.total_rows?.toInt()?: 0) <= (pageSize * pageNum)
+                            callBack("1", response?.body()?.walletTrans, noMoreData)
                         } else {
-                            callBack("-1", null)
+                            callBack("-1", null, false)
                         }
                     }
 
