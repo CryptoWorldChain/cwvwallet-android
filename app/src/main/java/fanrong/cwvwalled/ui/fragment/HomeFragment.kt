@@ -66,10 +66,7 @@ class HomeFragment : BaseFragment() {
         }
 
         override fun onPageSelected(index: Int) {
-            thread {
-                loadData()
-            }
-//            loadData()
+            loadData()
 //            BasicLibComponant.postMainDelay(object : Runnable {
 //                override fun run() {
 //                    loadData()
@@ -156,8 +153,9 @@ class HomeFragment : BaseFragment() {
         assertsAdapter = HomeAssertsAdapter(R.layout.item_home_assert)
 
         rl_recycler.layoutManager = LinearLayoutManager(activity)
+        initRefreshLayoutHeader()
         rl_recycler.adapter = assertsAdapter
-        assertsAdapter!!.addHeaderView(initRefreshLayoutHeader())
+//        assertsAdapter!!.addHeaderView(initRefreshLayoutHeader())
         if (homeCardAdatper.allWallet.checkNotEmpty()) {
             assertsAdapter?.greWalletModel = homeCardAdatper.allWallet[0]
         }
@@ -185,9 +183,9 @@ class HomeFragment : BaseFragment() {
         if (refreshLayout == null) {
             return null
         }
-        val headerView = layoutInflater.inflate(R.layout.header_home_fragment, null)
-        vpContainer = headerView.findViewById<BgViewPager>(R.id.vp_container)
-        var iv_add_assets = headerView.findViewById<ImageView>(R.id.iv_add_assets)
+//        val headerView = layoutInflater.inflate(R.layout.header_home_fragment, null)
+        vpContainer = view!!.findViewById<BgViewPager>(R.id.vp_container)
+        var iv_add_assets = view!!.findViewById<ImageView>(R.id.iv_add_assets)
 
         iv_add_assets.setOnClickListener(this)
         vpContainer.setPageTransformer(true, ZoomOutPageTransformer())
@@ -198,7 +196,7 @@ class HomeFragment : BaseFragment() {
         vpContainer.adapter = homeCardAdatper
         vpContainer.setOnPageChangeListener(pageChangeListener)
 //
-        return headerView
+        return null
     }
 
     fun isInitNodeSuccess(): Boolean {

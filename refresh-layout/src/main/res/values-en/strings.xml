@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">SmartRefreshLayout</string>
+
+    <!--"下拉可以刷新";-->
+    <!--Pull Down To Refresh-->
+    <!--"正在刷新...";-->
+    <!--Refreshing...-->
+    <!--"正在加载...";-->
+    <!--Loading...-->
+    <!--"释放立即刷新";-->
+    <!--Release To Refresh-->
+    <!--"刷新完成";-->
+    <!--"Refresh Completed"-->
+    <!--"刷新失败";-->
+    <!--Refresh Failed-->
+    <!--"上次更新 M-d HH:mm";-->
+    <!--Last Updated M-d HH:mm-->
+    <!--"释放进入二楼";-->
+    <!--Release To Next Step-->
+    <!---->
+    <string name="smart_refresh_header_pulldown">Pull Down To Refresh</string>
+    <string name="smart_refresh_header_refreshing">Refreshing...</string>
+    <string name="smart_refresh_header_loading">Loading...</string>
+    <string name="smart_refresh_header_release">Release To Refresh</string>
+    <string name="smart_refresh_header_finish">Refresh Completed</string>
+    <string name="smart_refresh_header_failed">Refresh Failed</string>
+    <string name="smart_refresh_header_lasttime">Last Updated&#160;</string>
+
+    <!--"上拉加载更多";-->
+    <!--"Pull Up To Load More"-->
+    <!--"释放立即加载";-->
+    <!--"Release To Load"-->
+    <!--"正在加载...";-->
+    <!--"Loading..."-->
+    <!--"正在刷新...";-->
+    <!--"Refreshing..."-->
+    <!--"加载完成";-->
+    <!--"Loading Completed"-->
+    <!--"加载失败";-->
+    <!--"Loading Failed"-->
+    <!--"全部加载完成";-->
+    <!--"All Done Loaded"-->
+
+    <string name="smart_refresh_footer_pullup">Pull Up To Load More</string>
+    <string name="smart_refresh_footer_release">Release To Load</string>
+    <string name="smart_refresh_footer_loading">Loading...</string>
+    <string name="smart_refresh_footer_refreshing">Refreshing...</string>
+    <string name="smart_refresh_footer_finish">Loading Completed</string>
+    <string name="smart_refresh_footer_failed">Loading Failed</string>
+    <string name="smart_refresh_footer_allloaded">All Done Loaded</string>
+
+</resources>
