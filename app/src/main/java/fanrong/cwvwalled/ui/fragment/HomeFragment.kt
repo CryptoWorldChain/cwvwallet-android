@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.ValueCallBack
@@ -240,8 +241,13 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        if (!hidden) {
-            loadData()
+
+        if (!AppUtils.isNetworkConnected()) {
+            Toast.makeText(context, "当前无网络连接", Toast.LENGTH_SHORT).show()
+        } else {
+            if (!hidden) {
+                loadData()
+            }
         }
     }
 
