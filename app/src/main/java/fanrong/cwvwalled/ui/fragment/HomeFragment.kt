@@ -1,27 +1,25 @@
 package fanrong.cwvwalled.ui.fragment
 
 import android.os.Bundle
+import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import fanrong.cwvwalled.R
 import fanrong.cwvwalled.ValueCallBack
 import fanrong.cwvwalled.base.BaseActivity
 import fanrong.cwvwalled.base.BaseFragment
-import fanrong.cwvwalled.base.Constants
 import fanrong.cwvwalled.common.PageParamter
 import fanrong.cwvwalled.eventbus.*
-import fanrong.cwvwalled.http.engine.ConvertToBody
-import fanrong.cwvwalled.http.engine.RetrofitClient
-import fanrong.cwvwalled.http.model.BalanceAccount
-import fanrong.cwvwalled.http.model.GetBalanceReq
-import fanrong.cwvwalled.http.model.WalletBalanceModel
 import fanrong.cwvwalled.litepal.*
 import fanrong.cwvwalled.parenter.BalancePresenter
 import fanrong.cwvwalled.parenter.NodePresenter
-import fanrong.cwvwalled.parenter.ToRMBPresenter
 import fanrong.cwvwalled.parenter.TransferFbcPresenter
 import fanrong.cwvwalled.ui.activity.AddAssetActivity
 import fanrong.cwvwalled.ui.activity.AllWalletActivity
@@ -29,27 +27,30 @@ import fanrong.cwvwalled.ui.activity.ImportWalletTypeActivity
 import fanrong.cwvwalled.ui.activity.WalletDetailActivity
 import fanrong.cwvwalled.ui.adapter.HomeAssertsAdapter
 import fanrong.cwvwalled.ui.adapter.HomeCardAdatper
+import fanrong.cwvwalled.ui.view.MyViewPager
 import fanrong.cwvwalled.ui.view.ZoomOutPageTransformer
 import fanrong.cwvwalled.utils.AppUtils
 import fanrong.cwvwalled.utils.MoneyUtils
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.rl_recycler
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import xianchao.com.basiclib.BasicLibComponant
 import xianchao.com.basiclib.utils.BundleUtils
 import xianchao.com.basiclib.utils.CheckedUtils
 import xianchao.com.basiclib.utils.LibViewUtils
-import xianchao.com.basiclib.utils.checkIsEmpty
+import xianchao.com.basiclib.utils.checkNotEmpty
+import xianchao.com.basiclib.widget.BgViewPager
 import java.math.BigDecimal
+import kotlin.concurrent.thread
 
 class HomeFragment : BaseFragment() {
 
     var assertsAdapter: HomeAssertsAdapter? = null
     lateinit var homeCardAdatper: HomeCardAdatper
+    lateinit var vpContainer: BgViewPager
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
@@ -66,7 +67,6 @@ class HomeFragment : BaseFragment() {
 
         override fun onPageSelected(index: Int) {
             loadData()
-
         }
 
     }
@@ -74,10 +74,41 @@ class HomeFragment : BaseFragment() {
 
     fun changeWallet(wallet: GreWalletModel) {
         var assets = LiteCoinBeanOperator.findAllFromParent(wallet.address)
-        assertsAdapter?.setNewData(assets)
-
-        tv_asset.text = "CWV Asset"
+        refreshListView(assets)
         queryFbcAssetBalance(assets, wallet)
+    }
+
+    private fun refreshListView(assets: MutableList<LiteCoinBeanModel>?) {
+        /**
+         * 动态更新listView的高度
+         */
+        var itemHeight = context?.resources?.getDimensionPixelSize(R.dimen.home_fragment_asset_item_height)
+                ?: 0
+        rl_recycler.layoutParams.height = itemHeight * (assets?.size ?: 0)
+        rl_recycler.layoutParams = rl_recycler.layoutParams
+        assertsAdapter?.setNewData(assets)
+    }
+
+    // 获取到所有 coinbean 下边的余额计算总和
+    fun updataCardBalance(assets: MutableList<LiteCoinBeanModel>, wallet: GreWalletModel) {
+//            wallet.balance
+        val data = assertsAdapter!!.data
+        if (CheckedUtils.isEmpty(data)) {
+            wallet.rmb = ""
+            homeCardAdatper.notifyDataSetChanged()
+            return@updataCardBalance
+        }
+        var allBalance = BigDecimal.ZERO
+        for (datum in assets) {
+            if ("CWV".equals(datum.coin_symbol)) {
+                allBalance = BigDecimal(MoneyUtils.commonHandleDecimal(datum?.count))
+            }
+        }
+        wallet.rmb = allBalance.toString()
+        assertsAdapter!!.greWalletModel = wallet
+        assertsAdapter!!.notifyDataSetChanged()
+//            homeCardAdatper.notifyDataSetChanged()
+        homeCardAdatper.notifyItemDataChanged(homeCardAdatper.allWallet.indexOf(wallet))
     }
 
     /**
@@ -85,40 +116,18 @@ class HomeFragment : BaseFragment() {
      */
     private fun queryFbcAssetBalance(assets: MutableList<LiteCoinBeanModel>, wallet: GreWalletModel) {
 
-        // 获取到所有 coinbean 下边的余额计算总和
-        fun updataCardBalance() {
-//            wallet.balance
-            val data = assertsAdapter!!.data
-            if (CheckedUtils.isEmpty(data)) {
-                wallet.rmb = ""
-                homeCardAdatper.notifyDataSetChanged()
-                return@updataCardBalance
-            }
-            var allBalance = BigDecimal.ZERO
-            for (datum in assets) {
-                if ("CWV".equals(datum.coin_symbol)) {
-                    allBalance = BigDecimal(MoneyUtils.commonHandleDecimal(datum?.count))
-                }
-            }
-            wallet.rmb = allBalance.toString()
-            assertsAdapter!!.greWalletModel = wallet
-            assertsAdapter!!.notifyDataSetChanged()
-//            homeCardAdatper.notifyDataSetChanged()
-            homeCardAdatper.notifyItemDataChanged(homeCardAdatper.allWallet.indexOf(wallet))
-        }
-
 
         balancePresenter.getAddressBalance(wallet.address) { resCode, balanceValue ->
             if ("1".equals(resCode)) {
-
                 assets.forEach {
                     val realSymbol = AppUtils.getRealSymbol(it.coin_symbol)
                     val balanceToken = balanceValue?.tokensMap?.get(realSymbol)
                     it!!.count = MoneyUtils.commonHandleDecimal(balanceToken?.balance)
                     it?.countCNY = "0.00"
-                    // 更新card
-                    updataCardBalance()
                 }
+
+                // 更新card
+                updataCardBalance(assets, wallet)
             }
         }
     }
@@ -132,26 +141,29 @@ class HomeFragment : BaseFragment() {
         nodePresenter = NodePresenter()
 
         EventBus.getDefault().register(this)
+        refreshLayout.setEnableLoadmore(false)
+        refreshLayout.setOnRefreshListener {
 
-        val coinBeanModel = LiteCoinBeanModel("cwv")
-        coinBeanModel.sourceAddr = GreWalletOperator.queryMainCWV().address;
-        presenter = TransferFbcPresenter(coinBeanModel)
+            if (!AppUtils.isNetworkConnected()) {
+                Toast.makeText(context, "当前无网络连接", Toast.LENGTH_SHORT).show()
+            } else {
+                loadData()
+            }
+            refreshLayout.finishRefresh(800)
+        }
 
         tv_wallet.setOnClickListener(this)
         tv_addmore.setOnClickListener(this)
-        iv_add_assets.setOnClickListener(this)
 
-
-        vp_container.setPageTransformer(true, ZoomOutPageTransformer())
-        vp_container.offscreenPageLimit = 3
-
-        homeCardAdatper = HomeCardAdatper(activity as BaseActivity)
-        vp_container.adapter = homeCardAdatper
-        vp_container.setOnPageChangeListener(pageChangeListener)
-//
         assertsAdapter = HomeAssertsAdapter(R.layout.item_home_assert)
+
         rl_recycler.layoutManager = LinearLayoutManager(activity)
+        initRefreshLayoutHeader()
         rl_recycler.adapter = assertsAdapter
+//        assertsAdapter!!.addHeaderView(initRefreshLayoutHeader())
+        if (homeCardAdatper.allWallet.checkNotEmpty()) {
+            assertsAdapter?.greWalletModel = homeCardAdatper.allWallet[0]
+        }
 
         assertsAdapter!!.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -170,6 +182,26 @@ class HomeFragment : BaseFragment() {
         }
 
         loadData()
+    }
+
+    private fun initRefreshLayoutHeader(): View? {
+        if (refreshLayout == null) {
+            return null
+        }
+//        val headerView = layoutInflater.inflate(R.layout.header_home_fragment, null)
+        vpContainer = view!!.findViewById<BgViewPager>(R.id.vp_container)
+        var iv_add_assets = view!!.findViewById<ImageView>(R.id.iv_add_assets)
+
+        iv_add_assets.setOnClickListener(this)
+        vpContainer.setPageTransformer(true, ZoomOutPageTransformer())
+        vpContainer.offscreenPageLimit = 3
+
+        homeCardAdatper = HomeCardAdatper(activity as BaseActivity)
+        homeCardAdatper.allWallet = GreWalletOperator.queryAll()
+        vpContainer.adapter = homeCardAdatper
+        vpContainer.setOnPageChangeListener(pageChangeListener)
+//
+        return null
     }
 
     fun isInitNodeSuccess(): Boolean {
@@ -205,11 +237,6 @@ class HomeFragment : BaseFragment() {
 
         when (v.id) {
             R.id.tv_wallet -> {
-                presenter.getBalance(object : ValueCallBack<String?> {
-                    override fun valueBack(t: String?) {
-                        SWLog.e(t)
-                    }
-                })
                 startActivity(AllWalletActivity::class.java)
             }
             R.id.tv_addmore -> {
@@ -217,7 +244,7 @@ class HomeFragment : BaseFragment() {
             }
             R.id.iv_add_assets -> {
 
-                var wallet = homeCardAdatper.allWallet[vp_container.currentItem % homeCardAdatper.allWallet.size]
+                var wallet = homeCardAdatper.allWallet[vpContainer.currentItem % homeCardAdatper.allWallet.size]
                 val bundle = Bundle()
                 bundle.putSerializable(PageParamter.PAREMTER_WALLET, wallet)
                 startActivity(AddAssetActivity::class.java, bundle)
@@ -226,8 +253,9 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun loadData() {
-        if (homeCardAdatper.allWallet.size - 1 > vp_container.currentItem){
-            val walletModel = homeCardAdatper.allWallet[vp_container.currentItem]
+        SWLog.e("loadData:::loadDataloadDataloadData")
+        if (homeCardAdatper.allWallet.size - 1 > vpContainer.currentItem) {
+            val walletModel = homeCardAdatper.allWallet[vpContainer.currentItem]
             changeWallet(walletModel)
         } else {
             val walletModel = homeCardAdatper.allWallet[homeCardAdatper.allWallet.size - 1]
@@ -241,7 +269,6 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-
         if (!AppUtils.isNetworkConnected()) {
             Toast.makeText(context, "当前无网络连接", Toast.LENGTH_SHORT).show()
         } else {
@@ -263,12 +290,12 @@ class HomeFragment : BaseFragment() {
     fun walletChange(walletChangeEvent: WalletChangeEvent) {
 
         homeCardAdatper.allWallet = GreWalletOperator.queryAll()
-        if (homeCardAdatper.allWallet.size - 1 > vp_container.currentItem){
-            vp_container.adapter = homeCardAdatper
-            vp_container.setCurrentItem(vp_container.currentItem)
+        if (homeCardAdatper.allWallet.size - 1 > vpContainer.currentItem) {
+            vpContainer.adapter = homeCardAdatper
+            vpContainer.setCurrentItem(vpContainer.currentItem)
         } else {
-            vp_container.adapter = homeCardAdatper
-            vp_container.setCurrentItem(homeCardAdatper.allWallet.size - 1)
+            vpContainer.adapter = homeCardAdatper
+            vpContainer.setCurrentItem(homeCardAdatper.allWallet.size - 1)
         }
 
     }

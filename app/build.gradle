@@ -57,6 +57,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation project(':basiclib')
+//    implementation project(':refresh-layout')
     implementation project(':zxinglibrary')
     implementation 'com.github.donkingliang:LabelsView:1.4.7'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.6'

@@ -1,4 +1,5 @@
 package fanrong.cwvwalled.ui.activity
+
 /*
 * Wallet
 *
@@ -16,6 +17,7 @@ import fanrong.cwvwalled.eventbus.HomeCardNumChangeEvent
 import fanrong.cwvwalled.eventbus.WalletChangeEvent
 import fanrong.cwvwalled.litepal.GreWalletModel
 import fanrong.cwvwalled.litepal.GreWalletOperator
+import fanrong.cwvwalled.litepal.LiteCoinBeanOperator
 import fanrong.cwvwalled.ui.adapter.WalletAdapter
 import fanrong.cwvwalled.utils.DensityUtil
 import kotlinx.android.synthetic.main.activity_all_wallet.*
@@ -44,7 +46,7 @@ class AllWalletActivity : BaseActivity() {
         EventBus.getDefault().register(this)
 
         bgll_cwv_wallet.setOnClickListener(this)
-      //  bgll_eth_wallet.setOnClickListener(this)
+        //  bgll_eth_wallet.setOnClickListener(this)
 
         setTitleText("Wallet")
         setLeftImgOnclickListener(object : View.OnClickListener {
@@ -81,6 +83,7 @@ class AllWalletActivity : BaseActivity() {
                 menuBridge.closeMenu()
                 val greWalletModel = walletAdapter.datas[position]
                 greWalletModel.delete()
+                LiteCoinBeanOperator.delectAllFromParent(greWalletModel.address)
                 walletAdapter.datas.remove(greWalletModel)
                 walletAdapter.notifyDataSetChanged()
                 EventBus.getDefault().post(WalletChangeEvent())

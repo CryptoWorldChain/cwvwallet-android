@@ -158,11 +158,11 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
             detailAdapter.addData(transItems!!)
         }
 
-        if (transItems.isNotEmpty()) {
-            refreshLayout.finishLoadmore(500, true, false)
-        } else {
-            refreshLayout.finishLoadmore(500, true, true)
-        }
+//        if (transItems.isNotEmpty()) {
+//            refreshLayout.finishLoadmore(500, true, false)
+//        } else {
+//            refreshLayout.finishLoadmore(500, true, true)
+//        }
     }
 
     private fun getBalance() {

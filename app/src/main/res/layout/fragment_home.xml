@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,113 +14,75 @@
         android:layout_height="70dp"
         android:background="#161616" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <!-- TODO: 主界面之钱包 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="28dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/tv_wallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/home_fragment_wallet_right"
+                android:drawablePadding="7dp"
+                android:text="Wallet"
+                android:textColor="#bc9873"
+                android:textSize="17.3sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
 
-            <!-- TODO: 主界面之钱包 -->
+            <TextView
+                android:id="@+id/tv_addmore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/home_fragment_addmore"
+                android:drawablePadding="7dp"
+                android:text="ADD MORE"
+                android:textColor="#bc9873"
+                android:textSize="13.4sp" />
+
+        </LinearLayout>
+
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:id="@+id/tv_wallet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="7dp"
-                    android:drawableRight="@drawable/home_fragment_wallet_right"
-                    android:text="Wallet"
-                    android:textColor="#bc9873"
-                    android:textSize="17.3sp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
 
-                <TextView
-                    android:id="@+id/tv_addmore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="7dp"
-                    android:drawableRight="@drawable/home_fragment_addmore"
-                    android:text="ADD MORE"
-                    android:textColor="#bc9873"
-                    android:textSize="13.4sp" />
+                <include layout="@layout/header_home_fragment" />
 
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="21dp"
-                android:clipChildren="false"
-                android:gravity="center">
-
-                <xianchao.com.basiclib.widget.BgViewPager
-                    android:id="@+id/vp_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="37dp"
-                    android:layout_marginRight="37dp"
-                    android:background="@drawable/hom_placeholder_bg"
-                    android:clipChildren="false"></xianchao.com.basiclib.widget.BgViewPager>
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="10dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-
-                android:paddingTop="74dp">
-
-                <TextView
-                    android:id="@+id/tv_asset"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="CWV Asset"
-                    android:textColor="#bc9873"
-                    android:textSize="17.3sp" />
-
-                <ImageView
-                    android:id="@+id/iv_add_assets"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/iconmianxingshujutianjia" />
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rl_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
+                    android:layout_height="100dp"
                     android:overScrollMode="never" />
-            </RelativeLayout>
+            </LinearLayout>
 
-        </LinearLayout>
 
-    </ScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+
 </LinearLayout>
