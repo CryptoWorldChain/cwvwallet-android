@@ -128,6 +128,7 @@ class AllWalletActivity : BaseActivity() {
     }
 
     override fun loadData() {
+        //查询导入的钱包
         val import = GreWalletOperator.queryImport()
         walletAdapter.setNewData(import)
     }

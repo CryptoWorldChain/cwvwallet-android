@@ -16,6 +16,7 @@ import fanrong.cwvwalled.R
 import fanrong.cwvwalled.parenter.ProjectEventHandler
 import fanrong.cwvwalled.utils.AppManager
 import fanrong.cwvwalled.utils.CallJsCodeUtils
+import fanrong.cwvwalled.utils.CarshHandler
 import org.litepal.LitePal
 import xianchao.com.basiclib.BasicLibComponant
 
@@ -47,6 +48,10 @@ class AppApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+//        //初始化自定义的异常管理
+//        val crashHandler = CarshHandler.getInstance()
+//        crashHandler.init(applicationContext)
+
         instance = this
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())

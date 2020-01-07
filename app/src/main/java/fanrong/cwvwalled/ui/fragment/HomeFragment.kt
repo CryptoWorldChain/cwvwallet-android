@@ -72,7 +72,7 @@ class HomeFragment : BaseFragment() {
 
     private fun refreshListView(assets: MutableList<LiteCoinBeanModel>?, wallet: GreWalletModel) {
         /**
-         * 动态更新listView的高度
+         * 动态更新recyclerlistView的高度
          */
         var itemHeight = context?.resources?.getDimensionPixelSize(R.dimen.home_fragment_asset_item_height)
                 ?: 0

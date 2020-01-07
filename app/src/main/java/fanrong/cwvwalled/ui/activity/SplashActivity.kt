@@ -23,6 +23,9 @@ import retrofit2.Response
 import xianchao.com.basiclib.utils.CheckedUtils
 import java.util.prefs.NodeChangeEvent
 
+ /*
+ * 引导页Activity
+ * */
 class SplashActivity : BaseActivity() {
 
     lateinit var presenter: NodePresenter

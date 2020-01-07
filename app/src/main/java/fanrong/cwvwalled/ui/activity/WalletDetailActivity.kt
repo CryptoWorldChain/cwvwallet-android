@@ -109,10 +109,12 @@ class WalletDetailActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_accept -> {
+                //跳转到收款页面
                 val createWith = BundleUtils.createWith(PageParamter.PAREMTER_LITE_COINBEAN, coinBeanModel)
                 startActivity(ReceiptActivity::class.java, createWith)
             }
             R.id.btn_transfer -> {
+                //跳转到转账页面
                 val createWith = BundleUtils.createWith(PageParamter.PAREMTER_LITE_COINBEAN, coinBeanModel)
                 startActivity(TransferActivity::class.java, createWith)
             }

@@ -14,7 +14,7 @@ public class TransferReq implements Serializable {
     public String gas_price;
     public String gas_limit;
     public String timestamp;
-    public String ex_data;
+    public String ex_data; //备注
     public String symbol;
     public String contract_addr;
     public String tx_type;

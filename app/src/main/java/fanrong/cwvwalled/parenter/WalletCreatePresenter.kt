@@ -10,12 +10,12 @@ import org.cwv.client.sdk.util.WalletUtil
 import xianchao.com.basiclib.utils.checkIsEmpty
 
 class WalletCreatePresenter {
-
+    //生成助记词
     fun getWords(result: (words: String) -> Unit) {
         result(WalletUtil.getMnemonic())
     }
 
-
+     //通过私钥导入钱包
     fun importCWVWalletFromPriKey(walletName: String, priKey: String, result: (cwvWallet: GreWalletModel?, msg: String?) -> Unit) {
         var kp: KeyPairs? = null
         try {
@@ -70,7 +70,7 @@ class WalletCreatePresenter {
         }
 
     }
-
+    //通过创建钱包
     fun createWallet(words: String,
                      result: (cwvWallet: GreWalletModel?, ethWallet: GreWalletModel?) -> Unit) {
 
@@ -124,7 +124,7 @@ class WalletCreatePresenter {
 //        }
         result(cwvWalletModel, null)
     }
-
+    //通过助记词导入钱包
     fun importCWVWallet(walletName: String, words: String,
                         result: (cwvWallet: GreWalletModel?, msg: String?) -> Unit) {
 

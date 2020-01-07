@@ -75,7 +75,7 @@ class NodePresenter {
                                     GreNodeOperator.insert(nodeModel)
 
                                     if (main_net.indexOf(it) == 0) {
-                                        // 发送事件修改 node 配置
+                                        // 发送事件修改 node 配置 事件发送至 ProjectEventHandler类
                                         val event = CWVNoteChangeEvent()
                                         event.gnodeModel = nodeModel
                                         EventBus.getDefault().post(event)

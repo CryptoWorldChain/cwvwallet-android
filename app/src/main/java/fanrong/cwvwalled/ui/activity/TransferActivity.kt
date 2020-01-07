@@ -255,7 +255,7 @@ class TransferActivity : BaseActivity() {
             req.ex_data = JSONObject(exData).toString()
         }
         showProgressDialog("交易中...")
-
+         //调用交易的SDK
         transferPresenter.transferMoney(req, object : TransferPresenter.TransferResultCallBack {
 
             override fun success() {

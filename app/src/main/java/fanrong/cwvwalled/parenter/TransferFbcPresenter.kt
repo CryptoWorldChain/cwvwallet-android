@@ -156,7 +156,7 @@ class TransferFbcPresenter : TransferPresenter {
 //                })
 
     }
-
+     //查询余额的接口
     override fun getBalance(callBack: ValueCallBack<String?>) {
 
         CallJsCodeUtils.getJsHandler().evaluateJavascript("cwv.rpc.getBalance(${coinBeanModel.sourceAddr},'')", object : ValueCallback<String> {

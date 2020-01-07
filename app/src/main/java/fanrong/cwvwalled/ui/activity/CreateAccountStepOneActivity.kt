@@ -12,7 +12,9 @@ import fanrong.cwvwalled.utils.PreferenceHelper
 import fanrong.cwvwalled.utils.SWLog
 import kotlinx.android.synthetic.main.activity_create_account_step_one.*
 import xianchao.com.basiclib.utils.CheckedUtils
-
+/*
+* 助记词展示页面
+* */
 class CreateAccountStepOneActivity : BaseActivity() {
 
 

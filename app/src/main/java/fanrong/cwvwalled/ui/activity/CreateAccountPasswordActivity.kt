@@ -10,6 +10,13 @@ import fanrong.cwvwalled.utils.PreferenceHelper
 import kotlinx.android.synthetic.main.activity_create_account_password.*
 import xianchao.com.basiclib.utils.CheckedUtils
 
+/*
+*创建钱包Activity1
+*用户名
+* 密码
+*  的设置
+* */
+
 class CreateAccountPasswordActivity : BaseActivity() {
     override fun loadData() {
     }

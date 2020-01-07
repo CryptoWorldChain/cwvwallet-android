@@ -46,10 +46,10 @@ data class GreNodeModel(var node_url: String) : LitePalSupport() {
 
 data class GreWalletModel(@Column(unique = true) var address: String) : LitePalSupport(), Serializable {
     var id: Long = 0
-    var pubKey: String? = null
-    var privateKey: String? = null
-    var walletName: String? = null
-    var balance: String? = null
+    var pubKey: String? = null   //公钥
+    var privateKey: String? = null //私钥
+    var walletName: String? = null  //钱包名字
+    var balance: String? = null   // 钱包剩余钱数
 
     var rmb: String? = null
     var mnemonic: String? = null
@@ -77,7 +77,7 @@ data class GreWalletModel(@Column(unique = true) var address: String) : LitePalS
 data class LiteCoinBeanModel(var coin_name: String) : LitePalSupport(), Serializable {
 
     var id: Long = 0
-    var contract_addr: String? = null//暂不使用
+    var     contract_addr: String? = null//暂不使用
     var channel_name: String? = null //暂不使用
     var coin_symbol: String? = null//钱包名称 咱不使用
     var coin_decimals: String? = null //不使用
